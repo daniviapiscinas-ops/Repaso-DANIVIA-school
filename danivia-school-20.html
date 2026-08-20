@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Danivia School · Repaso escolar</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2A4A; --ink:#173A5E; --sky:#E9F3FF; --cyan:#12B5E5; --sun:#FFC93C; --coral:#FF6B6B; --mint:#3DDC97; --lilac:#9B7BFF; --peach:#FF9F68; --white:#FFFFFF; --grey:#6C7A8A;
+  --r:22px; --shadow:0 8px 0 rgba(11,42,74,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;text-transform:uppercase!important}
+input::placeholder{text-transform:uppercase!important}
+html,body{margin:0;height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--sky);color:var(--navy);text-transform:uppercase;
+  background-image:radial-gradient(circle at 10% 10%,rgba(18,181,229,.12) 0 8%,transparent 8.5%),radial-gradient(circle at 90% 30%,rgba(255,201,60,.18) 0 6%,transparent 6.5%),radial-gradient(circle at 20% 90%,rgba(61,220,151,.15) 0 7%,transparent 7.5%);
+  background-attachment:fixed}
+h1,h2,h3,.disp{font-family:'Nunito',Arial,sans-serif;font-weight:900;letter-spacing:.5px}
+button{font-family:inherit;cursor:pointer;border:0}
+button:focus-visible,input:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.app{max-width:960px;margin:0 auto;padding:16px 16px 90px;min-height:100%}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .badge{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--cyan));display:grid;place-items:center;color:#fff;font-family:'Nunito',Arial,sans-serif;font-weight:900;font-weight:800;font-size:22px;box-shadow:var(--shadow)}
+.logo h1{margin:0;font-size:24px;line-height:1}
+.logo small{display:block;font-family:'Nunito';font-weight:700;font-size:11px;color:var(--grey);letter-spacing:1px;text-transform:uppercase}
+.pill{background:#fff;border-radius:999px;padding:8px 14px;font-weight:900;font-size:14px;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:6px}
+.screen{display:none;animation:pop .35s ease}
+.screen.active{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.card{background:#fff;border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.btn{background:var(--cyan);color:#fff;font-weight:900;font-size:17px;padding:14px 22px;border-radius:16px;box-shadow:0 6px 0 #0d8fb6;transition:transform .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #0d8fb6}
+.btn.sun{background:var(--sun);color:var(--navy);box-shadow:0 6px 0 #d9a520}.btn.sun:active{box-shadow:0 2px 0 #d9a520}
+.btn.ghost{background:#fff;color:var(--navy);box-shadow:0 6px 0 #d5e3f2}.btn.ghost:active{box-shadow:0 2px 0 #d5e3f2}
+.btn.big{width:100%;font-size:20px;padding:18px}
+.btn.sm{font-size:14px;padding:9px 14px;border-radius:12px;box-shadow:0 4px 0 #0d8fb6}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+input.txt{text-transform:uppercase;font-family:inherit;font-size:18px;font-weight:700;padding:14px;border-radius:14px;border:3px solid #d5e3f2;width:100%;color:var(--navy)}
+label.lbl{display:block;font-weight:900;font-size:13px;color:var(--grey);text-transform:uppercase;letter-spacing:1px;margin:14px 0 6px}
+/* profiles */
+.avatar{width:70px;height:70px;border-radius:24px;display:grid;place-items:center;font-size:36px;background:var(--sky);border:3px solid transparent;cursor:pointer;transition:transform .1s}
+.avatar.sel{border-color:var(--cyan);background:#fff;transform:scale(1.08)}
+.profile{display:flex;align-items:center;gap:14px;background:#fff;border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;width:100%;text-align:left;margin-bottom:12px;border:3px solid transparent}
+.profile:hover{border-color:var(--cyan)}
+.profile .av{font-size:40px}
+.profile b{font-family:'Nunito',Arial,sans-serif;font-weight:900;font-size:20px;display:block}
+.profile span{color:var(--grey);font-weight:700;font-size:13px}
+.profile .stars{margin-left:auto;font-weight:900;color:#d9a520}
+/* course chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:10px 14px;border-radius:999px;background:#fff;font-weight:900;border:3px solid #d5e3f2;font-size:14px}
+.chip.sel{border-color:var(--navy);background:var(--navy);color:#fff}
+/* subject notebooks */
+.nb{position:relative;background:#fff;border-radius:18px;padding:18px 16px 16px 26px;box-shadow:var(--shadow);cursor:pointer;overflow:hidden;min-height:130px;display:flex;flex-direction:column;justify-content:space-between;border:0;text-align:left;transition:transform .12s}
+.nb:hover{transform:translateY(-3px)}
+.nb::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--c)}
+.nb::after{content:"";position:absolute;left:14px;top:0;bottom:0;width:6px;background:repeating-linear-gradient(to bottom,transparent 0 10px,rgba(11,42,74,.12) 10px 14px)}
+.nb .ico{font-size:34px}
+.nb h3{margin:8px 0 2px;font-size:17px;line-height:1.15}
+.nb small{color:var(--grey);font-weight:700;font-size:12px}
+.nb .prog{height:8px;background:#e9f0f7;border-radius:99px;margin-top:8px;overflow:hidden}
+.nb .prog i{display:block;height:100%;background:var(--c);width:0}
+/* quiz */
+.qtop{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.bar{flex:1;height:14px;background:#fff;border-radius:99px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.08)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--mint));transition:width .3s}
+.qcard{background:#fff;border-radius:28px;padding:26px 22px;box-shadow:var(--shadow);text-align:center;min-height:180px;display:flex;flex-direction:column;justify-content:center}
+.qcard .tag{display:inline-block;background:var(--sky);color:var(--ink);font-weight:900;font-size:12px;padding:5px 12px;border-radius:99px;margin:0 auto 12px;letter-spacing:.5px}
+.qcard h2{margin:0;font-size:26px;line-height:1.3;word-break:break-word}
+.qcard .visual{font-size:40px;line-height:1.5;margin-top:10px;letter-spacing:4px}
+.opts{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:16px}
+.opt{background:#fff;border-radius:18px;padding:18px 12px;font-size:20px;font-weight:900;box-shadow:0 6px 0 #d5e3f2;color:var(--navy);transition:transform .08s;min-height:64px;word-break:break-word}
+.opt:active{transform:translateY(4px);box-shadow:0 2px 0 #d5e3f2}
+.opt.ok{background:var(--mint);color:#063;box-shadow:0 6px 0 #1fb87a}
+.opt.ko{background:var(--coral);color:#fff;box-shadow:0 6px 0 #d94b4b}
+.opt.dim{opacity:.45}
+.inputwrap{display:flex;gap:10px;margin-top:16px}
+.inputwrap input{font-size:26px;text-align:center;font-weight:900}
+.feedback{margin-top:14px;text-align:center;font-weight:900;font-size:18px;min-height:28px}
+.feedback.ok{color:#1fb87a}.feedback.ko{color:#d94b4b}
+.explain{background:var(--sky);border-radius:14px;padding:10px 14px;margin-top:10px;font-weight:700;color:var(--ink);text-align:left}
+/* result */
+.result{text-align:center}
+.result .big{font-size:80px;line-height:1}
+.result h2{font-size:32px;margin:6px 0}
+.result .score{font-family:'Nunito',Arial,sans-serif;font-weight:900;font-size:56px;color:var(--cyan)}
+.starrow{font-size:38px;letter-spacing:6px}
+/* bottom nav */
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;box-shadow:0 -6px 20px rgba(11,42,74,.08);display:flex;justify-content:space-around;padding:8px 6px 10px;max-width:960px;margin:0 auto;border-radius:22px 22px 0 0}
+.tabs button{background:none;font-weight:900;font-size:12px;color:var(--grey);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 14px;border-radius:14px}
+.tabs button span{font-size:22px}
+.tabs button.on{color:var(--navy);background:var(--sky)}
+/* stats */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.stat{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.stat b{font-family:'Nunito',Arial,sans-serif;font-weight:900;font-size:30px;display:block;color:var(--cyan)}
+.stat span{font-size:12px;font-weight:900;color:var(--grey);text-transform:uppercase}
+.list{list-style:none;padding:0;margin:0}
+.list li{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:2px dashed #e9f0f7;font-weight:700}
+.list li:last-child{border:0}
+.mini{font-size:12px;color:var(--grey);font-weight:700}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%) translateY(-100px);background:var(--navy);color:#fff;font-weight:900;padding:12px 20px;border-radius:99px;transition:transform .3s;z-index:9}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* minijuegos */
+.mg-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.mg-timer{font-family:'Nunito',Arial,sans-serif;font-weight:900;font-size:22px;color:var(--coral)}
+.mg-area{background:#fff;border-radius:28px;box-shadow:var(--shadow);min-height:340px;position:relative;overflow:hidden;padding:16px}
+.bubble{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:20px;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.15);border:0;animation:float 3s ease-in-out infinite alternate;transition:transform .15s}
+.bubble:active{transform:scale(.85)}
+@keyframes float{from{margin-top:0}to{margin-top:14px}}
+.memtag{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.memtag span{background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;font-weight:900;font-size:13px;padding:7px 16px;border-radius:99px;box-shadow:0 4px 0 #06182c}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;perspective:800px}
+.memcard{aspect-ratio:1;position:relative;background:none;padding:0;border:0}
+.memcard .inner{position:absolute;inset:0;transition:transform .45s cubic-bezier(.2,.8,.3,1.2);transform-style:preserve-3d}
+.memcard.open .inner,.memcard.done .inner{transform:rotateY(180deg)}
+.memcard .face{position:absolute;inset:0;border-radius:16px;display:grid;place-items:center;backface-visibility:hidden;font-weight:900;font-size:13px;word-break:break-word;padding:4px;text-align:center}
+.memcard .front{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;font-size:26px;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.memcard .back{background:#fff;color:var(--navy);transform:rotateY(180deg);box-shadow:0 5px 0 #d5e3f2;border:2px solid #eef4fa}
+.memcard.done .back{background:var(--mint);color:#063;border-color:#1fb87a;box-shadow:0 5px 0 #1fb87a}
+.memcard.shake .inner{animation:shk .4s}
+@keyframes shk{0%,100%{transform:translateX(0) rotateY(180deg)}25%{transform:translateX(-6px) rotateY(180deg)}75%{transform:translateX(6px) rotateY(180deg)}}
+.letters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.letters button{width:52px;height:56px;border-radius:14px;background:var(--sun);color:var(--navy);font-weight:900;font-size:24px;box-shadow:0 5px 0 #d9a520}
+.letters button:disabled{opacity:.25}
+.slots{font-family:'Nunito',Arial,sans-serif;font-weight:900;font-size:34px;letter-spacing:6px;text-align:center;min-height:50px;color:var(--navy)}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.balloon{position:absolute;width:56px;height:70px;border-radius:50% 50% 50% 50%/45% 45% 55% 55%;display:grid;place-items:center;font-weight:900;font-size:22px;color:#fff;border:0;box-shadow:inset -6px -6px 0 rgba(0,0,0,.12);animation:float 2.5s ease-in-out infinite alternate}
+.balloon::after{content:'';position:absolute;bottom:-14px;left:50%;width:2px;height:16px;background:#999}
+
+/* zona de juegos */
+.puz{display:grid;gap:8px;max-width:340px;margin:0 auto}
+.ptile{aspect-ratio:1;border-radius:14px;background:#fff;box-shadow:0 5px 0 #d5e3f2;font-size:34px;display:grid;place-items:center}
+.ptile.empty{background:transparent;box-shadow:none}
+.difgrid{display:grid;gap:8px;max-width:360px;margin:0 auto}
+.dcell{aspect-ratio:1;border-radius:12px;background:#fff;box-shadow:0 4px 0 #d5e3f2;font-size:28px}
+.sopa{display:grid;gap:3px;max-width:360px;margin:10px auto}
+.scell{aspect-ratio:1;border-radius:7px;background:#fff;box-shadow:0 2px 0 #d5e3f2;font-size:14px;font-weight:900;color:var(--navy);padding:0}
+.scell.sel{background:var(--sun)}
+.scell.found{background:var(--mint);color:#063}
+.wordlist{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.wchip{background:#fff;border-radius:99px;padding:6px 12px;font-weight:900;font-size:13px;box-shadow:0 3px 0 #d5e3f2}
+.wchip.done{background:var(--mint);color:#063;text-decoration:line-through}
+.maze{display:grid;gap:0;max-width:340px;margin:0 auto;background:#fff;border-radius:12px;padding:6px}
+.mcell{aspect-ratio:1;display:grid;place-items:center;font-size:14px}
+.dpad{display:grid;grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin-top:16px}
+.dpad button{height:56px;border-radius:16px;background:#fff;box-shadow:0 5px 0 #d5e3f2;font-size:24px}
+.pix{display:grid;gap:3px;max-width:300px;margin:12px auto}
+.pcell{aspect-ratio:1;border-radius:6px;font-size:12px;font-weight:900;color:var(--grey);border:2px solid #e9f0f7;padding:0}
+.palette{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pcol{width:48px;height:48px;border-radius:14px;color:#fff;font-weight:900;font-size:18px;box-shadow:0 4px 0 rgba(0,0,0,.15);border:3px solid transparent}
+.pcol.on{border-color:var(--navy);transform:scale(1.1)}
+.ttt{display:grid;grid-template-columns:repeat(3,90px);gap:8px;justify-content:center;margin-top:14px}
+.ttt button{height:90px;border-radius:16px;background:#fff;box-shadow:0 5px 0 #d5e3f2;font-size:40px}
+.holes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:340px;margin:10px auto}
+.hole{aspect-ratio:1;border-radius:50%;background:#e0e9f2;box-shadow:inset 0 6px 10px rgba(0,0,0,.12);font-size:18px;font-weight:900;color:transparent}
+.hole.up{background:#fff;color:var(--navy);box-shadow:0 5px 0 #d5e3f2}
+@media (max-width:480px){.qcard h2{font-size:22px}.opts{grid-template-columns:1fr 1fr}.opt{font-size:18px}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="logo"><div class="badge">D</div><div><h1>Danivia School</h1><small>Repaso escolar · GVA</small></div></div>
+  <div class="pill" id="pillStars">⭐ 0</div>
+</header>
+
+<!-- PROFILES -->
+<section class="screen" id="s-profiles">
+  <div class="card">
+    <h2 style="margin:0 0 4px">¿Quién va a repasar hoy?</h2>
+    <p class="mini" style="margin:0 0 14px">Cada alumno tiene su curso, sus cuadernos y sus estrellas.</p>
+    <div id="profileList"></div>
+    <button class="btn sun big" onclick="show('s-newprofile')">➕ Nuevo alumno</button>
+    <p class="mini" style="text-align:center;margin:12px 0 0">Entra con un alumno y pulsa <b>🎓 CURSO</b> para cambiarle de nivel.</p>
+  </div>
+</section>
+
+<!-- NEW PROFILE -->
+<section class="screen" id="s-newprofile">
+  <div class="card">
+    <h2 style="margin:0">Nuevo alumno</h2>
+    <label class="lbl">Nombre</label>
+    <input class="txt" id="npName" placeholder="Ej.: Marta" maxlength="18">
+    <label class="lbl">Elige tu avatar</label>
+    <div class="row" id="npAvatars"></div>
+    <label class="lbl">Etapa y curso</label>
+    <div class="chips" id="npCourses"></div>
+    <div class="row" style="margin-top:20px">
+      <button class="btn big" onclick="createProfile()">Empezar a repasar 🚀</button>
+      <button class="btn ghost big" onclick="show('s-profiles')">Volver</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOME / SUBJECTS -->
+<section class="screen" id="s-home">
+  <div class="card" style="display:flex;align-items:center;gap:14px">
+    <div id="homeAv" style="font-size:44px"></div>
+    <div><h2 style="margin:0" id="homeName"></h2><span class="mini" id="homeCourse"></span></div>
+    <div style="margin-left:auto;display:flex;flex-direction:column;gap:6px">
+      <button class="btn sun sm" onclick="openCourseChange()">🎓 Curso</button>
+      <button class="btn ghost sm" onclick="show('s-profiles')">👥 Alumno</button>
+    </div>
+  </div>
+  <h3 style="margin:6px 0 10px">Mis cuadernos</h3>
+  <div class="grid" id="subjectGrid"></div>
+  <div class="card" style="margin-top:16px">
+    <div class="row" style="justify-content:space-between">
+      <div><b class="disp" style="font-size:18px">Reto del día</b><div class="mini">10 preguntas mezcladas de todas las materias</div></div>
+      <button class="btn sun sm" onclick="startMixed(10)">10</button><button class="btn sun sm" onclick="startMixed(25)">25</button><button class="btn sun sm" onclick="startMixed(50)">50</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHANGE COURSE -->
+<section class="screen" id="s-course">
+  <div class="card">
+    <button class="btn ghost sm" onclick="goHome()">← Volver</button>
+    <h2 style="margin:12px 0 4px" id="ccName"></h2>
+    <p class="mini" style="margin:0 0 4px">Curso actual: <b id="ccNow"></b></p>
+    <p class="mini" style="margin:0 0 14px">Elige otro curso para repasar. Puedes subir si ya lo domina o bajar para reforzar. El progreso de cada curso se guarda por separado.</p>
+    <div class="chips" id="ccList"></div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn big" onclick="applyCourse()">Cambiar de curso ✅</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px">Progreso guardado por curso</h3>
+    <ul class="list" id="ccProgress"></ul>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="screen" id="s-topics">
+  <div class="card">
+    <button class="btn ghost sm" onclick="show('s-home')">← Cuadernos</button>
+    <h2 id="topicTitle" style="margin:12px 0 4px"></h2>
+    <p class="mini" id="topicSub" style="margin:0"></p>
+  </div>
+  <div id="topicList"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="s-quiz">
+  <div class="qtop">
+    <button class="btn ghost sm" onclick="quitQuiz()">✕</button>
+    <div class="bar"><i id="qbar"></i></div>
+    <div class="pill" id="qcount">1/10</div>
+  </div>
+  <div class="qcard">
+    <span class="tag" id="qtag"></span>
+    <h2 id="qtext"></h2>
+    <div class="visual" id="qvisual"></div>
+  </div>
+  <div id="qopts" class="opts"></div>
+  <div id="qinput" class="inputwrap" style="display:none">
+    <input class="txt" id="qans" inputmode="text" autocomplete="off" placeholder="Escribe tu respuesta">
+    <button class="btn" onclick="checkInput()">OK</button>
+  </div>
+  <div class="feedback" id="qfb"></div>
+  <div id="qexplain" class="explain" style="display:none"></div>
+  <div style="text-align:center;margin-top:14px"><button class="btn big" id="qnext" style="display:none" onclick="nextQ()">Siguiente →</button></div>
+</section>
+
+<!-- GAMES LIST -->
+<section class="screen" id="s-games">
+  <h2 style="margin:0 0 4px">Zona de juegos</h2>
+  <p class="mini" style="margin:0 0 14px">Juegos para desconectar… que también enseñan 😉</p>
+  <div class="grid" id="gameGrid"></div>
+</section>
+
+<!-- GAME -->
+<section class="screen" id="s-game">
+  <div class="mg-head">
+    <button class="btn ghost sm" onclick="exitGame()">← Juegos</button>
+    <b class="disp" id="gTitle" style="font-size:17px"></b>
+    <div class="mg-timer" id="gTime"></div>
+  </div>
+  <p class="mini" id="gInfo" style="text-align:center;margin:0 0 10px"></p>
+  <div class="mg-area" id="gArea"></div>
+  <div class="feedback" id="gFb"></div>
+  <div style="text-align:center;margin-top:10px"><button class="btn sm" id="gAgain">Otra vez 🔁</button></div>
+</section>
+
+<!-- MINIGAME -->
+<section class="screen" id="s-minigame">
+  <div class="mg-head">
+    <div><b class="disp" style="font-size:20px" id="mgTitle">Minijuego</b><div class="mini" id="mgSub"></div></div>
+    <div class="mg-timer" id="mgTimer">⏱ 30</div>
+  </div>
+  <div class="mg-area" id="mgArea"></div>
+  <div class="feedback" id="mgFb"></div>
+  <div style="text-align:center;margin-top:10px"><button class="btn ghost sm" onclick="endMinigame(true)">Saltar →</button></div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="s-result">
+  <div class="card result">
+    <div class="big" id="rEmoji">🎉</div>
+    <h2 id="rTitle">¡Muy bien!</h2>
+    <div class="score" id="rScore">8/10</div>
+    <div class="starrow" id="rStars"></div>
+    <p class="mini" id="rMsg"></p>
+    <div class="row" style="justify-content:center;margin-top:12px">
+      <button class="btn" onclick="repeatQuiz()">Repetir 🔁</button>
+      <button class="btn ghost" onclick="show('s-home')">Cuadernos</button>
+      <button class="btn sun" onclick="renderGames()">Juegos 🎮</button>
+    </div>
+  </div>
+  <div class="card" id="rReview"></div>
+</section>
+
+<!-- PROGRESS -->
+<section class="screen" id="s-progress">
+  <h2 style="margin:0 0 12px">Mi progreso</h2>
+  <div class="statgrid" id="statGrid"></div>
+  <div class="card" style="margin-top:16px"><h3 style="margin:0 0 8px">Por materia</h3><ul class="list" id="statList"></ul></div>
+  <div class="card"><h3 style="margin:0 0 8px">Últimas sesiones</h3><ul class="list" id="histList"></ul></div>
+</section>
+
+<!-- PARENTS -->
+<section class="screen" id="s-parents">
+  <div class="card">
+    <h2 style="margin:0 0 6px">Zona familias</h2>
+    <p style="margin:0 0 10px;font-weight:700;color:var(--ink)">Danivia School genera ejercicios nuevos en cada sesión, adaptados al curso, siguiendo las áreas del currículo de la Generalitat Valenciana (Decreto 100/2022 Infantil · Decreto 106/2022 Primaria).</p>
+    <ul class="list" id="parentInfo"></ul>
+  </div>
+  <div class="card">
+    <h3 style="margin:0 0 8px">Ajustes</h3>
+    <div class="row">
+      <button class="btn sun" onclick="openCourseChange()">🎓 Cambiar de curso</button>
+      <button class="btn ghost" onclick="toggleSound()" id="btnSound">🔊 Sonido: sí</button>
+      <button class="btn ghost" onclick="exportData()">📤 Exportar datos</button>
+      <button class="btn ghost" style="color:#d94b4b" onclick="resetAll()">🗑️ Borrar todo</button>
+    </div>
+    <p class="mini" style="margin-top:12px">DANIVIA World Technologies · www.daniviaworldtechnologies.com · Los datos se guardan solo en este dispositivo.</p>
+  </div>
+</section>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-t="s-home" onclick="show('s-home')" class="on"><span>📚</span>Cuadernos</button>
+  <button data-t="s-games" onclick="renderGames()"><span>🎮</span>Juegos</button>
+  <button data-t="s-progress" onclick="renderProgress();show('s-progress')"><span>⭐</span>Progreso</button>
+  <button data-t="s-parents" onclick="renderParents();show('s-parents')"><span>👨‍👩‍👧</span>Familias</button>
+</nav>
+<div class="toast" id="toast"></div>
+<script>
+/* =========================================================
+   DANIVIA SCHOOL · Motor de repaso
+   Cursos: inf3 inf4 inf5 (Infantil) · p1..p6 (Primaria) · GVA
+   ========================================================= */
+const COURSES=[
+ {id:'inf3',name:'Infantil 3 años',stage:'inf',lvl:0},{id:'inf4',name:'Infantil 4 años',stage:'inf',lvl:0.5},{id:'inf5',name:'Infantil 5 años',stage:'inf',lvl:1},
+ {id:'p1',name:'1º Primaria',stage:'pri',lvl:2},{id:'p2',name:'2º Primaria',stage:'pri',lvl:3},{id:'p3',name:'3º Primaria',stage:'pri',lvl:4},
+ {id:'p4',name:'4º Primaria',stage:'pri',lvl:5},{id:'p5',name:'5º Primaria',stage:'pri',lvl:6},{id:'p6',name:'6º Primaria',stage:'pri',lvl:7}];
+const AVATARS=['🦊','🐼','🦄','🐯','🐸','🦋','🐙','🦁','🐶','🐱','🐧','🦕'];
+
+/* Materias por etapa (currículo GVA) */
+const SUBJECTS={
+ inf:[
+  {id:'logica',name:'Números y lógica',area:'Descubrimiento y exploración del entorno',ico:'🔢',c:'#12B5E5'},
+  {id:'letras',name:'Letras y palabras',area:'Comunicación y representación de la realidad',ico:'🔤',c:'#FF6B6B'},
+  {id:'entorno',name:'Mi entorno',area:'Descubrimiento y exploración del entorno',ico:'🌳',c:'#3DDC97'},
+  {id:'valencia_inf',name:'Valencià',area:'Comunicación y representación',ico:'🍊',c:'#FF9F68'},
+  {id:'ingles_inf',name:'English',area:'Comunicación y representación',ico:'🇬🇧',c:'#9B7BFF'},
+  {id:'cuerpo',name:'Mi cuerpo y emociones',area:'Crecimiento en armonía',ico:'🧒',c:'#FFC93C'},
+  {id:'arte_inf',name:'Colores y formas',area:'Comunicación y representación',ico:'🎨',c:'#F06292'}
+ ],
+ pri:[
+  {id:'mates',name:'Matemáticas',area:'Matemáticas',ico:'➗',c:'#12B5E5'},
+  {id:'lengua',name:'Lengua Castellana',area:'Lengua Castellana y Literatura',ico:'📖',c:'#FF6B6B'},
+  {id:'valencia',name:'Valencià',area:'Valencià: Llengua i Literatura',ico:'🍊',c:'#FF9F68'},
+  {id:'ingles',name:'English',area:'Lengua Extranjera: Inglés',ico:'🇬🇧',c:'#9B7BFF'},
+  {id:'naturales',name:'Ciencias Naturales',area:'Conocimiento del Medio Natural, Social y Cultural',ico:'🔬',c:'#3DDC97'},
+  {id:'sociales',name:'Ciencias Sociales',area:'Conocimiento del Medio Natural, Social y Cultural',ico:'🌍',c:'#FFC93C'},
+  {id:'artistica',name:'Educación Artística',area:'Educación Artística',ico:'🎨',c:'#F06292'},
+  {id:'efisica',name:'Educación Física',area:'Educación Física',ico:'⚽',c:'#4CAF50'},
+  {id:'valores',name:'Valores cívicos',area:'Educación en Valores Cívicos y Éticos',ico:'🤝',c:'#8D6E63'}
+ ]};
+
+
+/* Dibujos para las respuestas de Infantil */
+const PICT={
+ // colores es/va/en
+ 'rojo':'🔴','roig':'🔴','red':'🔴','azul':'🔵','blau':'🔵','blue':'🔵','verde':'🟢','verd':'🟢','green':'🟢','amarillo':'🟡','groc':'🟡','yellow':'🟡','naranja':'🟠','orange':'🟠','morado':'🟣','purple':'🟣','rosa':'🩷','pink':'🩷','negro':'⚫','negre':'⚫','black':'⚫','blanco':'⚪','blanc':'⚪','white':'⚪','marrón':'🟤','brown':'🟤','gris':'⬜',
+ // animales
+ 'perro':'🐶','gos':'🐶','dog':'🐶','gato':'🐱','cat':'🐱','vaca':'🐮','cow':'🐮','león':'🦁','pez':'🐟','fish':'🐟','pájaro':'🐦','ocell':'🐦','bird':'🐦','rana':'🐸','abeja':'🐝','elefante':'🐘','caballo':'🐴','horse':'🐴','cerdo':'🐷','pig':'🐷','conejo':'🐰','rabbit':'🐰','tortuga':'🐢','ratón':'🐭','oso':'🐻','pato':'🦆',
+ // lugares
+ 'granja':'🚜','selva':'🌴','mar':'🌊','cielo':'☁️','charca':'💧','flores':'🌸','sabana':'🌾',
+ // familia
+ 'mamá':'👩','madre':'👩','mare':'👩','mother':'👩','papá':'👨','padre':'👨','pare':'👨','father':'👨','abuela':'👵','iaia':'👵','abuelo':'👴','iaio':'👴','hermana':'👧','germana':'👧','sister':'👧','hermano':'👦','germà':'👦','brother':'👦',
+ // cuerpo
+ 'ojos':'👁️','ojo':'👁️','ull':'👁️','eye':'👁️','orejas':'👂','oreja':'👂','orella':'👂','ear':'👂','nariz':'👃','nas':'👃','nose':'👃','boca':'👄','mouth':'👄','manos':'✋','mano':'✋','mà':'✋','hand':'✋','pies':'🦶','pie':'🦶','peu':'🦶','foot':'🦶','piernas':'🦵','lengua':'👅',
+ // sentidos
+ 'vista':'👁️','oído':'👂','olfato':'👃','gusto':'👅','tacto':'✋',
+ // tiempo
+ 'hace sol':'☀️','llueve':'🌧️','nieva':'❄️','hace viento':'💨','paraguas':'☂️','abrigo y gorro':'🧥','gafas de sol':'🕶️','cometa':'🪁',
+ // alimentos
+ 'fruta':'🍎','verdura':'🥕','pan y cereales':'🍞','lácteos':'🥛',
+ // reciclaje
+ 'marrón (orgánico)':'🟤','azul (papel)':'🔵','verde (vidrio)':'🟢','amarillo (envases)':'🟡',
+ // emociones
+ 'contento':'😀','happy':'😀','triste':'😢','sad':'😢','enfadado':'😠','asustado':'😨','cansado':'😴','sorprendido':'😲',
+ // formas
+ 'círculo':'🔴','cuadrado':'🟦','triángulo':'🔺','rectángulo':'🟪','estrella':'⭐','corazón':'❤️',
+ // instrumentos
+ 'tambor':'🥁','guitarra':'🎸','trompeta':'🎺','piano':'🎹','violín':'🎻',
+ // saludos valencià
+ 'bon dia':'🌅','bona nit':'🌙','adéu':'👋','gràcies':'🙏','bon profit':'🍽️',
+ // objetos valencià/english/es
+ 'casa':'🏠','house':'🏠','taula':'🪑','mesa':'🪑','table':'🪑','cadira':'💺','chair':'💺','finestra':'🪟','window':'🪟','poma':'🍎','apple':'🍎','manzana':'🍎','taronja':'🍊','aigua':'💧','water':'💧','agua':'💧','llet':'🥛','milk':'🥛','leche':'🥛','pa':'🍞','bread':'🍞','ou':'🥚','egg':'🥚','huevo':'🥚','sol':'☀️','sun':'☀️','luna':'🌙','lluna':'🌙','moon':'🌙','árbol':'🌳','arbre':'🌳','tree':'🌳','flor':'🌸','flower':'🌸','coche':'🚗','cotxe':'🚗','car':'🚗','libro':'📖','llibre':'📖','book':'📖',
+ // hábitos (respuestas cortas de salud)
+ 'me lavo las manos':'🧼','me lavo los dientes':'🪥','me voy a dormir pronto':'🛏️','como fruta y verdura':'🍎'
+};
+const pictFor=t=>PICT[String(t).trim().toLowerCase()]||'';
+/* ---------- utilidades ---------- */
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[R(0,a.length-1)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const uniq=a=>[...new Set(a)];
+/* Construye pregunta de opción múltiple con distractores numéricos */
+function mcNum(q,ans,opts={}){const d=new Set([ans]);let guard=0;while(d.size<4&&guard++<60){const off=R(1,opts.spread||Math.max(3,Math.round(Math.abs(ans)*0.3)+2))*(Math.random()<.5?-1:1);const v=ans+off;if(v>=(opts.min??0))d.add(v)}return {q,type:'mc',options:shuffle([...d]).map(String),answer:String(ans),...opts}}
+function mc(q,ans,distract,extra={}){const o=uniq([ans,...shuffle(distract).filter(x=>x!==ans)]).slice(0,4);return {q,type:'mc',options:shuffle(o),answer:ans,...extra}}
+function ip(q,ans,extra={}){return {q,type:'input',answer:String(ans),...extra}}
+const num2es=n=>['cero','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte'][n];
+const num2va=n=>['zero','u','dos','tres','quatre','cinc','sis','set','huit','nou','deu','onze','dotze','tretze','catorze','quinze','setze','dèsset','díhuit','dènou','vint'][n];
+const num2en=n=>['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'][n];
+const EMO=['🍎','🍌','⭐','🐟','🚗','🎈','🐞','🍓','🌼','🦋','🍪','⚽'];
+
+/* ==================== INFANTIL ==================== */
+const G_INF={
+ logica:{topics:['Contar','Más o menos','Formas','Series'],gen(t,l){
+  const max=l<0.5?3:l<1?6:10;
+  if(t==='Contar'){const n=R(1,max),e=pick(EMO);return mcNum('¿Cuántos hay?',n,{visual:e.repeat(n),min:1,spread:2,tag:'Contar'})}
+  if(t==='Más o menos'){let a=R(1,max),b=R(1,max);if(a===b)b=(a%max)+1;const e1=pick(EMO),e2=pick(EMO);return {q:'¿Dónde hay MÁS?',type:'mc',visual:e1.repeat(a)+'\n'+e2.repeat(b),options:[e1.repeat(a),e2.repeat(b)],answer:(a>b?e1.repeat(a):e2.repeat(b)),tag:'Comparar'}}
+  if(t==='Formas'){const F=[['círculo','🔴'],['cuadrado','🟦'],['triángulo','🔺'],['estrella','⭐'],['corazón','❤️']].slice(0,l<0.5?3:5);const f=pick(F);return mc('¿Cuál es el '+f[0]+'?',f[1],F.map(x=>x[1]),{tag:'Formas'})}
+  const s=R(1,max-1),e=pick(EMO);return mcNum('¿Qué número viene después de '+s+'?',s+1,{visual:e.repeat(s),min:1,spread:2,tag:'Series'})}},
+ letras:{topics:['Vocales','Mi nombre y sonidos','Letra inicial','Rimas'],gen(t,l){
+  const W=[['ÁRBOL','🌳','A'],['ELEFANTE','🐘','E'],['IGLÚ','🏠','I'],['OSO','🐻','O'],['UVA','🍇','U'],['MANZANA','🍎','M'],['SOL','☀️','S'],['LUNA','🌙','L'],['PATO','🦆','P'],['TORTUGA','🐢','T'],['CASA','🏠','C'],['GATO','🐱','G'],['RATÓN','🐭','R'],['NUBE','☁️','N'],['FLOR','🌸','F']];
+  if(t==='Vocales'){const v=pick(['A','E','I','O','U']);return mc('¿Cuál es la letra '+v+'?',v,['A','E','I','O','U'],{tag:'Vocales'})}
+  if(t==='Letra inicial'){const w=pick(W);return mc('¿Con qué letra empieza?',w[2],shuffle(W.map(x=>x[2])),{visual:w[1],tag:'Letras'})}
+  if(t==='Rimas'){const P=[['GATO','PATO','ZAPATO','SOL'],['RATÓN','BOTÓN','LIMÓN','MESA'],['LUNA','CUNA','TUNA','PERRO'],['SOL','CARACOL','FAROL','PAN']];const p=pick(P);return mc('¿Cuál rima con '+p[0]+'?',p[1],[p[1],p[3],pick(['CASA','LIBRO','FLOR'])],{tag:'Rimas'})}
+  const w=pick(W);const wl=w[0].split('');const missing=R(0,wl.length-1);const shown=wl.map((c,i)=>i===missing?'_':c).join('');return mc('¿Qué letra falta? '+shown,wl[missing],shuffle('ABCDEFGHILMNOPRSTUV'.split('')).slice(0,3).concat(wl[missing]),{visual:w[1],tag:'Palabras'})}},
+ entorno:{topics:['Animales','Estaciones y tiempo','Alimentos','Reciclaje'],gen(t,l){
+  const A=[['🐶','perro','ladra','granja'],['🐮','vaca','muge','granja'],['🦁','león','ruge','selva'],['🐟','pez','nada','mar'],['🐦','pájaro','vuela','cielo'],['🐸','rana','salta','charca'],['🐝','abeja','zumba','flores'],['🐘','elefante','trompa','sabana']];
+  if(t==='Animales'){const a=pick(A);const kind=R(0,2);if(kind===0)return mc('¿Qué animal es?',a[1],A.map(x=>x[1]),{visual:a[0],tag:'Animales'});if(kind===1)return mc('¿Dónde vive?',a[3],A.map(x=>x[3]),{visual:a[0],tag:'Animales'});return mc('El '+a[1]+'…',a[2],A.map(x=>x[2]),{visual:a[0],tag:'Animales'})}
+  if(t==='Estaciones y tiempo'){const S=[['☀️','Hace sol','gafas de sol'],['🌧️','Llueve','paraguas'],['❄️','Nieva','abrigo y gorro'],['💨','Hace viento','cometa']];const s=pick(S);return R(0,1)?mc('¿Qué tiempo hace?',s[1],S.map(x=>x[1]),{visual:s[0],tag:'El tiempo'}):mc(s[1]+'. ¿Qué necesito?',s[2],S.map(x=>x[2]),{visual:s[0],tag:'El tiempo'})}
+  if(t==='Alimentos'){const F=[['🍎','fruta'],['🥕','verdura'],['🍞','pan y cereales'],['🥛','lácteos'],['🍌','fruta'],['🥦','verdura'],['🧀','lácteos'],['🍚','pan y cereales']];const f=pick(F);return mc('¿A qué grupo pertenece?',f[1],['fruta','verdura','pan y cereales','lácteos'],{visual:f[0],tag:'Alimentos'})}
+  const RC=[['🍌','marrón (orgánico)'],['📰','azul (papel)'],['🍾','verde (vidrio)'],['🧴','amarillo (envases)'],['🥤','amarillo (envases)'],['📦','azul (papel)']];const r=pick(RC);return mc('¿En qué contenedor va?',r[1],RC.map(x=>x[1]),{visual:r[0],tag:'Reciclaje'})}},
+ valencia_inf:{topics:['Colors','Números','Família i cos','Salutacions'],gen(t,l){
+  if(t==='Colors'){const C=[['🔴','roig'],['🔵','blau'],['🟢','verd'],['🟡','groc'],['⚫','negre'],['⚪','blanc']];const c=pick(C);return mc('Quin color és?',c[1],C.map(x=>x[1]),{visual:c[0],tag:'Colors'})}
+  if(t==='Números'){const n=R(1,l<1?5:10),e=pick(EMO);return mc('Quants n\'hi ha?',num2va(n),shuffle([1,2,3,4,5,6,7,8,9,10].map(num2va)).slice(0,3).concat(num2va(n)),{visual:e.repeat(n),tag:'Números'})}
+  if(t==='Família i cos'){const F=[['👩','mare'],['👨','pare'],['👵','iaia'],['👴','iaio'],['👧','germana'],['👦','germà'],['👃','nas'],['👁️','ull'],['👂','orella'],['✋','mà'],['🦶','peu']];const f=pick(F);return mc('Com es diu en valencià?',f[1],F.map(x=>x[1]),{visual:f[0],tag:'Vocabulari'})}
+  const S=[['🌅','Bon dia'],['🌙','Bona nit'],['👋','Adéu'],['🙏','Gràcies'],['🍽️','Bon profit']];const s=pick(S);return mc('Què diem?',s[1],S.map(x=>x[1]),{visual:s[0],tag:'Salutacions'})}},
+ ingles_inf:{topics:['Colours','Numbers','Animals','Body'],gen(t,l){
+  if(t==='Colours'){const C=[['🔴','red'],['🔵','blue'],['🟢','green'],['🟡','yellow'],['⚫','black'],['⚪','white'],['🟠','orange'],['🟣','purple']];const c=pick(C);return mc('What colour is it?',c[1],C.map(x=>x[1]),{visual:c[0],tag:'Colours'})}
+  if(t==='Numbers'){const n=R(1,l<1?5:10),e=pick(EMO);return mc('How many?',num2en(n),shuffle([1,2,3,4,5,6,7,8,9,10].map(num2en)).slice(0,3).concat(num2en(n)),{visual:e.repeat(n),tag:'Numbers'})}
+  if(t==='Animals'){const A=[['🐶','dog'],['🐱','cat'],['🐟','fish'],['🐦','bird'],['🐮','cow'],['🐷','pig'],['🐴','horse'],['🐰','rabbit']];const a=pick(A);return mc('What is it?',a[1],A.map(x=>x[1]),{visual:a[0],tag:'Animals'})}
+  const B=[['👃','nose'],['👁️','eye'],['👂','ear'],['✋','hand'],['🦶','foot'],['👄','mouth']];const b=pick(B);return mc('What is it?',b[1],B.map(x=>x[1]),{visual:b[0],tag:'Body'})}},
+ cuerpo:{topics:['Emociones','Hábitos saludables','Partes del cuerpo','Los sentidos'],gen(t,l){
+  if(t==='Emociones'){const E=[['😀','contento'],['😢','triste'],['😠','enfadado'],['😨','asustado'],['😴','cansado'],['😲','sorprendido']];const e=pick(E);return mc('¿Cómo se siente?',e[1],E.map(x=>x[1]),{visual:e[0],tag:'Emociones'})}
+  if(t==='Hábitos saludables'){const H=[['Antes de comer…','me lavo las manos',['salto en el sofá','grito','me duermo']],['Después de comer…','me lavo los dientes',['veo la tele','me pongo el pijama','corro']],['Por la noche…','me voy a dormir pronto',['juego con la tablet','como chuches','salgo a la calle']],['Para estar sano…','como fruta y verdura',['solo como chuches','no bebo agua','no me muevo']]];const h=pick(H);return mc(h[0],h[1],[h[1],...h[2]],{tag:'Salud'})}
+  if(t==='Partes del cuerpo'){const P=[['👁️','ojos'],['👂','orejas'],['👃','nariz'],['👄','boca'],['✋','manos'],['🦶','pies'],['🦵','piernas']];const p=pick(P);return mc('¿Qué parte del cuerpo es?',p[1],P.map(x=>x[1]),{visual:p[0],tag:'Cuerpo'})}
+  const S=[['👁️','ver','vista'],['👂','oír','oído'],['👃','oler','olfato'],['👅','saborear','gusto'],['✋','tocar','tacto']];const s=pick(S);return mc('¿Con qué sentido puedo '+s[1]+'?',s[2],S.map(x=>x[2]),{visual:s[0],tag:'Sentidos'})}},
+ arte_inf:{topics:['Colores','Mezclas','Formas','Sonidos'],gen(t,l){
+  if(t==='Colores'){const C=[['🔴','rojo'],['🔵','azul'],['🟢','verde'],['🟡','amarillo'],['🟠','naranja'],['🟣','morado'],['⚫','negro'],['⚪','blanco'],['🟤','marrón']];const c=pick(C);return mc('¿Qué color es?',c[1],C.map(x=>x[1]),{visual:c[0],tag:'Colores'})}
+  if(t==='Mezclas'){const M=[['rojo','amarillo','naranja'],['azul','amarillo','verde'],['rojo','azul','morado'],['rojo','blanco','rosa'],['blanco','negro','gris']];const m=pick(M);return mc(m[0]+' + '+m[1]+' = …',m[2],['naranja','verde','morado','rosa','gris','marrón'],{tag:'Mezclas'})}
+  if(t==='Formas'){const O=[['⚽','círculo'],['📦','cuadrado'],['🍕','triángulo'],['🚪','rectángulo'],['🍩','círculo'],['🎁','cuadrado']];const o=pick(O);return mc('¿Qué forma tiene?',o[1],['círculo','cuadrado','triángulo','rectángulo'],{visual:o[0],tag:'Formas'})}
+  const I=[['🥁','tambor','golpeando'],['🎸','guitarra','rasgando cuerdas'],['🎺','trompeta','soplando'],['🎹','piano','pulsando teclas'],['🎻','violín','frotando cuerdas']];const i=pick(I);return R(0,1)?mc('¿Qué instrumento es?',i[1],I.map(x=>x[1]),{visual:i[0],tag:'Música'}):mc('¿Cómo suena el '+i[1]+'?',i[2],I.map(x=>x[2]),{visual:i[0],tag:'Música'})}}
+};
+/* ==================== PRIMARIA · MATEMÁTICAS ==================== */
+const ROM=n=>{const t=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];let s='';for(const[v,r]of t){while(n>=v){s+=r;n-=v}}return s};
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const M_TOPICS={
+ 2:['Sumas','Restas','Anterior y posterior','Series','Decenas y unidades','Comparar números','Problemas'],
+ 3:['Sumas','Restas','Tablas de multiplicar','Dobles y mitades','Series','La hora','Comparar números','Geometría','Problemas'],
+ 4:['Sumas','Restas','Tablas de multiplicar','Multiplicaciones','Divisiones','La hora','Geometría','Medidas','Problemas'],
+ 5:['Multiplicaciones','Divisiones','Fracciones','Redondeo','Números romanos','Perímetro','Medidas','Ángulos','Problemas'],
+ 6:['Multiplicaciones','Divisiones','Operaciones combinadas','Decimales','Fracciones','Múltiplos y divisores','Área y perímetro','Ángulos','Medidas','Problemas'],
+ 7:['Operaciones combinadas','Decimales','Fracciones','Porcentajes','Potencias y raíces','Área','Ecuaciones','Múltiplos y divisores','Problemas']};
+const NAMES=['Marta','Lucía','Hugo','Pau','Aitana','Marc','Noa','Vega','Iván','Carla'];
+function genMates(t,l){
+ const big=l<=2?20:l<=3?99:l<=4?999:l<=5?9999:99999;
+ switch(t){
+  case 'Sumas':{const a=R(1,big/2),b=R(1,big/2);return ip(a+' + '+b+' = ?',a+b,{tag:'Sumar',explain:`${a} + ${b} = ${a+b}`})}
+  case 'Restas':{let a=R(1,big),b=R(1,big);if(b>a)[a,b]=[b,a];return ip(a+' − '+b+' = ?',a-b,{tag:'Restar',explain:`${a} − ${b} = ${a-b}`})}
+  case 'Anterior y posterior':{const n=R(1,big-1);return R(0,1)?mcNum('¿Qué número va justo ANTES de '+n+'?',n-1,{spread:2,tag:'Números'}):mcNum('¿Qué número va justo DESPUÉS de '+n+'?',n+1,{spread:2,tag:'Números'})}
+  case 'Series':{const step=l<=2?pick([1,2]):pick([1,2,5,10]),s=l<=2?R(1,10):R(1,20);const seq=[s,s+step,s+2*step,s+3*step];return ip('Continúa la serie: '+seq.join(', ')+', …',s+4*step,{tag:'Series',explain:'La serie va de '+step+' en '+step})}
+  case 'Decenas y unidades':{const n=R(10,99);const d=Math.floor(n/10),u=n%10;return R(0,1)?ip('¿Cuántas DECENAS tiene el '+n+'?',d,{tag:'Decenas',explain:n+' = '+d+' decenas y '+u+' unidades'}):ip('¿Cuántas UNIDADES tiene el '+n+'?',u,{tag:'Unidades',explain:n+' = '+d+' decenas y '+u+' unidades'})}
+  case 'Comparar números':{const a=R(1,big),b=R(1,big);if(a===b)return genMates(t,l);return mc('¿Qué signo va? '+a+' ▢ '+b,a>b?'>':'<',['>','<','='],{tag:'Comparar',explain:a>b?a+' es mayor que '+b:a+' es menor que '+b})}
+  case 'Tablas de multiplicar':{const a=l<=3?pick([2,3,4,5,10]):R(2,10),b=R(1,10);return ip(a+' × '+b+' = ?',a*b,{tag:'Tablas',explain:a+' × '+b+' = '+a*b})}
+  case 'Dobles y mitades':{if(R(0,1)){const n=R(1,l<=3?20:50);return ip('El DOBLE de '+n+' es…',2*n,{tag:'Dobles'})}const n=R(1,l<=3?10:25)*2;return ip('La MITAD de '+n+' es…',n/2,{tag:'Mitades'})}
+  case 'La hora':{const h=R(1,12);const mins=l<=3?pick([0,30]):pick([0,15,30,45]);const txt=mins===0?'en punto':mins===15?'y cuarto':mins===30?'y media':'menos cuarto';const hh=mins===45?(h%12)+1:h;const clock=`${h}:${mins.toString().padStart(2,'0')}`;return mc('¿Qué hora marca el reloj? 🕐 '+clock,`Las ${hh} ${txt}`,[`Las ${hh} ${txt}`,`Las ${(hh%12)+1} ${txt}`,`Las ${hh} ${mins===30?'en punto':'y media'}`,`Las ${(hh+2)%12+1} y cuarto`],{tag:'La hora'})}
+  case 'Divisiones':{const b=l<=4?pick([2,3,4,5]):l<=5?R(2,9):R(2,12),q=R(1,l<=4?10:l<=5?99:l<=6?300:999);return ip((b*q)+' ÷ '+b+' = ?',q,{tag:'Dividir',explain:`${b} × ${q} = ${b*q}`})}
+  case 'Multiplicaciones':{let a,b;if(l<=4){a=R(11,99);b=R(2,9)}else if(l<=5){if(R(0,1)){a=R(11,999);b=R(2,9)}else{a=R(11,99);b=R(11,30)}}else{a=R(101,999);b=R(11,99)}return ip(a+' × '+b+' = ?',a*b,{tag:'Multiplicar'})}
+  case 'Geometría':{const G=l<=3?[['triángulo',3],['cuadrado',4],['rectángulo',4],['pentágono',5]]:[['triángulo',3],['cuadrado',4],['rectángulo',4],['pentágono',5],['hexágono',6],['octógono',8]];const g=pick(G);return R(0,1)?ip('¿Cuántos lados tiene un '+g[0]+'?',g[1],{tag:'Geometría'}):mc('¿Qué figura tiene '+g[1]+' lados?',g[0],G.filter(x=>x[1]!==g[1]).map(x=>x[0]).concat(g[0]),{tag:'Geometría'})}
+  case 'Números romanos':{const n=R(1,l<=5?100:l<=6?1000:3000);return R(0,1)?ip('Escribe en romanos: '+n,ROM(n),{tag:'Romanos',caseIns:true}):ip('¿Qué número es '+ROM(n)+'?',n,{tag:'Romanos'})}
+  case 'Fracciones':{const k=l<=5?0:l<=6?R(0,1):R(0,2);if(k===0){const d=R(2,8),n=R(1,d-1);return mc('¿Qué fracción está coloreada? '+'🟦'.repeat(n)+'⬜'.repeat(d-n),`${n}/${d}`,[`${n}/${d}`,`${d-n}/${d}`,`${n}/${d+1}`,`${d}/${n}`],{tag:'Fracciones'})}if(k===1){const d=R(2,9),n=R(1,d-1),m=R(2,4);return mc('Fracción equivalente a '+n+'/'+d,`${n*m}/${d*m}`,[`${n*m}/${d*m}`,`${n+1}/${d+1}`,`${n*m}/${d}`,`${n}/${d*m}`],{tag:'Fracciones'})}const d=R(2,9),n=R(1,d-1),tot=d*R(2,10);return ip(`Calcula ${n}/${d} de ${tot}`,tot/d*n,{tag:'Fracciones',explain:`${tot} ÷ ${d} = ${tot/d}; × ${n} = ${tot/d*n}`})}
+  case 'Redondeo':{const to=l<=5?10:pick([10,100]),n=R(11,l<=5?999:9999);return ip('Redondea '+n+' a la '+(to===10?'decena':'centena')+' más cercana',Math.round(n/to)*to,{tag:'Redondeo'})}
+  case 'Perímetro':{const a=R(2,20),b=R(2,20);return R(0,1)?ip(`Perímetro de un rectángulo de ${a} cm × ${b} cm`,2*(a+b),{tag:'Perímetro',explain:`(${a}+${b})×2 = ${2*(a+b)} cm`}):ip(`Perímetro de un cuadrado de lado ${a} cm`,4*a,{tag:'Perímetro'})}
+  case 'Área y perímetro':case 'Área':{const a=R(2,25),b=R(2,25);const k=l<=6?R(0,1):R(0,2);if(k===0)return ip(`Área de un rectángulo de ${a} × ${b} cm (en cm²)`,a*b,{tag:'Área'});if(k===1)return ip(`Área de un cuadrado de lado ${a} cm (en cm²)`,a*a,{tag:'Área'});const h=R(2,20)*2;return ip(`Área de un triángulo de base ${a} y altura ${h} (cm²)`,a*h/2,{tag:'Área',explain:'base × altura ÷ 2'})}
+  case 'Medidas':{const U=[['km','m',1000],['m','cm',100],['kg','g',1000],['l','ml',1000],['h','min',60],['min','s',60]];const u=pick(l<=5?U.slice(0,4):U);const n=R(1,l<=4?5:l<=5?9:50);return ip(`${n} ${u[0]} = ¿cuántos ${u[1]}?`,n*u[2],{tag:'Medidas',explain:`1 ${u[0]} = ${u[2]} ${u[1]}`})}
+  case 'Múltiplos y divisores':{if(R(0,1)){const n=R(2,12);const ans=n*R(1,9);const opts=[ans];let g=0;while(opts.length<4&&g++<200){const v=R(1,100);if(v%n!==0&&!opts.includes(v))opts.push(v)}return mc('¿Cuál es múltiplo de '+n+'?',String(ans),opts.map(String),{tag:'Múltiplos'})}const n=pick([12,18,20,24,30,36]);const divs=[];for(let i=1;i<=n;i++)if(n%i===0)divs.push(i);return ip('¿Cuántos divisores tiene el número '+n+'?',divs.length,{tag:'Divisores',explain:'Divisores: '+divs.join(', ')})}
+  case 'Ángulos':{const A=[[30,'agudo'],[60,'agudo'],[90,'recto'],[120,'obtuso'],[150,'obtuso'],[180,'llano']];const a=pick(l<=5?A.slice(0,5):A);return mc('Un ángulo de '+a[0]+'° es…',a[1],l<=5?['agudo','recto','obtuso']:['agudo','recto','obtuso','llano'],{tag:'Ángulos'})}
+  case 'Operaciones combinadas':{const a=R(2,12),b=R(2,12),c=R(1,20);const k=R(0,2);if(k===0)return ip(`${c} + ${a} × ${b} = ?`,c+a*b,{tag:'Combinadas',explain:'Primero la multiplicación: '+a*b+', luego suma '+c});if(k===1)return ip(`(${a} + ${b}) × ${c} = ?`,(a+b)*c,{tag:'Combinadas',explain:'Primero el paréntesis: '+(a+b)});return ip(`${a*b+c} − ${a} × ${b} = ?`,c,{tag:'Combinadas',explain:'Primero '+a+'×'+b+'='+a*b})}
+  case 'Decimales':{const a=(R(10,999)/10),b=(R(10,999)/10);const k=l<=6?R(0,1):R(0,2);if(k===0)return ip(`${a} + ${b} = ?`,Math.round((a+b)*10)/10,{tag:'Decimales',dec:true});if(k===1){const [x,y]=a>b?[a,b]:[b,a];return ip(`${x} − ${y} = ?`,Math.round((x-y)*10)/10,{tag:'Decimales',dec:true})}return ip(`${a} × 10 = ?`,Math.round(a*100)/10,{tag:'Decimales',dec:true})}
+  case 'Porcentajes':{const p=pick([10,20,25,50,75]),n=R(1,20)*20;return ip(`El ${p}% de ${n} es…`,n*p/100,{tag:'Porcentajes',explain:`${n} × ${p} ÷ 100`})}
+  case 'Potencias y raíces':{if(R(0,1)){const b=R(2,12),e=R(2,3);return ip(`${b}${e===2?'²':'³'} = ?`,Math.pow(b,e),{tag:'Potencias'})}const r=R(2,15);return ip(`√${r*r} = ?`,r,{tag:'Raíces'})}
+  case 'Ecuaciones':{const x=R(1,20),a=R(2,9),b=R(1,30);return R(0,1)?ip(`Resuelve: x + ${b} = ${x+b}`,x,{tag:'Ecuaciones'}):ip(`Resuelve: ${a}·x = ${a*x}`,x,{tag:'Ecuaciones'})}
+  case 'Problemas':{const n1=pick(NAMES),n2=pick(NAMES);const P=[];
+   const a=R(2,l<=2?9:l<=3?40:l<=4?99:500),b=R(2,l<=2?9:l<=3?40:l<=4?99:500);
+   P.push(ip(`${n1} tiene ${a} cromos y ${n2} le regala ${b}. ¿Cuántos tiene ahora?`,a+b,{tag:'Problema'}));
+   P.push(ip(`En una caja hay ${a+b} caramelos. Nos comemos ${b}. ¿Cuántos quedan?`,a,{tag:'Problema'}));
+   if(l>=3){const q=l<=3?pick([2,5,10]):R(2,l<=4?9:15),p=R(2,l<=3?9:l<=4?12:60);P.push(ip(`Un paquete trae ${p} galletas. ¿Cuántas galletas hay en ${q} paquetes?`,p*q,{tag:'Problema'}));P.push(ip(`Repartimos ${p*q} pegatinas entre ${q} amigos a partes iguales. ¿Cuántas recibe cada uno?`,p,{tag:'Problema'}))}
+   if(l>=5){const pr=R(2,20),c=R(3,12);P.push(ip(`Un cuaderno cuesta ${pr} €. ¿Cuánto cuestan ${c} cuadernos?`,pr*c,{tag:'Problema'}));const km=R(20,90),h=R(2,6);P.push(ip(`Un tren recorre ${km} km cada hora. ¿Cuántos km recorre en ${h} horas?`,km*h,{tag:'Problema'}))}
+   if(l>=6){const pct=pick([10,20,50]),price=R(2,50)*10;P.push(ip(`Una bici cuesta ${price} € y tiene un ${pct}% de descuento. ¿Cuánto pagamos?`,price-price*pct/100,{tag:'Problema',explain:`Descuento: ${price*pct/100} €`}))}
+   return pick(P)}
+ }
+ return genMates('Sumas',l);
+}
+/* ==================== PRIMARIA · LENGUA CASTELLANA ==================== */
+const L_TOPICS={2:['Vocales y consonantes','Sílabas','Mayúsculas','Singular y plural','Ordenar la frase'],3:['Sílabas','Singular y plural','Masculino y femenino','Nombres y verbos','Ortografía','Sinónimos y antónimos'],4:['Sílabas y acento','Tipos de palabras','Ortografía','Sinónimos y antónimos','Verbos: tiempo','Comprensión'],5:['Sílabas y acento','Tipos de palabras','Ortografía','Sujeto y predicado','Verbos: tiempo','Comprensión'],6:['Acentuación','Tipos de palabras','Ortografía','Sujeto y predicado','Verbos: conjugar','Comprensión','Figuras literarias'],7:['Acentuación','Tipos de palabras','Ortografía','Análisis sintáctico','Verbos: conjugar','Comprensión','Figuras literarias']};
+const SIL=[['casa',2,'ca-sa'],['mesa',2,'me-sa'],['elefante',4,'e-le-fan-te'],['sol',1,'sol'],['mariposa',4,'ma-ri-po-sa'],['pan',1,'pan'],['ventana',3,'ven-ta-na'],['ordenador',4,'or-de-na-dor'],['árbol',2,'ár-bol'],['camión',2,'ca-mión'],['libro',2,'li-bro'],['plátano',3,'plá-ta-no'],['tortuga',3,'tor-tu-ga'],['flor',1,'flor'],['cocodrilo',4,'co-co-dri-lo'],['música',3,'mú-si-ca']];
+const ACC=[['camión','aguda'],['reloj','aguda'],['árbol','llana'],['mesa','llana'],['pájaro','esdrújula'],['música','esdrújula'],['sofá','aguda'],['lápiz','llana'],['médico','esdrújula'],['comer','aguda'],['ventana','llana'],['teléfono','esdrújula'],['papel','aguda'],['difícil','llana'],['sábado','esdrújula']];
+const PLU=[['gato','gatos'],['flor','flores'],['lápiz','lápices'],['pez','peces'],['luz','luces'],['árbol','árboles'],['ratón','ratones'],['coche','coches'],['pared','paredes'],['rey','reyes']];
+const GEN=[['niño','niña'],['gato','gata'],['profesor','profesora'],['león','leona'],['rey','reina'],['actor','actriz'],['caballo','yegua'],['toro','vaca'],['abuelo','abuela'],['príncipe','princesa']];
+const ORT=[['_urro','b','v','burro'],['_aca','v','b','vaca'],['ca_allo','b','v','caballo'],['_entana','v','b','ventana'],['_ielo','h','∅','hielo'],['_uevo','h','∅','huevo'],['_irafa','j','g','jirafa'],['_ente','g','j','gente'],['ca_a','j','g','caja'],['_ueso','h','∅','hueso'],['ca_eza','b','v','cabeza'],['nue_e','v','b','nueve'],['_ilo','h','∅','hilo'],['relo_','j','g','reloj'],['a_ua','g','j','agua'],['co_er','g','j','coger'],['_iaje','v','b','viaje'],['es_uela','c','k','escuela'],['_ueso','q','k','queso'],['za_ato','p','b','zapato']];
+const SIN=[['alegre','contento','triste'],['grande','enorme','pequeño'],['rápido','veloz','lento'],['bonito','hermoso','feo'],['empezar','comenzar','terminar'],['caliente','ardiente','frío'],['hablar','conversar','callar'],['subir','ascender','bajar'],['viejo','anciano','joven'],['claro','luminoso','oscuro']];
+const TIPOS=[['mesa','nombre'],['correr','verbo'],['azul','adjetivo'],['perro','nombre'],['saltar','verbo'],['bonito','adjetivo'],['rápidamente','adverbio'],['ella','pronombre'],['sobre','preposición'],['y','conjunción'],['ayer','adverbio'],['nosotros','pronombre'],['ciudad','nombre'],['comer','verbo'],['pequeño','adjetivo'],['con','preposición']];
+const VERB=[['Ayer yo ___ al parque.','fui','voy','iré','pasado'],['Mañana ___ a la playa.','iremos','fuimos','vamos','futuro'],['Ahora ___ un libro.','leo','leí','leeré','presente'],['El año pasado ___ mucho.','llovió','llueve','lloverá','pasado'],['Esta tarde ___ los deberes.','haré','hice','hago','futuro'],['Todos los días ___ leche.','desayuno','desayuné','desayunaré','presente']];
+const CONJ=[['cantar','yo','presente','canto'],['cantar','ellos','pasado','cantaron'],['comer','tú','futuro','comerás'],['vivir','nosotros','presente','vivimos'],['saltar','él','pasado','saltó'],['comer','yo','presente','como'],['vivir','ellos','futuro','vivirán'],['bailar','vosotros','presente','bailáis'],['leer','ella','pasado','leyó'],['escribir','yo','futuro','escribiré']];
+const SUJ=[['Los niños juegan en el patio.','Los niños','juegan en el patio'],['Mi abuela cocina paella los domingos.','Mi abuela','cocina paella los domingos'],['El perro ladra por la noche.','El perro','ladra por la noche'],['Las flores del jardín huelen muy bien.','Las flores del jardín','huelen muy bien'],['Ana y Luis estudian matemáticas.','Ana y Luis','estudian matemáticas'],['El tren llegó tarde.','El tren','llegó tarde']];
+const CD=[['María compra pan.','pan','María','compra'],['El niño lee un cuento.','un cuento','El niño','lee'],['Los alumnos escuchan la música.','la música','Los alumnos','escuchan'],['Pedro escribió una carta.','una carta','Pedro','escribió']];
+const FIG=[['Sus ojos son dos luceros.','metáfora'],['Tus dientes son blancos como perlas.','comparación'],['El viento susurraba entre los árboles.','personificación'],['Te lo he dicho mil millones de veces.','hipérbole'],['El sol sonreía a los niños.','personificación'],['Es tan alto como una torre.','comparación'],['Tengo un hambre que me muero.','hipérbole'],['El tiempo es oro.','metáfora']];
+const READ=[
+ {t:'Marta tiene un gato negro que se llama Sombra. Todas las mañanas, Sombra salta a la ventana para ver los pájaros del jardín. Cuando Marta vuelve del colegio, Sombra corre a recibirla y ronronea muy fuerte.',qs:[['¿Cómo se llama el gato?','Sombra',['Marta','Pájaro','Negro']],['¿Adónde salta el gato por las mañanas?','A la ventana',['Al jardín','Al colegio','A la cama']],['¿Qué hace Sombra cuando Marta vuelve?','Corre a recibirla',['Se duerme','Se esconde','Come']]]},
+ {t:'El pueblo de Altea está junto al mar Mediterráneo. Sus casas blancas suben por una colina hasta la iglesia de cúpula azul. Muchos pintores han visitado Altea porque les gusta su luz y sus vistas.',qs:[['¿Junto a qué mar está Altea?','Mediterráneo',['Cantábrico','Atlántico','Rojo']],['¿De qué color es la cúpula de la iglesia?','Azul',['Blanca','Roja','Verde']],['¿Por qué visitan Altea los pintores?','Por su luz y vistas',['Por su comida','Por sus tiendas','Por el frío']]]},
+ {t:'Las abejas viven en colmenas. Cada colmena tiene una reina, muchas obreras y algunos zánganos. Las obreras salen a buscar néctar en las flores y con él fabrican la miel. Sin las abejas, muchas plantas no podrían dar fruto.',qs:[['¿Quién busca el néctar?','Las obreras',['La reina','Los zánganos','Las flores']],['¿Qué fabrican con el néctar?','Miel',['Cera','Polen','Azúcar']],['¿Cuántas reinas hay en una colmena?','Una',['Dos','Muchas','Ninguna']]]},
+ {t:'Pau quería aprender a montar en bici. Al principio se caía mucho, pero su hermana Noa le sujetaba el sillín y le animaba. Después de una semana de práctica en el parque, Pau consiguió pedalear solo hasta la fuente.',qs:[['¿Quién ayudaba a Pau?','Su hermana Noa',['Su padre','Su profesor','Nadie']],['¿Cuánto tiempo practicó?','Una semana',['Un día','Un mes','Un año']],['¿Hasta dónde llegó pedaleando solo?','Hasta la fuente',['Hasta casa','Hasta el colegio','Hasta la playa']]]}
+];
+function genLengua(t,l){
+ switch(t){
+  case 'Vocales y consonantes':{const w=pick(SIL)[0];const letter=pick(w.split(''));const isV='aeiouáéíóú'.includes(letter);return mc(`En la palabra "${w}", la letra "${letter}" es…`,isV?'vocal':'consonante',['vocal','consonante'],{tag:'Letras'})}
+  case 'Sílabas':{const s=pick(l<=2?SIL.filter(x=>x[1]<=3):SIL);return ip(`¿Cuántas sílabas tiene "${s[0]}"?`,s[1],{tag:'Sílabas',explain:s[2]})}
+  case 'Sílabas y acento':case 'Acentuación':{if(R(0,1)){const s=pick(SIL);return ip(`¿Cuántas sílabas tiene "${s[0]}"?`,s[1],{tag:'Sílabas',explain:s[2]})}const a=pick(ACC);return mc(`"${a[0]}" es una palabra…`,a[1],['aguda','llana','esdrújula'],{tag:'Acento'})}
+  case 'Mayúsculas':{const F=[['madrid es la capital de España.','Madrid'],['mi amiga lucía vive en valencia.','Lucía y Valencia'],['el río turia pasa por la ciudad.','Turia'],['hoy es lunes y vamos al parque.','Hoy']];const f=pick(F);return mc(`¿Qué palabra debe ir con mayúscula? "${f[0]}"`,f[1],F.map(x=>x[1]),{tag:'Mayúsculas'})}
+  case 'Singular y plural':{const p=pick(PLU);if(l<=3)return mc(`¿Cuál es el plural de "${p[0]}"?`,p[1],[p[1],p[0]+'s',p[0]+'es',p[0]],{tag:'Plural'});return ip(`Escribe el plural de "${p[0]}"`,p[1],{tag:'Plural',caseIns:true})}
+  case 'Masculino y femenino':{const g=pick(GEN);if(l<=3)return mc(`¿Cuál es el femenino de "${g[0]}"?`,g[1],[g[1],...shuffle(GEN).slice(0,3).map(x=>x[1])],{tag:'Género'});return ip(`Escribe el femenino de "${g[0]}"`,g[1],{tag:'Género',caseIns:true})}
+  case 'Ordenar la frase':{const F=[['El','perro','corre','mucho'],['Mi','madre','cocina','arroz'],['Los','niños','juegan','fútbol'],['La','luna','brilla','hoy']];const f=pick(F);const wrong=shuffle(f);return mc('¿Cuál es la frase bien ordenada?',f.join(' ')+'.',[f.join(' ')+'.',wrong.join(' ')+'.',shuffle(f).join(' ')+'.',[f[1],f[0],f[3],f[2]].join(' ')+'.'],{tag:'Frases'})}
+  case 'Nombres y verbos':{const w=pick(TIPOS.filter(x=>x[1]==='nombre'||x[1]==='verbo'));return mc(`"${w[0]}" es un…`,w[1],['nombre','verbo'],{tag:'Palabras'})}
+  case 'Tipos de palabras':{const w=pick(l<=5?TIPOS.filter(x=>['nombre','verbo','adjetivo','adverbio'].includes(x[1])):TIPOS);return mc(`"${w[0]}" es un…`,w[1],uniq(TIPOS.map(x=>x[1])),{tag:'Palabras'})}
+  case 'Ortografía':{const o=pick(ORT);const opts=o[2]==='∅'?['h','sin h']:[o[1],o[2]];const ans=o[2]==='∅'?'h':o[1];return mc(`Completa: ${o[0]}`,ans,opts,{tag:'Ortografía',explain:'Se escribe "'+o[3]+'"'})}
+  case 'Sinónimos y antónimos':{const s=pick(SIN);return R(0,1)?mc(`Sinónimo de "${s[0]}"`,s[1],[s[1],s[2],pick(SIN)[1],pick(SIN)[2]],{tag:'Sinónimos'}):mc(`Antónimo de "${s[0]}"`,s[2],[s[1],s[2],pick(SIN)[1],pick(SIN)[2]],{tag:'Antónimos'})}
+  case 'Verbos: tiempo':{const v=pick(VERB);return R(0,1)?mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Verbos'}):mc(`"${v[0].replace('___',v[1])}" ¿En qué tiempo está el verbo?`,v[4],['presente','pasado','futuro'],{tag:'Verbos'})}
+  case 'Verbos: conjugar':{const c=pick(CONJ);return ip(`Conjuga "${c[0]}" — ${c[1]}, ${c[2]}:`,c[3],{tag:'Conjugar',caseIns:true})}
+  case 'Sujeto y predicado':{const s=pick(SUJ);return R(0,1)?mc(`¿Cuál es el SUJETO? "${s[0]}"`,s[1],[s[1],s[2],s[0].split(' ').slice(-2).join(' ')],{tag:'Sintaxis'}):mc(`¿Cuál es el PREDICADO? "${s[0]}"`,s[2],[s[1],s[2],s[0].split(' ').slice(0,3).join(' ')],{tag:'Sintaxis'})}
+  case 'Análisis sintáctico':{const c=pick(CD);const k=R(0,2);if(k===0)return mc(`¿Cuál es el complemento directo? "${c[0]}"`,c[1],[c[1],c[2],c[3]],{tag:'Sintaxis'});if(k===1)return mc(`¿Cuál es el núcleo del predicado? "${c[0]}"`,c[3],[c[1],c[2],c[3]],{tag:'Sintaxis'});return mc(`¿Cuál es el sujeto? "${c[0]}"`,c[2],[c[1],c[2],c[3]],{tag:'Sintaxis'})}
+  case 'Figuras literarias':{const f=pick(FIG);return mc(`"${f[0]}" ¿Qué figura literaria es?`,f[1],['metáfora','comparación','personificación','hipérbole'],{tag:'Literatura'})}
+  case 'Comprensión':{const r=pick(READ);const q=pick(r.qs);return mc(q[0],q[1],[q[1],...q[2]],{tag:'Comprensión lectora',reading:r.t})}
+ }
+ return genLengua('Sílabas',l);
+}
+</script>
+<script>
+/* ==================== VALENCIÀ ==================== */
+const V_VOC=[['gos','perro'],['gat','gato'],['casa','casa'],['taula','mesa'],['cadira','silla'],['finestra','ventana'],['poma','manzana'],['taronja','naranja'],['aigua','agua'],['llet','leche'],['pa','pan'],['ou','huevo'],['escola','escuela'],['mestre','maestro'],['llibre','libro'],['xiquet','niño'],['xiqueta','niña'],['germà','hermano'],['germana','hermana'],['iaia','abuela'],['iaio','abuelo'],['carrer','calle'],['cotxe','coche'],['ocell','pájaro'],['arbre','árbol'],['flor','flor'],['sol','sol'],['lluna','luna'],['pluja','lluvia'],['formatge','queso'],['cullera','cuchara'],['got','vaso'],['forquilla','tenedor'],['dilluns','lunes'],['dimarts','martes'],['dimecres','miércoles'],['dijous','jueves'],['divendres','viernes'],['dissabte','sábado'],['diumenge','domingo'],['roig','rojo'],['blau','azul'],['groc','amarillo'],['verd','verde'],['negre','negro'],['blanc','blanco'],['gran','grande'],['menut','pequeño'],['ràpid','rápido'],['lent','lento']];
+const V_ART=[['gos','el'],['taula','la'],['casa','la'],['llibre','el'],['finestra','la'],['cotxe','el'],['poma','la'],['sol','el'],['lluna','la'],['carrer','el']];
+const V_VERB=[['Jo ___ a l\'escola.','vaig','vas','va'],['Nosaltres ___ una poma.','mengem','menge','mengen'],['Ella ___ un llibre.','llig','lligs','lligen'],['Tu ___ molt bé.','cantes','cante','canta'],['Ells ___ al parc.','juguen','jugue','juga'],['Jo ___ Marta.','em dic','et dius','es diu']];
+const V_APOS=[['el arbre','l\'arbre'],['la escola','l\'escola'],['el ou','l\'ou'],['la illa','l\'illa'],['de aigua','d\'aigua'],['el home','l\'home']];
+const V_MES=[['gener',1],['febrer',2],['març',3],['abril',4],['maig',5],['juny',6],['juliol',7],['agost',8],['setembre',9],['octubre',10],['novembre',11],['desembre',12]];
+const V_READ=[{t:'La Marta viu a Alacant, prop de la mar. Cada estiu va a la platja amb els seus iaios i juga amb l\'arena. Li agrada molt menjar arròs a banda i gelat de xocolate.',qs:[['On viu la Marta?','A Alacant',['A València','A Castelló','A Madrid']],['Amb qui va a la platja?','Amb els iaios',['Amb els amics','Amb el gos','Sola']],['Què li agrada menjar?','Arròs a banda',['Paella','Fideuà','Pizza']]]},{t:'Les Falles se celebren a València al mes de març. Els fallers planten monuments de cartó al carrer i el dia 19 es cremen tots en la cremà. També hi ha mascletades cada dia a la plaça de l\'Ajuntament.',qs:[['Quan se celebren les Falles?','Al març',['A l\'agost','Al desembre','A l\'abril']],['Què passa la nit del 19?','La cremà',['La plantà','L\'ofrena','La despertà']],['On són les mascletades?','A la plaça de l\'Ajuntament',['A la platja','Al riu','A l\'escola']]]}];
+const VA_TOPICS={2:['Vocabulari','Els colors i els dies','Els números'],3:['Vocabulari','Els colors i els dies','L\'article','Els números'],4:['Vocabulari','L\'article','Verbs','Els mesos','Comprensió'],5:['Vocabulari','L\'apòstrof','Verbs','Els mesos','Comprensió'],6:['Vocabulari','L\'apòstrof','Verbs','Comprensió','Cultura valenciana'],7:['Vocabulari','L\'apòstrof','Verbs','Comprensió','Cultura valenciana']};
+const V_CULT=[['Quin és l\'himne de la Comunitat Valenciana?','Himne de l\'Exposició',['Els Segadors','Marcha Real','La Muixeranga']],['Quan és el Dia de la Comunitat Valenciana?','9 d\'octubre',['1 de maig','12 d\'octubre','19 de març']],['Quina festa és famosa a Alcoi?','Moros i Cristians',['Falles','Tomatina','Magdalena']],['On es fa la Tomatina?','A Bunyol',['A Xàtiva','A Gandia','A Elx']],['Quin instrument acompanya el tabalet?','La dolçaina',['La guitarra','El violí','El piano']],['Quin arbre és típic d\'Elx?','La palmera',['El pi','El roure','El faig']]];
+function genValencia(t,l){
+ switch(t){
+  case 'Vocabulari':{const v=pick(V_VOC);return R(0,1)?mc(`Com es diu "${v[1]}" en valencià?`,v[0],[v[0],...shuffle(V_VOC).slice(0,3).map(x=>x[0])],{tag:'Vocabulari'}):mc(`Què significa "${v[0]}"?`,v[1],[v[1],...shuffle(V_VOC).slice(0,3).map(x=>x[1])],{tag:'Vocabulari'})}
+  case 'Els colors i els dies':{const s=pick(V_VOC.slice(33));return mc(`Com es diu "${s[1]}"?`,s[0],[s[0],...shuffle(V_VOC.slice(33)).slice(0,3).map(x=>x[0])],{tag:'Colors i dies'})}
+  case 'Els números':{const n=R(1,20);return mc(`Com s\'escriu el número ${n}?`,num2va(n),[num2va(n),num2va(R(1,20)),num2va(R(1,20)),num2va(R(1,20))],{tag:'Números'})}
+  case 'L\'article':{const a=pick(V_ART);return mc(`Quin article porta "${a[0]}"?`,a[1],['el','la'],{tag:'Article'})}
+  case 'Verbs':{const v=pick(V_VERB);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Verbs'})}
+  case 'L\'apòstrof':{const a=pick(V_APOS);return mc(`Com s\'escriu correctament "${a[0]}"?`,a[1],[a[1],a[0],a[0].replace(' ','')],{tag:'Apòstrof'})}
+  case 'Els mesos':{const m=pick(V_MES);return mc(`Quin és el mes número ${m[1]}?`,m[0],[m[0],...shuffle(V_MES).slice(0,3).map(x=>x[0])],{tag:'Mesos'})}
+  case 'Comprensió':{const r=pick(V_READ),q=pick(r.qs);return mc(q[0],q[1],[q[1],...q[2]],{tag:'Comprensió',reading:r.t})}
+  case 'Cultura valenciana':{const c=pick(V_CULT);return mc(c[0],c[1],[c[1],...c[2]],{tag:'Cultura'})}
+ }return genValencia('Vocabulari',l)}
+/* ==================== ENGLISH ==================== */
+const E_VOC=[['dog','perro'],['cat','gato'],['house','casa'],['table','mesa'],['chair','silla'],['window','ventana'],['apple','manzana'],['orange','naranja'],['water','agua'],['milk','leche'],['bread','pan'],['egg','huevo'],['school','colegio'],['teacher','profesor'],['book','libro'],['boy','niño'],['girl','niña'],['brother','hermano'],['sister','hermana'],['mother','madre'],['father','padre'],['street','calle'],['car','coche'],['bird','pájaro'],['tree','árbol'],['flower','flor'],['sun','sol'],['moon','luna'],['rain','lluvia'],['cheese','queso'],['spoon','cuchara'],['glass','vaso'],['Monday','lunes'],['Tuesday','martes'],['Wednesday','miércoles'],['Thursday','jueves'],['Friday','viernes'],['Saturday','sábado'],['Sunday','domingo'],['big','grande'],['small','pequeño'],['fast','rápido'],['slow','lento'],['happy','contento'],['sad','triste'],['pencil','lápiz'],['bag','mochila'],['kitchen','cocina'],['bedroom','dormitorio'],['garden','jardín']];
+const E_TOBE=[['I ___ a student.','am','is','are'],['She ___ my friend.','is','am','are'],['They ___ happy.','are','is','am'],['We ___ in the park.','are','is','am'],['He ___ tall.','is','are','am'],['You ___ ten years old.','are','is','am']];
+const E_HAVE=[['I ___ got a dog.','have','has'],['She ___ got blue eyes.','has','have'],['They ___ got a car.','have','has'],['He ___ got a bike.','has','have']];
+const E_PRES=[['She ___ to school every day.','goes','go','going'],['I ___ football on Sundays.','play','plays','playing'],['They ___ TV at night.','watch','watches','watching'],['He ___ pizza.','likes','like','liking'],['We ___ English.','study','studies','studying']];
+const E_PAST=[['Yesterday I ___ to the beach.','went','go','goed'],['She ___ a cake last week.','made','make','maked'],['They ___ football on Saturday.','played','play','plaied'],['He ___ a book.','read','reads','readed'],['We ___ very happy.','were','was','are']];
+const E_PREP=[['The cat is ___ the table.','on','in','under'],['The ball is ___ the box.','in','on','at'],['I go to school ___ Monday.','on','in','at'],['My birthday is ___ May.','in','on','at'],['We eat ___ 2 o\'clock.','at','in','on']];
+const E_QUEST=[['___ is your name?','What','Where','When'],['___ do you live?','Where','What','Who'],['___ old are you?','How','What','Where'],['___ is your birthday?','When','Who','How'],['___ is that boy?','Who','What','When']];
+const E_READ=[{t:'My name is Tom. I am eight years old and I live in Valencia with my mum, my dad and my little sister Emma. I like playing football and I have got a brown dog called Max.',qs:[['How old is Tom?','Eight',['Seven','Nine','Ten']],['What is his sister\'s name?','Emma',['Anna','Max','Tom']],['What colour is Max?','Brown',['Black','White','Grey']]]},{t:'Every Saturday, Lucy goes to the market with her grandmother. They buy oranges, bread and cheese. Then they have breakfast in a café and Lucy drinks a big glass of orange juice.',qs:[['When does Lucy go to the market?','On Saturday',['On Monday','On Sunday','Every day']],['Who goes with her?','Her grandmother',['Her mother','Her friend','Her dog']],['What does Lucy drink?','Orange juice',['Milk','Water','Tea']]]}];
+const EN_TOPICS={2:['Vocabulary','Colours and numbers','Days of the week'],3:['Vocabulary','Colours and numbers','Verb to be','Days of the week'],4:['Vocabulary','Verb to be','Have got','Present simple','Reading'],5:['Vocabulary','Have got','Present simple','Prepositions','Reading'],6:['Vocabulary','Present simple','Past simple','Prepositions','Question words','Reading'],7:['Vocabulary','Past simple','Prepositions','Question words','Reading']};
+function genIngles(t,l){
+ switch(t){
+  case 'Vocabulary':{const v=pick(E_VOC);return R(0,1)?mc(`How do you say "${v[1]}" in English?`,v[0],[v[0],...shuffle(E_VOC).slice(0,3).map(x=>x[0])],{tag:'Vocabulary'}):mc(`What does "${v[0]}" mean?`,v[1],[v[1],...shuffle(E_VOC).slice(0,3).map(x=>x[1])],{tag:'Vocabulary'})}
+  case 'Colours and numbers':{if(R(0,1)){const C=[['🔴','red'],['🔵','blue'],['🟢','green'],['🟡','yellow'],['🟠','orange'],['🟣','purple'],['⚫','black'],['⚪','white'],['🟤','brown'],['🩷','pink']];const c=pick(C);return mc('What colour is it?',c[1],C.map(x=>x[1]),{visual:c[0],tag:'Colours'})}const n=R(1,20);return mc(`How do you write ${n}?`,num2en(n),[num2en(n),num2en(R(1,20)),num2en(R(1,20)),num2en(R(1,20))],{tag:'Numbers'})}
+  case 'Days of the week':{const D=E_VOC.slice(32,39);const d=pick(D);return mc(`"${d[1]}" in English is…`,d[0],D.map(x=>x[0]),{tag:'Days'})}
+  case 'Verb to be':{const v=pick(E_TOBE);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'To be'})}
+  case 'Have got':{const v=pick(E_HAVE);return mc(v[0],v[1],[v[1],v[2]],{tag:'Have got'})}
+  case 'Present simple':{const v=pick(E_PRES);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Present simple'})}
+  case 'Past simple':{const v=pick(E_PAST);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Past simple'})}
+  case 'Prepositions':{const v=pick(E_PREP);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Prepositions'})}
+  case 'Question words':{const v=pick(E_QUEST);return mc(v[0],v[1],[v[1],v[2],v[3]],{tag:'Questions'})}
+  case 'Reading':{const r=pick(E_READ),q=pick(r.qs);return mc(q[0],q[1],[q[1],...q[2]],{tag:'Reading',reading:r.t})}
+ }return genIngles('Vocabulary',l)}
+/* ==================== BANCOS DE PREGUNTAS (Naturales, Sociales, Artística, EF, Valores) ==================== */
+/* Formato: [pregunta, respuesta, [distractores], nivelMín, tema] */
+const NAT=[
+ ['¿Cuál de estos es un ser vivo?','árbol',['piedra','nube','coche'],2,'Seres vivos'],['¿Qué necesitan las plantas para vivir?','agua, luz y aire',['solo agua','chocolate','frío'],2,'Plantas'],['¿Qué parte de la planta está bajo tierra?','la raíz',['la hoja','la flor','el fruto'],2,'Plantas'],['¿Cuántas patas tiene un insecto?','6',['4','8','10'],2,'Animales'],['¿Qué animal es un mamífero?','ballena',['tiburón','rana','gallina'],3,'Animales'],['¿Qué animal es ovíparo (nace de huevo)?','tortuga',['perro','vaca','gato'],2,'Animales'],['¿Qué animal es herbívoro?','conejo',['león','águila','lobo'],2,'Animales'],['¿Con qué órgano respiramos?','los pulmones',['el estómago','el corazón','el hígado'],2,'Cuerpo humano'],['¿Qué órgano bombea la sangre?','el corazón',['el cerebro','el riñón','el pulmón'],3,'Cuerpo humano'],['¿Cuántos huesos tiene el cuerpo humano adulto?','206',['100','300','52'],5,'Cuerpo humano'],['¿Cuál es el hueso más largo del cuerpo?','el fémur',['la tibia','el húmero','el cráneo'],5,'Cuerpo humano'],['¿En qué estado está el hielo?','sólido',['líquido','gaseoso','plasma'],3,'Materia'],['¿En qué se convierte el agua al hervir?','vapor (gas)',['hielo','arena','aceite'],3,'Materia'],['¿A qué temperatura hierve el agua?','100 °C',['0 °C','50 °C','200 °C'],4,'Materia'],['¿A qué temperatura se congela el agua?','0 °C',['100 °C','10 °C','-50 °C'],4,'Materia'],['El Sol es…','una estrella',['un planeta','un satélite','un cometa'],3,'Universo'],['La Luna es…','un satélite',['una estrella','un planeta','un cometa'],3,'Universo'],['¿Cuántos planetas tiene el Sistema Solar?','8',['9','7','10'],4,'Universo'],['¿Cuál es el planeta más grande?','Júpiter',['Marte','Tierra','Saturno'],4,'Universo'],['¿Qué planeta se llama el planeta rojo?','Marte',['Venus','Júpiter','Neptuno'],4,'Universo'],['¿Cuánto tarda la Tierra en dar una vuelta al Sol?','un año',['un día','un mes','una semana'],4,'Universo'],['¿Qué gas necesitamos para respirar?','oxígeno',['dióxido de carbono','helio','nitrógeno'],4,'Cuerpo humano'],['¿Qué gas absorben las plantas?','dióxido de carbono',['oxígeno','helio','hidrógeno'],4,'Plantas'],['La fotosíntesis la hacen…','las plantas',['los animales','las rocas','los hongos'],4,'Plantas'],['¿Cuál es una fuente de energía renovable?','el sol',['el petróleo','el carbón','el gas'],4,'Energía'],['¿Cuál es una fuente de energía NO renovable?','el petróleo',['el viento','el sol','el agua'],5,'Energía'],['¿Qué material es buen conductor de la electricidad?','el cobre',['la madera','el plástico','el vidrio'],5,'Energía'],['¿Cuál es el sentido del gusto?','la lengua',['la nariz','los ojos','la piel'],2,'Cuerpo humano'],['El órgano del tacto es…','la piel',['la lengua','el oído','el ojo'],2,'Cuerpo humano'],['¿Qué animal es un anfibio?','rana',['serpiente','pez','murciélago'],3,'Animales'],['¿Qué animal es un reptil?','lagartija',['rana','delfín','gorrión'],3,'Animales'],['Los seres vivos nacen, crecen, se reproducen y…','mueren',['vuelan','cantan','brillan'],2,'Seres vivos'],['¿Qué parte de la planta hace la fotosíntesis?','las hojas',['la raíz','el fruto','el tallo'],4,'Plantas'],['¿Cómo se llama el proceso digestivo que ocurre en la boca?','masticación',['respiración','circulación','excreción'],4,'Cuerpo humano'],['La sangre se filtra en…','los riñones',['los pulmones','el corazón','el hígado'],5,'Cuerpo humano'],['¿Cuál es la unidad básica de los seres vivos?','la célula',['el átomo','el órgano','el hueso'],5,'Seres vivos'],['Los seres vivos formados por una sola célula se llaman…','unicelulares',['pluricelulares','vertebrados','minerales'],6,'Seres vivos'],['¿Qué reino incluye a las setas?','hongos',['plantas','animales','bacterias'],5,'Seres vivos'],['La fuerza que atrae los objetos hacia la Tierra es…','la gravedad',['el magnetismo','la electricidad','la fricción'],5,'Física'],['¿Qué instrumento mide la temperatura?','termómetro',['barómetro','pluviómetro','brújula'],3,'Materia'],['La energía del movimiento se llama…','cinética',['potencial','térmica','química'],6,'Energía'],['¿Cuál es el metal líquido a temperatura ambiente?','mercurio',['hierro','oro','plata'],6,'Materia'],['La velocidad de la luz es aproximadamente…','300.000 km/s',['300 km/s','3.000 km/h','30 km/s'],7,'Física'],['¿Qué tipo de animal es el delfín?','mamífero',['pez','anfibio','reptil'],4,'Animales'],['El aparato que transporta la sangre es el…','circulatorio',['digestivo','respiratorio','locomotor'],4,'Cuerpo humano'],['¿Qué produce el ecosistema con la cadena alimentaria? Los herbívoros comen…','plantas',['carne','piedras','otros animales'],4,'Ecosistemas'],['En una cadena alimentaria, el león es un…','depredador (consumidor)',['productor','descomponedor','planta'],5,'Ecosistemas'],['Los hongos y bacterias que descomponen restos son…','descomponedores',['productores','consumidores','depredadores'],6,'Ecosistemas'],['La mezcla de agua y sal es…','una disolución',['un elemento','una mezcla heterogénea','un compuesto puro'],6,'Materia'],['El agua está formada por…','hidrógeno y oxígeno',['carbono y oxígeno','solo oxígeno','nitrógeno e hidrógeno'],6,'Materia'],['¿Qué parte de la flor produce las semillas?','el fruto',['la raíz','el tallo','la hoja'],4,'Plantas'],
+['¿Cómo se llama el conjunto de todas las plantas de un lugar?','flora',['fauna','clima','relieve'],4,'Ecosistemas'],
+['¿Cómo se llama el conjunto de todos los animales de un lugar?','fauna',['flora','clima','relieve'],4,'Ecosistemas'],
+['Un ecosistema está formado por seres vivos y…','el medio en el que viven',['solo piedras','solo agua','nada más'],4,'Ecosistemas'],
+['¿Qué animales comen solo plantas?','herbívoros',['carnívoros','omnívoros','productores'],3,'Animales'],
+['¿Qué animales comen solo carne?','carnívoros',['herbívoros','omnívoros','productores'],3,'Animales'],
+['¿Qué animales comen de todo, plantas y carne?','omnívoros',['herbívoros','carnívoros','productores'],4,'Animales'],
+['¿Cuál es el animal terrestre más grande?','el elefante',['el león','el tigre','el lobo'],3,'Animales'],
+['¿Cuál es el animal más rápido del mundo?','el guepardo',['el elefante','la tortuga','el caracol'],4,'Animales'],
+['¿Cuál es el mamífero más grande del mundo?','la ballena azul',['el elefante','el tiburón','el hipopótamo'],4,'Animales'],
+['Los animales que viven en el agua y en la tierra son…','anfibios',['reptiles','mamíferos','aves'],3,'Animales'],
+['¿Qué tienen las aves que no tienen los mamíferos?','plumas',['pelo','escamas','branquias'],2,'Animales'],
+['¿Con qué respiran los peces?','branquias',['pulmones','piel','nariz'],3,'Animales'],
+['El esqueleto de nuestro cuerpo sirve para…','sostenernos y protegernos',['pensar','digerir','ver'],3,'Cuerpo humano'],
+['¿Cuántos sentidos tenemos?','5',['3','4','6'],2,'Cuerpo humano'],
+['El cerebro forma parte del sistema…','nervioso',['digestivo','óseo','circulatorio'],4,'Cuerpo humano'],
+['¿Qué aparato se encarga de la respiración?','el aparato respiratorio',['el digestivo','el circulatorio','el excretor'],4,'Cuerpo humano'],
+['¿Qué aparato se encarga de digerir los alimentos?','el aparato digestivo',['el respiratorio','el circulatorio','el nervioso'],4,'Cuerpo humano'],
+['El estómago forma parte del aparato…','digestivo',['respiratorio','circulatorio','nervioso'],4,'Cuerpo humano'],
+['¿Cuántos dientes tiene un adulto aproximadamente?','32',['20','12','50'],5,'Cuerpo humano'],
+['El músculo más grande del cuerpo es el…','glúteo',['bíceps','tríceps','gemelo'],6,'Cuerpo humano'],
+['¿Cuál es el órgano más grande del cuerpo humano?','la piel',['el corazón','el hígado','el cerebro'],5,'Cuerpo humano'],
+['¿En qué se transforma el agua al enfriarse mucho?','en hielo (sólido)',['en vapor','en gas','en aceite'],3,'Materia'],
+['¿Qué materiales flotan en el agua?','la madera y el corcho',['el hierro','la piedra','el plomo'],3,'Materia'],
+['¿Qué materiales se hunden en el agua?','el hierro y la piedra',['la madera','el corcho','el papel'],3,'Materia'],
+['¿Qué instrumento se usa para pesar?','la balanza',['el termómetro','la regla','el reloj'],3,'Materia'],
+['¿Qué instrumento se usa para medir longitudes?','la regla o cinta métrica',['el termómetro','la balanza','el reloj'],3,'Materia'],
+['Un imán atrae objetos de…','hierro',['madera','plástico','papel'],3,'Materia'],
+['El plástico es un material…','artificial',['natural','líquido','vivo'],4,'Materia'],
+['La madera es un material…','natural',['artificial','líquido','gaseoso'],3,'Materia'],
+['Una mezcla de dos líquidos que no se juntan (como agua y aceite) es…','heterogénea',['homogénea','sólida','pura'],6,'Materia'],
+['El Sol se encuentra en el centro de…','el Sistema Solar',['la Vía Láctea','la Luna','la Tierra'],3,'Universo'],
+['¿Cuál es el planeta más cercano al Sol?','Mercurio',['Venus','Marte','la Tierra'],5,'Universo'],
+['¿Cuál es el planeta más lejano del Sol?','Neptuno',['Plutón','Urano','Saturno'],6,'Universo'],
+['¿Qué planeta tiene anillos muy visibles?','Saturno',['Marte','Venus','Mercurio'],4,'Universo'],
+['¿Cómo se llama nuestra galaxia?','Vía Láctea',['Andrómeda','Sistema Solar','Nebulosa'],6,'Universo'],
+['La Luna tarda en dar la vuelta a la Tierra aproximadamente…','un mes',['un día','un año','una semana'],5,'Universo'],
+['¿Qué es un cometa?','una bola de hielo y polvo que viaja por el espacio',['un planeta','una estrella','un satélite'],5,'Universo'],
+['¿Qué son las estrellas fugaces?','trozos de roca que se queman al entrar en la atmósfera',['satélites','planetas','lunas'],5,'Universo'],
+['La energía que produce el Sol se llama…','energía solar',['energía eólica','energía hidráulica','energía nuclear'],4,'Energía'],
+['La energía que produce el viento se llama…','energía eólica',['energía solar','energía nuclear','energía geotérmica'],4,'Energía'],
+['La energía que produce el agua en movimiento se llama…','energía hidráulica',['energía eólica','energía solar','energía nuclear'],5,'Energía'],
+['Apagar la luz al salir de una habitación sirve para…','ahorrar energía',['gastar más','nada','estropear la bombilla'],3,'Energía'],
+['¿Qué gas producen las plantas durante el día que respiramos?','oxígeno',['dióxido de carbono','nitrógeno','helio'],4,'Plantas'],
+['Las plantas que pierden las hojas en otoño se llaman…','de hoja caduca',['de hoja perenne','carnívoras','acuáticas'],5,'Plantas'],
+['Las plantas que mantienen sus hojas todo el año se llaman…','de hoja perenne',['de hoja caduca','carnívoras','acuáticas'],5,'Plantas'],
+['El tallo de la planta sirve para…','sostenerla y transportar la savia',['hacer la fotosíntesis','absorber agua','producir semillas'],3,'Plantas'],
+['¿De qué parte de la flor sale el fruto?','del ovario',['del pétalo','de la hoja','de la raíz'],6,'Plantas'],
+['Los animales que nacen del vientre de la madre son…','vivíparos',['ovíparos','anfibios','invertebrados'],3,'Seres vivos'],
+['Los animales sin columna vertebral se llaman…','invertebrados',['vertebrados','mamíferos','peces'],4,'Seres vivos'],
+['Los animales con columna vertebral se llaman…','vertebrados',['invertebrados','insectos','moluscos'],4,'Seres vivos'],
+['El caracol es un animal…','invertebrado',['vertebrado','mamífero','ave'],4,'Seres vivos'],
+['La araña tiene…','8 patas',['6 patas','4 patas','10 patas'],3,'Animales'],
+['¿Qué animal cambia de piel al crecer (la muda)?','la serpiente',['el perro','el gato','la vaca'],4,'Animales'],
+['¿Qué proceso transforma la oruga en mariposa?','la metamorfosis',['la fotosíntesis','la digestión','la respiración'],4,'Animales'],
+['La unidad de medida de la fuerza es el…','newton',['vatio','julio','amperio'],7,'Física'],
+['La unidad de medida de la temperatura más usada es el…','grado Celsius',['metro','kilo','litro'],4,'Materia'],
+['El sonido viaja más rápido en…','el agua que en el aire',['el aire que en el agua','el vacío','ninguno'],7,'Física'],
+['La luz viaja en línea…','recta',['curva','ondulada','circular'],5,'Física'],
+['Cuando algo se cae al suelo, lo hace por…','la gravedad',['el viento','el calor','el sonido'],5,'Física'],];
+const SOC=[
+ ['¿En qué comunidad autónoma está Alicante?','Comunitat Valenciana',['Cataluña','Murcia','Andalucía'],2,'Comunitat Valenciana'],['¿Cuántas provincias tiene la Comunitat Valenciana?','3',['2','4','5'],3,'Comunitat Valenciana'],['¿Cuál es la capital de la Comunitat Valenciana?','València',['Alicante','Castellón','Elche'],3,'Comunitat Valenciana'],['¿Cuál NO es provincia valenciana?','Murcia',['Alicante','Castellón','Valencia'],3,'Comunitat Valenciana'],['¿Qué mar baña la Comunitat Valenciana?','Mediterráneo',['Cantábrico','Atlántico','Mar Menor'],2,'Comunitat Valenciana'],['¿Cuál es la capital de España?','Madrid',['Barcelona','Sevilla','Valencia'],2,'España'],['¿Cuántas comunidades autónomas tiene España?','17',['15','20','12'],5,'España'],['¿Qué río pasa por la ciudad de València?','Turia',['Ebro','Segura','Júcar'],4,'Comunitat Valenciana'],['¿Cuál es el río más largo de España?','Tajo',['Ebro','Duero','Guadalquivir'],5,'España'],['¿En qué continente está España?','Europa',['Asia','África','América'],2,'Geografía'],['¿Cuántos continentes hay?','6 (o 7 según el modelo)',['3','10','4'],4,'Geografía'],['¿Cuál es el océano más grande?','Pacífico',['Atlántico','Índico','Ártico'],5,'Geografía'],['¿Qué punto cardinal señala la brújula?','norte',['sur','este','oeste'],3,'Geografía'],['El Sol sale por el…','este',['oeste','norte','sur'],3,'Geografía'],['¿Cuántos días tiene una semana?','7',['5','10','30'],2,'El tiempo'],['¿Cuántos meses tiene un año?','12',['10','7','24'],2,'El tiempo'],['¿Cuántos días tiene un año?','365',['300','12','52'],3,'El tiempo'],['¿Qué estación viene después del invierno?','primavera',['verano','otoño','navidad'],2,'El tiempo'],['¿Cuántos años tiene un siglo?','100',['10','50','1000'],4,'El tiempo'],['¿Cuántos años tiene una década?','10',['100','5','20'],4,'El tiempo'],['¿Cómo se llama el dibujo de un lugar visto desde arriba?','plano o mapa',['fotografía','retrato','paisaje'],3,'Geografía'],['El pico más alto de la Comunitat Valenciana es…','Penyagolosa (Calderón es más alto, ambos en Castellón)',['Aitana','Montgó','Teide'],6,'Comunitat Valenciana'],['La montaña más alta de España es…','Teide',['Aneto','Mulhacén','Moncayo'],5,'España'],['¿Qué fiesta valenciana declaró la UNESCO Patrimonio de la Humanidad en 2016?','Las Fallas',['La Tomatina','Moros y Cristianos','Hogueras'],5,'Cultura'],['¿Qué se cultiva mucho en la huerta valenciana?','naranjas',['plátanos','café','cacao'],2,'Economía'],['¿Cómo se llama el gobierno de la Comunitat Valenciana?','Generalitat Valenciana',['Junta','Cabildo','Diputación'],5,'Instituciones'],['¿Quién gobierna un municipio?','el alcalde o alcaldesa',['el rey','el presidente','el juez'],3,'Instituciones'],['El sector primario se dedica a…','agricultura, ganadería y pesca',['fábricas','comercio','turismo'],5,'Economía'],['El sector secundario se dedica a…','la industria',['la pesca','el turismo','la agricultura'],5,'Economía'],['El sector terciario incluye…','servicios como comercio y turismo',['minas','fábricas','ganadería'],5,'Economía'],['La Prehistoria termina con…','la invención de la escritura',['la rueda','el fuego','Roma'],5,'Historia'],['¿Quiénes construyeron el Teatro de Sagunto?','los romanos',['los griegos','los árabes','los visigodos'],5,'Historia'],['¿En qué año llegó Colón a América?','1492',['1592','1392','1812'],5,'Historia'],['La Reconquista de València por Jaume I fue en…','1238',['1492','1808','1000'],6,'Historia'],['¿Qué edad histórica viene después de la Edad Media?','Edad Moderna',['Edad Antigua','Edad Contemporánea','Prehistoria'],6,'Historia'],['La Revolución Industrial empezó en…','Inglaterra',['España','China','Egipto'],6,'Historia'],['¿Qué forma de gobierno tiene España?','monarquía parlamentaria',['república','dictadura','imperio'],6,'Instituciones'],['La Constitución española es de…','1978',['1898','1936','2004'],6,'Instituciones'],['La Unión Europea usa la moneda…','euro',['dólar','peseta','libra'],4,'Europa'],['¿Cuál es la capital de Francia?','París',['Roma','Berlín','Lisboa'],4,'Europa'],['¿Cuál es la capital de Portugal?','Lisboa',['Madrid','Oporto','París'],4,'Europa'],['¿Cuál es la capital de Italia?','Roma',['Milán','Atenas','Viena'],4,'Europa'],['La línea imaginaria que divide la Tierra en dos hemisferios es…','el ecuador',['el meridiano de Greenwich','el trópico','el polo'],5,'Geografía'],['El movimiento de la Tierra sobre sí misma se llama…','rotación',['traslación','gravitación','estación'],5,'Geografía'],['El movimiento de la Tierra alrededor del Sol se llama…','traslación',['rotación','oscilación','revolución diaria'],5,'Geografía'],['El clima de la Comunitat Valenciana es…','mediterráneo',['polar','tropical','desértico'],4,'Comunitat Valenciana'],['El puerto más importante de la Comunitat es el de…','València',['Dénia','Vinaròs','Torrevieja'],5,'Economía'],['La Albufera es…','un lago junto a València',['una montaña','un río','una isla'],4,'Comunitat Valenciana'],['¿Qué isla pertenece a Alicante?','Tabarca',['Ibiza','Menorca','La Palma'],5,'Comunitat Valenciana'],['El Palmeral de Elche es Patrimonio de la Humanidad. ¿En qué provincia está?','Alicante',['Valencia','Castellón','Murcia'],5,'Comunitat Valenciana'],['¿Qué fiesta se celebra el 19 de marzo en muchos pueblos valencianos?','San José (las Fallas)',['San Juan','Navidad','Semana Santa'],3,'Cultura'],
+['¿Qué se celebra en Semana Santa en localidades como Orihuela o Crevillent?','procesiones religiosas',['las Fallas','la Tomatina','los Moros y Cristianos'],4,'Cultura'],
+['¿Qué plato típico valenciano lleva arroz, pollo y verduras?','la paella',['la fideuà','el gazpacho','la tortilla'],3,'Cultura'],
+['¿Qué instrumento típico valenciano suena en las fiestas junto al tabalet?','la dolçaina',['la guitarra','el violín','el piano'],4,'Cultura'],
+['¿Cómo se llama la fiesta de moros y cristianos más famosa de la Comunitat?','la de Alcoi',['la de Alicante','la de Castellón','la de Valencia'],5,'Cultura'],
+['¿En qué provincia se encuentra el Misteri d\'Elx (Patrimonio de la Humanidad)?','Alicante',['Valencia','Castellón','Murcia'],5,'Cultura'],
+['El Tribunal de las Aguas de Valencia decide sobre…','el reparto del agua de riego',['las fiestas','el fútbol','la educación'],6,'Cultura'],
+['¿Qué es un municipio?','un territorio gobernado por un ayuntamiento',['un país','un continente','un océano'],3,'Instituciones'],
+['El edificio donde trabaja el alcalde se llama…','ayuntamiento',['colegio','hospital','iglesia'],2,'Instituciones'],
+['¿Quién representa a España en el extranjero como Jefe del Estado?','el Rey',['el alcalde','el presidente de la comunidad','el maestro'],5,'Instituciones'],
+['El Parlamento de la Comunitat Valenciana se llama…','Corts Valencianes',['Congreso','Senado','Ayuntamiento'],6,'Instituciones'],
+['¿Quién elabora las leyes de un país democrático?','el Parlamento',['el rey','los jueces','los maestros'],5,'Instituciones'],
+['¿Qué documento recoge los derechos y deberes de los españoles?','la Constitución',['el diccionario','el mapa','el calendario'],5,'Instituciones'],
+['El río más largo de la Comunitat Valenciana es el…','Xúquer (Júcar)',['Turia','Segura','Vinalopó'],5,'Comunitat Valenciana'],
+['¿Qué cordillera atraviesa el interior de la provincia de Valencia?','el Sistema Ibérico',['los Pirineos','Sierra Nevada','los Alpes'],6,'Comunitat Valenciana'],
+['El Parque Natural de la Albufera está cerca de…','la ciudad de València',['Alicante','Castellón','Murcia'],4,'Comunitat Valenciana'],
+['¿Cuál es el pico más alto de la provincia de Castellón?','el Peñagolosa',['el Aitana','el Montgó','el Teide'],5,'Comunitat Valenciana'],
+['¿Qué mar bañan las costas de Alicante, Valencia y Castellón?','el mar Mediterráneo',['el Cantábrico','el Atlántico','el mar del Norte'],2,'Comunitat Valenciana'],
+['La huerta valenciana es famosa por cultivar…','naranjas y hortalizas',['plátanos','café','arroz de secano'],3,'Comunitat Valenciana'],
+['¿Qué industria es típica de la provincia de Castellón?','los azulejos y la cerámica',['los coches','el turrón','el vino'],4,'Comunitat Valenciana'],
+['¿Qué dulce navideño es típico de Xixona (Alicante)?','el turrón',['el mazapán','el roscón','los polvorones'],4,'Comunitat Valenciana'],
+['¿Qué producto agrícola dio fama internacional a la huerta valenciana?','la naranja',['el plátano','la piña','el mango'],3,'Comunitat Valenciana'],
+['Un mapa muestra la Tierra…','de forma reducida y desde arriba',['a tamaño real','desde un satélite en directo','en tres dimensiones'],3,'Geografía'],
+['¿Qué son los puntos cardinales?','norte, sur, este y oeste',['los meses del año','los colores del mapa','las estaciones'],3,'Geografía'],
+['Una isla es una porción de tierra rodeada de…','agua por todas partes',['montañas','desierto','bosque'],3,'Geografía'],
+['Una península es una porción de tierra rodeada de agua…','por casi todas partes menos por un lado',['por completo','por ningún lado','solo por el norte'],4,'Geografía'],
+['¿Qué es un golfo?','una entrada del mar en la costa',['una montaña','un río','un desierto'],5,'Geografía'],
+['La zona más alta de una montaña se llama…','cumbre o cima',['ladera','valle','base'],3,'Geografía'],
+['El terreno llano entre montañas se llama…','valle',['cumbre','ladera','meseta'],3,'Geografía'],
+['¿Qué instrumento indica hacia dónde sopla el viento?','la veleta',['el termómetro','el barómetro','el pluviómetro'],4,'El tiempo'],
+['¿Qué instrumento mide la cantidad de lluvia?','el pluviómetro',['el termómetro','la veleta','la brújula'],5,'El tiempo'],
+['La capa de aire que rodea la Tierra se llama…','atmósfera',['estratosfera solar','ionosfera','magnetosfera'],5,'Geografía'],
+['¿Qué estación es la más calurosa del año?','el verano',['el invierno','el otoño','la primavera'],2,'El tiempo'],
+['¿Qué estación es la más fría del año?','el invierno',['el verano','el otoño','la primavera'],2,'El tiempo'],
+['En primavera, los árboles…','florecen',['pierden las hojas','se congelan','desaparecen'],2,'El tiempo'],
+['En otoño, muchos árboles…','pierden las hojas',['florecen','crecen mucho','se congelan'],2,'El tiempo'],
+['El primer día de la semana según el calendario escolar suele ser…','el lunes',['el domingo','el sábado','el viernes'],2,'El tiempo'],
+['¿Qué son los Reyes Magos? Se celebran el…','5 y 6 de enero',['24 de diciembre','1 de mayo','31 de octubre'],2,'Cultura'],
+['La agricultura, la ganadería y la pesca forman parte del sector…','primario',['secundario','terciario','cuaternario'],5,'Economía'],
+['Las fábricas que transforman materias primas en productos forman el sector…','secundario',['primario','terciario','ninguno'],5,'Economía'],
+['El comercio, la sanidad y la educación forman parte del sector…','terciario',['primario','secundario','ninguno'],5,'Economía'],
+['El dinero que gana una persona por su trabajo se llama…','salario o sueldo',['impuesto','multa','ahorro'],4,'Economía'],
+['Guardar parte del dinero para el futuro se llama…','ahorrar',['gastar','regalar','perder'],2,'Economía'],
+['La Prehistoria se divide en Edad de Piedra y Edad de…','los Metales',['Hierro solo','Bronce solo','Cristal'],5,'Historia'],
+['Los primeros pobladores de la Península Ibérica vivían de…','la caza y la recolección',['la industria','internet','el comercio online'],5,'Historia'],
+['Los romanos construyeron en Sagunto un famoso…','teatro',['aeropuerto','metro','rascacielos'],5,'Historia'],
+['Los musulmanes gobernaron gran parte de España durante…','la Edad Media',['la Prehistoria','la Edad Contemporánea','el siglo XX'],6,'Historia'],
+['El rey que reconquistó València en 1238 fue…','Jaume I',['Fernando el Católico','Carlos III','Felipe II'],6,'Historia'],
+['¿Qué descubrimiento cambió la forma de viajar en el siglo XIX?','el tren',['el avión','el coche eléctrico','internet'],6,'Historia'],
+['¿Qué capital europea tiene el Coliseo?','Roma',['Atenas','París','Berlín'],4,'Europa'],
+['¿Qué capital europea tiene la Torre Eiffel?','París',['Roma','Londres','Berlín'],4,'Europa'],
+['¿Qué capital europea tiene el Big Ben?','Londres',['París','Roma','Madrid'],4,'Europa'],
+['¿Cuántos países forman actualmente la Unión Europea?','27',['15','50','10'],6,'Europa'],];
+const ART=[
+ ['¿Cuáles son los colores primarios?','rojo, azul y amarillo',['verde, naranja y morado','blanco, negro y gris','rosa, azul y verde'],2,'Color'],['Rojo + amarillo = …','naranja',['verde','morado','marrón'],2,'Color'],['Azul + amarillo = …','verde',['naranja','morado','gris'],2,'Color'],['Rojo + azul = …','morado',['verde','naranja','rosa'],2,'Color'],['Los colores cálidos son…','rojo, naranja y amarillo',['azul, verde y morado','blanco y negro','gris y marrón'],3,'Color'],['Los colores fríos son…','azul, verde y morado',['rojo, naranja y amarillo','marrón y beige','rosa y rojo'],3,'Color'],['¿Cuántas líneas tiene un pentagrama?','5',['4','6','7'],3,'Música'],['¿Qué figura musical dura 4 tiempos?','redonda',['blanca','negra','corchea'],4,'Música'],['¿Qué figura musical dura 2 tiempos?','blanca',['redonda','negra','corchea'],4,'Música'],['¿Qué figura musical dura 1 tiempo?','negra',['redonda','blanca','corchea'],4,'Música'],['¿Cuántas notas musicales hay?','7',['5','8','12'],3,'Música'],['La primera nota musical es…','do',['re','sol','la'],3,'Música'],['La flauta es un instrumento de…','viento',['cuerda','percusión','teclado'],3,'Música'],['La guitarra es un instrumento de…','cuerda',['viento','percusión','madera'],3,'Música'],['El tambor es un instrumento de…','percusión',['viento','cuerda','teclado'],3,'Música'],['La dolçaina valenciana es un instrumento de…','viento',['cuerda','percusión','teclado'],4,'Música'],['¿Quién pintó "La Gioconda"?','Leonardo da Vinci',['Picasso','Sorolla','Velázquez'],5,'Arte'],['¿Quién pintó "Las Meninas"?','Velázquez',['Goya','Dalí','Miró'],5,'Arte'],['El pintor valenciano famoso por sus playas y su luz es…','Joaquín Sorolla',['Pablo Picasso','Salvador Dalí','Francisco de Goya'],4,'Arte'],['¿Qué pintor pintó "El Guernica"?','Picasso',['Miró','Dalí','Sorolla'],5,'Arte'],['Una obra en la que el artista se pinta a sí mismo es un…','autorretrato',['paisaje','bodegón','mural'],4,'Arte'],['Un cuadro de frutas y objetos sobre una mesa es un…','bodegón',['retrato','paisaje','abstracto'],4,'Arte'],['El músico que dirige una orquesta es el…','director',['solista','compositor','coro'],4,'Música'],['¿Qué signo indica que hay silencio en la música?','silencio (figura de pausa)',['clave de sol','sostenido','ligadura'],5,'Música'],['La clave que se escribe al principio del pentagrama es…','clave de sol',['clave de luna','clave de do mayor','clave de agua'],4,'Música'],['El teatro donde se representa la ópera valenciana es…','Palau de les Arts',['Teatro Real','La Scala','Palau Sant Jordi'],6,'Arte'],['La técnica de pintar con agua y pigmentos se llama…','acuarela',['óleo','carboncillo','collage'],4,'Técnicas'],['Pegar recortes de papel para hacer una obra es…','collage',['grabado','escultura','fresco'],3,'Técnicas'],['La escultura de una persona a tamaño completo se llama…','estatua',['bodegón','busto','fresco'],4,'Arte'],['El compositor de "Las cuatro estaciones" es…','Vivaldi',['Mozart','Beethoven','Bach'],6,'Música'],['Blanco + negro = …','gris',['marrón','rosa','morado'],3,'Mezclas'],
+['El color que se obtiene al mezclar todos los colores de pintura es…','marrón oscuro/negro',['blanco','amarillo','transparente'],4,'Mezclas'],
+['Los colores complementarios del rojo son…','el verde',['el azul','el amarillo','el morado'],5,'Color'],
+['¿Cómo se llama un color mezclado con blanco (más claro)?','tono pastel o claro',['tono oscuro','color puro','color frío'],4,'Color'],
+['¿Qué instrumento tiene teclas blancas y negras?','el piano',['la guitarra','el tambor','la flauta'],3,'Música'],
+['¿Qué instrumento se toca soplando y tiene un teclado de agujeros?','la flauta',['el piano','el tambor','el violín'],3,'Música'],
+['¿Qué instrumento tiene cuerdas y se toca con un arco?','el violín',['la guitarra','el piano','el tambor'],4,'Música'],
+['¿Qué familia de instrumentos incluye el violín y el violonchelo?','cuerda',['viento','percusión','teclado'],4,'Música'],
+['¿Qué familia de instrumentos incluye la trompeta y el trombón?','viento metal',['cuerda','percusión','teclado'],5,'Música'],
+['¿Qué familia de instrumentos incluye el tambor y los platillos?','percusión',['cuerda','viento','teclado'],3,'Música'],
+['El pentagrama sirve para…','escribir la música',['dibujar','escribir cuentos','hacer cuentas'],4,'Música'],
+['Cantar varias personas juntas de forma organizada se llama…','coro',['solo','banda','orquesta'],3,'Música'],
+['El volumen de la música puede ser fuerte o…','suave (piano)',['rápido','lento','agudo'],3,'Música'],
+['La velocidad de una canción se llama…','tempo (ritmo)',['tono','timbre','volumen'],5,'Música'],
+['El sonido de un instrumento que lo distingue de otro se llama…','timbre',['tempo','tono','compás'],6,'Música'],
+['¿Qué obra pintó Sorolla llena de niños jugando en la playa?','"Niños en la playa"',['"Las Meninas"','"El Guernica"','"La Gioconda"'],5,'Arte'],
+['¿A qué corriente artística pertenece Salvador Dalí?','surrealismo',['impresionismo','cubismo','realismo'],6,'Arte'],
+['¿A qué corriente artística pertenece Picasso con "El Guernica"?','cubismo',['surrealismo','impresionismo','barroco'],6,'Arte'],
+['Un dibujo hecho solo con líneas, sin colorear, es un…','boceto o esbozo',['mural','collage','fresco'],4,'Técnicas'],
+['Pintar directamente sobre una pared se llama…','mural',['acuarela','collage','grabado'],4,'Técnicas'],
+['La técnica de esculpir madera o piedra quitando material se llama…','tallado',['modelado','collage','acuarela'],5,'Técnicas'],
+['Modelar con arcilla o plastilina es una técnica de…','escultura',['pintura','música','danza'],3,'Técnicas'],
+['Una obra de teatro necesita actores y también un…','guion',['balón','microscopio','termómetro'],4,'Arte'],
+['El arte de moverse siguiendo la música se llama…','danza',['escultura','pintura','fotografía'],3,'Arte'],
+['Sacar una fotografía es un tipo de arte llamado…','fotografía',['escultura','danza','teatro'],2,'Arte'],
+['¿En qué museo de Madrid se puede ver "Las Meninas"?','el Museo del Prado',['el Reina Sofía','el Thyssen','el Louvre'],5,'Arte'],
+['¿En qué museo está expuesto "El Guernica" de Picasso?','el Museo Reina Sofía',['el Prado','el Louvre','el Thyssen'],6,'Arte'],];
+const EF=[
+ ['Antes de hacer deporte hay que…','calentar',['comer mucho','dormir','correr rápido'],2,'Salud'],['¿Cuántos jugadores tiene un equipo de fútbol en el campo?','11',['9','7','15'],3,'Deportes'],['¿Cuántos jugadores tiene un equipo de baloncesto en la pista?','5',['6','7','11'],3,'Deportes'],['¿Cuántos jugadores tiene un equipo de voleibol en la pista?','6',['5','7','11'],4,'Deportes'],['¿Cuánto dura un partido de fútbol?','90 minutos',['60 minutos','120 minutos','45 minutos'],4,'Deportes'],['¿Qué deporte se juega con raqueta y volante?','bádminton',['tenis','pádel','ping-pong'],3,'Deportes'],['¿Cuál es el deporte típico valenciano que se juega en un trinquet?','pilota valenciana',['tenis','fútbol','frontón vasco'],4,'Deportes'],['¿Cuántos aros tiene la bandera olímpica?','5',['4','6','3'],4,'Deportes'],['¿Cada cuántos años se celebran los Juegos Olímpicos?','4',['2','5','10'],4,'Deportes'],['Después del ejercicio es importante…','estirar y beber agua',['acostarse','comer chuches','no beber'],2,'Salud'],['El músculo del brazo que se ve al doblarlo es el…','bíceps',['tríceps','fémur','gemelo'],5,'Cuerpo'],['Para tener huesos fuertes necesitamos…','calcio y ejercicio',['azúcar','tele','refrescos'],3,'Salud'],['La capacidad de doblarse mucho sin hacerse daño se llama…','flexibilidad',['fuerza','velocidad','resistencia'],4,'Capacidades'],['La capacidad de aguantar mucho tiempo corriendo se llama…','resistencia',['flexibilidad','fuerza','equilibrio'],4,'Capacidades'],['Correr 100 metros lo más rápido posible trabaja la…','velocidad',['flexibilidad','resistencia','coordinación'],4,'Capacidades'],['En natación, el estilo en el que nadamos boca arriba es…','espalda',['crol','braza','mariposa'],4,'Deportes'],['El juego del pilla-pilla trabaja sobre todo…','la velocidad y la agilidad',['la fuerza','el equilibrio','la lectura'],2,'Juegos'],['Los latidos del corazón se miden en…','pulsaciones por minuto',['kilos','metros','litros'],5,'Cuerpo'],['Cuando alguien pierde en un juego debemos…','respetarlo y felicitar al ganador',['reírnos','no jugar más','enfadarnos'],2,'Valores'],['El baloncesto lo inventó…','James Naismith',['Michael Jordan','Pau Gasol','Pelé'],6,'Deportes'],['En atletismo, saltar por encima de una barra es…','salto de altura',['salto de longitud','lanzamiento','vallas'],4,'Deportes'],['¿Cuántas piezas mueve cada jugador en ajedrez?','16',['8','32','12'],5,'Juegos'],['Un maratón mide aproximadamente…','42 km',['10 km','100 km','5 km'],6,'Deportes'],['El equipo de fútbol de la ciudad de València fundado en 1919 es el…','Valencia CF',['Real Madrid','Sevilla FC','Athletic'],4,'Deportes'],['¿En qué deporte se usa un disco llamado "puck"?','hockey sobre hielo',['golf','béisbol','waterpolo'],5,'Deportes'],['El calentamiento antes de hacer deporte sirve para…','preparar los músculos y evitar lesiones',['perder tiempo','cansarse antes','nada'],3,'Salud'],
+['Beber agua durante el ejercicio es importante para…','evitar la deshidratación',['engordar','dormir mejor','nada'],2,'Salud'],
+['Dormir bien ayuda a…','recuperar energía para el día siguiente',['cansarse más','crecer menos','nada'],2,'Salud'],
+['Comer antes de hacer mucho deporte debe ser…','ligero y con tiempo antes',['muy abundante','justo antes de correr','no comer nada nunca'],4,'Salud'],
+['¿Cuántos jugadores tiene un equipo de balonmano en la pista?','7',['5','6','11'],4,'Deportes'],
+['¿En qué deporte se anota metiendo la pelota en una canasta?','baloncesto',['fútbol','voleibol','balonmano'],2,'Deportes'],
+['¿En qué deporte no se puede tocar el balón con las manos (excepto el portero)?','fútbol',['baloncesto','balonmano','rugby'],2,'Deportes'],
+['¿En qué deporte se golpea el balón con la mano por encima de una red?','voleibol',['fútbol','baloncesto','bádminton'],3,'Deportes'],
+['¿Cómo se llama el estilo de natación más rápido?','crol',['espalda','braza','mariposa'],4,'Deportes'],
+['¿Qué deporte se practica sobre una tabla en el agua con olas?','surf',['esquí','ciclismo','atletismo'],3,'Deportes'],
+['¿Qué deporte se practica sobre nieve con dos tablas en los pies?','esquí',['surf','ciclismo','natación'],3,'Deportes'],
+['¿Qué deporte se practica con una bicicleta?','ciclismo',['atletismo','natación','gimnasia'],2,'Deportes'],
+['¿Qué prueba de atletismo consiste en saltar lo más lejos posible?','salto de longitud',['salto de altura','lanzamiento de peso','carrera de vallas'],4,'Deportes'],
+['¿Qué prueba de atletismo consiste en lanzar una bola de metal muy lejos?','lanzamiento de peso',['salto de longitud','carrera de relevos','salto de altura'],5,'Deportes'],
+['¿Cómo se llama correr pasando un testigo a un compañero?','carrera de relevos',['salto de vallas','maratón','triatlón'],4,'Deportes'],
+['El triatlón combina natación, ciclismo y…','carrera a pie',['salto de altura','gimnasia','tenis'],5,'Deportes'],
+['¿Cuántos sets se necesitan ganar normalmente para vencer un partido de tenis?','2 (al mejor de 3)',['1','5','10'],5,'Deportes'],
+['El waterpolo se juega…','en el agua',['sobre hielo','en la arena','en la pista'],4,'Deportes'],
+['¿En qué deporte se usan raquetas y una pelota que bota en una pared?','pádel o frontón',['atletismo','ciclismo','natación'],4,'Deportes'],
+['El calentamiento incluye normalmente…','estiramientos suaves y trote ligero',['dormir la siesta','comer mucho','ver la tele'],3,'Salud'],
+['El corazón de una persona entrenada late en reposo…','más despacio',['más rápido','igual siempre','no late'],6,'Cuerpo'],
+['¿Qué articulación permite doblar la rodilla?','la articulación de la rodilla',['el codo','la muñeca','el hombro'],3,'Cuerpo'],
+['El equilibrio es la capacidad de…','mantenernos estables sin caer',['correr rápido','saltar alto','levantar peso'],3,'Capacidades'],
+['La coordinación es la capacidad de…','mover varias partes del cuerpo a la vez de forma controlada',['aguantar mucho tiempo','ser flexible','correr rápido'],4,'Capacidades'],
+['La fuerza es la capacidad de…','vencer una resistencia con los músculos',['ser flexible','correr rápido','saltar bien'],3,'Capacidades'],
+['Jugar en equipo nos ayuda a aprender a…','cooperar y comunicarnos',['pelear','ganar siempre solos','nada'],3,'Valores'],
+['Si un compañero se hace daño jugando, debemos…','ayudarle y avisar a un adulto',['seguir jugando sin mirar','reírnos','irnos'],2,'Valores'],
+['Antes de empezar un juego con reglas nuevas, hay que…','escuchar bien las instrucciones',['empezar a lo loco','ignorar las normas','discutir'],2,'Juegos'],
+['El juego del escondite trabaja sobre todo…','la velocidad y la observación',['la fuerza','la flexibilidad','nada'],2,'Juegos'],
+['La comba (saltar a la cuerda) trabaja sobre todo…','la coordinación y el ritmo',['la fuerza bruta','la puntería','nada'],2,'Juegos'],];
+const VAL=[
+ ['Si un compañero está triste, lo mejor es…','preguntarle qué le pasa y ayudarle',['reírse','ignorarlo','contarlo a todos'],2,'Empatía'],['Cuando alguien habla, yo…','escucho sin interrumpir',['grito','me voy','hablo más alto'],2,'Respeto'],['Si rompo algo sin querer…','lo digo y pido perdón',['lo escondo','culpo a otro','me río'],2,'Honestidad'],['Reciclar y no tirar basura al suelo es…','cuidar el planeta',['una tontería','solo para adultos','perder el tiempo'],2,'Medio ambiente'],['Si veo que se burlan de alguien…','le defiendo y aviso a un adulto',['me río también','miro para otro lado','grabo un vídeo'],3,'Convivencia'],['En una discusión, la mejor forma de resolverla es…','hablando y escuchando',['pegando','gritando','no hablando nunca más'],3,'Convivencia'],['Los niños y las niñas tienen…','los mismos derechos',['derechos distintos','solo deberes','ningún derecho'],3,'Igualdad'],['Un derecho de todos los niños es…','ir a la escuela',['trabajar','no jugar','no tener nombre'],3,'Derechos'],['Compartir mis cosas con los demás es un acto de…','generosidad',['egoísmo','vergüenza','miedo'],2,'Valores'],['Cuando alguien me hace un favor, digo…','gracias',['nada','ya era hora','no me gusta'],2,'Educación'],['En internet, si un desconocido me pide fotos…','se lo digo a mis padres y no las envío',['se las envío','le doy mi dirección','lo mantengo en secreto'],4,'Seguridad digital'],['La contraseña de mis juegos…','no se la doy a nadie que no sea mi familia',['se la doy a mis amigos','la publico','es 1234'],4,'Seguridad digital'],['Los semáforos en rojo para peatones significan…','esperar sin cruzar',['cruzar rápido','cruzar despacio','ir en bici'],2,'Educación vial'],['Al ir en bici por la ciudad debo llevar…','casco',['gafas de sol','patines','nada'],3,'Educación vial'],['En el coche, los niños deben ir…','con sillita o cinturón',['de pie','en el maletero','sin cinturón'],2,'Educación vial'],['Cuando pierdo en un juego…','felicito al ganador',['me enfado','hago trampas','no juego más'],2,'Deportividad'],['La democracia significa que…','todos votan y deciden juntos',['manda el más fuerte','manda uno solo','nadie decide'],5,'Ciudadanía'],['El agua es un recurso que debemos…','ahorrar',['malgastar','dejar el grifo abierto','ensuciar'],2,'Medio ambiente'],['La empatía es…','ponerse en el lugar del otro',['ganar siempre','tener razón','mandar'],4,'Empatía'],['Los símbolos de la Comunitat Valenciana son…','la Senyera, el himno y el escudo',['una naranja','una paella','un abanico'],5,'Ciudadanía'],['Ser tolerante significa…','respetar a quien piensa diferente',['imponer mis ideas','no escuchar','burlarse'],5,'Respeto'],['Cuando alguien nuevo llega a clase…','le ayudo a integrarse',['lo ignoro','me río de su acento','no le hablo'],3,'Convivencia'],['Un bulo o "fake news" es…','una noticia falsa',['un juego','una noticia real','un libro'],6,'Pensamiento crítico'],['Antes de compartir una noticia en internet debo…','comprobar si es verdadera',['compartirla rápido','inventar otra','no leerla'],6,'Pensamiento crítico'],['Los Derechos Humanos son para…','todas las personas del mundo',['solo los adultos','solo los ricos','solo mi país'],5,'Derechos'],['Si un compañero se equivoca al hablar en clase, lo mejor es…','no reírse y ayudarle',['reírse fuerte','burlarse','ignorarlo'],2,'Respeto'],
+['Pedir las cosas "por favor" y dar las "gracias" es señal de…','buena educación',['debilidad','miedo','aburrimiento'],2,'Educación'],
+['Cuando alguien nos regala algo, aunque no nos guste mucho, debemos…','agradecerlo con cariño',['quejarnos','devolverlo enfadados','ignorarlo'],2,'Educación'],
+['Ayudar en las tareas de casa es un ejemplo de…','responsabilidad',['pereza','desobediencia','aburrimiento'],2,'Valores'],
+['Cumplir las normas de clase ayuda a que…','todos podamos aprender mejor',['nadie aprenda','solo el profesor gane','sea más difícil'],2,'Convivencia'],
+['Si dos amigos se pelean, lo mejor es…','ayudarles a hablar y entenderse',['elegir un bando y pelear también','reírse','contarlo a todos para burlarse'],3,'Convivencia'],
+['Aceptar que alguien tenga una opinión distinta a la mía es…','respeto',['debilidad','mentira','maleducación'],4,'Respeto'],
+['Todas las familias son igual de válidas, tengan la forma que tengan. Esto es…','respetar la diversidad',['algo raro','algo malo','imposible'],4,'Igualdad'],
+['Un niño y una niña deben tener las mismas oportunidades para…','jugar, estudiar y jugar a lo que quieran',['solo los niños pueden elegir','solo las niñas pueden elegir','nadie puede elegir'],3,'Igualdad'],
+['Un derecho de los niños es tener…','tiempo para jugar y descansar',['que trabajar todo el día','no ir al médico','no tener amigos'],3,'Derechos'],
+['Un deber de los niños en la escuela es…','respetar a los compañeros y al profesorado',['hacer lo que quiera siempre','no estudiar nunca','molestar en clase'],3,'Derechos'],
+['Compartir la merienda con un compañero que se la ha olvidado es un acto de…','solidaridad',['egoísmo','indiferencia','envidia'],2,'Valores'],
+['Cuidar las plantas y no arrancar flores en el parque es cuidar…','el medio ambiente',['nada importante','solo a los adultos','solo el dinero'],2,'Medio ambiente'],
+['Apagar el grifo mientras nos lavamos los dientes ayuda a…','ahorrar agua',['gastar más agua','ensuciar más','nada'],2,'Medio ambiente'],
+['Usar el transporte público o la bicicleta en vez del coche ayuda a…','contaminar menos',['contaminar más','llegar más tarde siempre','nada'],4,'Medio ambiente'],
+['Separar la basura en los contenedores de colores ayuda a…','reciclar y cuidar el planeta',['ensuciar más','tardar más sin motivo','nada'],3,'Medio ambiente'],
+['Antes de cruzar la calle debo…','mirar a los dos lados y usar el paso de peatones',['cruzar corriendo','cruzar con música muy alta','cerrar los ojos'],2,'Educación vial'],
+['Ir en patinete por la calle es más seguro si llevamos…','casco',['chanclas','gafas de sol','paraguas'],3,'Educación vial'],
+['El cinturón de seguridad en el coche sirve para…','protegernos en caso de frenazo o accidente',['ir más cómodos solamente','nada','ir más rápido'],3,'Educación vial'],
+['Cuando el semáforo peatonal está en verde, los peatones…','pueden cruzar mirando igualmente',['deben correr sin mirar','deben esperar siempre','no deben cruzar'],2,'Educación vial'],
+['Si alguien me escribe algo desagradable por internet, debo…','contárselo a un adulto de confianza',['contestar igual de mal','guardarlo en secreto siempre','reenviarlo a todos'],4,'Seguridad digital'],
+['Antes de aceptar una solicitud de amistad de un desconocido en un juego online, debo…','preguntar a un adulto',['aceptar sin más','dar mi dirección','quedar a solas'],4,'Seguridad digital'],
+['El tiempo de pantallas (tablet, móvil) debe ser…','limitado y con supervisión de un adulto',['ilimitado','toda la noche','sin ningún control'],3,'Seguridad digital'],
+['Cuando perdemos en un juego, mostrar deportividad significa…','felicitar al que ha ganado',['enfadarse mucho','hacer trampas la próxima vez','dejar de hablar a los demás'],2,'Deportividad'],
+['Hacer trampas para ganar un juego es…','incorrecto, aunque nadie se dé cuenta',['aceptable si nadie lo ve','lo normal','divertido'],3,'Deportividad'],
+['Votar para decidir algo en clase (por ejemplo una excursión) es un ejemplo de…','democracia',['dictadura','monarquía','anarquía'],5,'Ciudadanía'],
+['Respetar las decisiones tomadas por la mayoría, aunque no sean las mías, es…','aceptar la democracia',['ser débil','estar equivocado siempre','no importar'],5,'Ciudadanía'],
+['Participar en las decisiones de la clase o del colegio es un derecho de…','todo el alumnado',['solo los delegados','solo los mejores estudiantes','nadie'],5,'Ciudadanía'],
+['Antes de creer y compartir una noticia impactante en internet, debo…','comprobar si es verdadera en fuentes fiables',['compartirla enseguida','inventar más detalles','ignorarla siempre'],6,'Pensamiento crítico'],
+['Que una imagen esté editada o retocada significa que…','puede no mostrar la realidad tal cual es',['siempre es verdad','es imposible de hacer','no afecta a nadie'],6,'Pensamiento crítico'],];
+const TGROUP={
+ 'Seres vivos':'Seres vivos y animales','Animales':'Seres vivos y animales','Plantas':'Las plantas','Cuerpo humano':'El cuerpo humano','Materia':'Materia y energía','Energía':'Materia y energía','Física':'Materia y energía','Universo':'El universo y la Tierra','Ecosistemas':'Ecosistemas',
+ 'Comunitat Valenciana':'Comunitat Valenciana','España':'España y Europa','Europa':'España y Europa','Geografía':'Geografía','El tiempo':'El tiempo y la historia','Historia':'El tiempo y la historia','Economía':'Economía y sociedad','Instituciones':'Economía y sociedad','Cultura':'Cultura y fiestas',
+ 'Color':'El color y las técnicas','Técnicas':'El color y las técnicas','Música':'Música','Arte':'Artistas y obras',
+ 'Deportes':'Deportes','Salud':'Cuerpo y salud','Cuerpo':'Cuerpo y salud','Capacidades':'Cuerpo y salud','Juegos':'Juegos y deportividad','Valores':'Juegos y deportividad',
+ 'Empatía':'Convivencia y respeto','Respeto':'Convivencia y respeto','Convivencia':'Convivencia y respeto','Educación':'Convivencia y respeto','Honestidad':'Convivencia y respeto',
+ 'Igualdad':'Igualdad y derechos','Derechos':'Igualdad y derechos','Ciudadanía':'Igualdad y derechos','Seguridad digital':'Mundo digital','Pensamiento crítico':'Mundo digital','Educación vial':'Educación vial','Medio ambiente':'Medio ambiente','Deportividad':'Juegos y deportividad'};
+const grp=t=>TGROUP[t]||t;
+function fromBank(bank,l,topic){let pool=bank.filter(x=>x[3]<=l&&(!topic||grp(x[4])===topic));if(!pool.length)pool=bank.filter(x=>x[3]<=l);if(!pool.length)pool=bank;const b=pick(pool);return mc(b[0],b[1],[b[1],...b[2]],{tag:b[4]})}
+const bankTopics=(bank,l)=>uniq(bank.filter(x=>x[3]<=l).map(x=>grp(x[4])));
+
+/* Registro de generadores por materia */
+const GEN_PRI={
+ mates:{topics:l=>M_TOPICS[Math.min(7,Math.max(2,l))],gen:genMates},
+ lengua:{topics:l=>L_TOPICS[Math.min(7,Math.max(2,l))],gen:genLengua},
+ valencia:{topics:l=>VA_TOPICS[Math.min(7,Math.max(2,l))],gen:genValencia},
+ ingles:{topics:l=>EN_TOPICS[Math.min(7,Math.max(2,l))],gen:genIngles},
+ naturales:{topics:l=>bankTopics(NAT,l),gen:(t,l)=>fromBank(NAT,l,t)},
+ sociales:{topics:l=>bankTopics(SOC,l),gen:(t,l)=>fromBank(SOC,l,t)},
+ artistica:{topics:l=>bankTopics(ART,l),gen:(t,l)=>fromBank(ART,l,t)},
+ efisica:{topics:l=>bankTopics(EF,l),gen:(t,l)=>fromBank(EF,l,t)},
+ valores:{topics:l=>bankTopics(VAL,l),gen:(t,l)=>fromBank(VAL,l,t)}
+};
+function getTopics(subjId,course){const c=COURSES.find(x=>x.id===course);if(c.stage==='inf')return G_INF[subjId].topics;return GEN_PRI[subjId].topics(c.lvl)}
+function upQ(q){const U=x=>typeof x==='string'?x.toUpperCase():x;q.q=U(q.q);if(q.options)q.options=q.options.map(U);q.answer=U(q.answer);if(q.tag)q.tag=U(q.tag);if(q.explain)q.explain=U(q.explain);if(q.reading)q.reading=U(q.reading);return q}
+function genQuestion(subjId,course,topic){const c=COURSES.find(x=>x.id===course);const g=c.stage==='inf'?G_INF[subjId]:GEN_PRI[subjId];const t=topic||pick(getTopics(subjId,course));const q=g.gen(t,c.lvl);q.subject=subjId;q.topic=t;return upQ(q)}
+</script>
+<script>
+/* ==================== ESTADO Y ALMACENAMIENTO ==================== */
+const KEY='danivia_school_v1';
+let DB={profiles:[],current:null,sound:true};
+let memoryOnly=false;
+function load(){try{const s=localStorage.getItem(KEY);if(s)DB=Object.assign(DB,JSON.parse(s))}catch(e){memoryOnly=true}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){memoryOnly=true}}
+const $=id=>document.getElementById(id);
+const cur=()=>DB.profiles.find(p=>p.id===DB.current);
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);
+ const nav=['s-home','s-progress','s-parents'].includes(id)||['s-topics','s-result'].includes(id);$('tabs').style.display=(id==='s-profiles'||id==='s-newprofile'||id==='s-quiz'||id==='s-minigame'||id==='s-game')?'none':'flex';
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id||(b.dataset.t==='s-home'&&['s-topics','s-result'].includes(id))))}
+/* sonidos simples con WebAudio */
+let actx;function beep(ok){if(!DB.sound)return;try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);o.type='sine';const t=actx.currentTime;if(ok){o.frequency.setValueAtTime(660,t);o.frequency.setValueAtTime(880,t+.1);g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+.35);o.start(t);o.stop(t+.35)}else{o.frequency.setValueAtTime(220,t);g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.start(t);o.stop(t+.3)}}catch(e){}}
+
+/* ==================== PERFILES ==================== */
+let npAvatar=AVATARS[0],npCourse='p1';
+function renderProfiles(){const L=$('profileList');L.innerHTML='';if(!DB.profiles.length){L.innerHTML='<p class="mini" style="text-align:center;padding:10px">Todavía no hay alumnos. Crea el primero 👇</p>'}
+ DB.profiles.forEach(p=>{const c=COURSES.find(x=>x.id===p.course);const b=document.createElement('button');b.className='profile';b.innerHTML=`<span class="av">${p.avatar}</span><div><b>${p.name}</b><span>${c.name}</span></div><span class="stars">⭐ ${p.stars}</span>`;b.onclick=()=>{DB.current=p.id;save();goHome()};L.appendChild(b)});
+ $('npAvatars').innerHTML=AVATARS.map(a=>`<div class="avatar ${a===npAvatar?'sel':''}" onclick="npAvatar='${a}';renderProfiles()">${a}</div>`).join('');
+ $('npCourses').innerHTML=COURSES.map(c=>`<button class="chip ${c.id===npCourse?'sel':''}" onclick="npCourse='${c.id}';renderProfiles()">${c.name}</button>`).join('')}
+function createProfile(){const n=$('npName').value.trim();if(!n){toast('Escribe un nombre 😊');return}const p={id:Date.now().toString(36),name:n,avatar:npAvatar,course:npCourse,stars:0,stats:{},history:[]};DB.profiles.push(p);DB.current=p.id;save();$('npName').value='';goHome()}
+function goHome(){const p=cur();if(!p){show('s-profiles');return}const c=COURSES.find(x=>x.id===p.course);$('homeAv').textContent=p.avatar;$('homeName').textContent='Hola, '+p.name;$('homeCourse').textContent=c.name+' · '+(c.stage==='inf'?'Educación Infantil':'Educación Primaria');$('pillStars').textContent='⭐ '+p.stars;
+ const G=$('subjectGrid');G.innerHTML='';SUBJECTS[c.stage].forEach(s=>{const st=p.stats[s.id]||{done:0,ok:0};const pct=st.done?Math.round(st.ok/st.done*100):0;const b=document.createElement('button');b.className='nb';b.style.setProperty('--c',s.c);b.innerHTML=`<div><div class="ico">${s.ico}</div><h3>${s.name}</h3><small>${st.done?st.done+' preguntas · '+pct+'% aciertos':'Sin empezar'}</small></div><div class="prog"><i style="width:${pct}%"></i></div>`;b.onclick=()=>openSubject(s.id);G.appendChild(b)});show('s-home')}
+
+/* ==================== TEMAS ==================== */
+let curSubject=null;
+function openSubject(id){const p=cur();const c=COURSES.find(x=>x.id===p.course);const s=SUBJECTS[c.stage].find(x=>x.id===id);curSubject=s;$('topicTitle').textContent=s.ico+' '+s.name;$('topicSub').textContent='Área GVA: '+s.area+' · '+c.name;
+ const L=$('topicList');L.innerHTML='';const all=document.createElement('div');all.className='card';all.innerHTML=`<div><b class="disp" style="font-size:18px">Repaso completo</b><div class="mini" style="margin-bottom:10px">Preguntas de todos los temas · más de 50 distintas por tema</div>
+ <div class="row"><button class="btn sun sm" data-n="10">10</button><button class="btn sun sm" data-n="25">25</button><button class="btn sun sm" data-n="50">50</button><span class="mini">preguntas</span></div></div>`;
+ all.querySelectorAll('button').forEach(b=>b.onclick=()=>startQuiz(id,null,+b.dataset.n));L.appendChild(all);
+ getTopics(id,p.course).forEach(t=>{const st=(p.stats[id]&&p.stats[id].topics&&p.stats[id].topics[t])||{done:0,ok:0};const d=document.createElement('div');d.className='card';d.style.padding='14px 18px';const pc=st.done?Math.round(st.ok/st.done*100):0;
+  d.innerHTML=`<div><b>${t}</b><div class="mini" style="margin-bottom:8px">${st.done?'✔ '+st.done+' hechas · '+st.ok+' aciertos ('+pc+'%)':'Sin practicar'}</div>
+   <div class="row"><button class="btn sm" data-n="10">10</button><button class="btn sm" data-n="25">25</button><button class="btn sm" data-n="50">50</button><span class="mini">preguntas</span></div></div>`;
+  d.querySelectorAll('button').forEach(b=>b.onclick=()=>startQuiz(id,t,+b.dataset.n));L.appendChild(d)});show('s-topics')}
+
+/* ==================== QUIZ ==================== */
+let Q={list:[],i:0,ok:0,subject:null,topic:null,answers:[],locked:false,mixed:false};
+function buildList(subj,topic,n){const p=cur();const list=[];const seen=new Set();let guard=0;while(list.length<n&&guard++<n*40){const q=genQuestion(subj,p.course,topic);const key=q.q+'|'+(q.visual||'');if(seen.has(key))continue;seen.add(key);list.push(q)}
+ /* si la variedad del tema se agota, se completa repitiendo de forma barajada */
+ let i=0;while(list.length<n&&list.length){list.push(list[i++%Math.max(1,seen.size)])}return shuffle(list).slice(0,n)}
+function startQuiz(subj,topic,n){Q={list:buildList(subj,topic,n),i:0,ok:0,subject:subj,topic:topic,answers:[],locked:false,mixed:false};show('s-quiz');renderQ()}
+let lastMixedN=10;
+function startMixed(n){n=n||lastMixedN;lastMixedN=n;const p=cur();const c=COURSES.find(x=>x.id===p.course);const subs=SUBJECTS[c.stage];const list=[];const seen=new Set();let g=0;while(list.length<n&&g++<n*80){const q=genQuestion(subs[list.length%subs.length].id,p.course,null);const k=q.q+'|'+(q.visual||'');if(seen.has(k))continue;seen.add(k);list.push(q)}Q={list:shuffle(list),i:0,ok:0,subject:null,topic:null,answers:[],locked:false,mixed:true};show('s-quiz');renderQ()}
+function repeatQuiz(){if(Q.mixed)startMixed(Q.list.length);else startQuiz(Q.subject,Q.topic,Q.list.length)}
+function quitQuiz(){if(confirm('¿Salir del repaso? Perderás el progreso de esta sesión.'))goHome()}
+function renderQ(){const q=Q.list[Q.i];Q.locked=false;$('qbar').style.width=(Q.i/Q.list.length*100)+'%';$('qcount').textContent=(Q.i+1)+'/'+Q.list.length;
+ const p=cur();const c=COURSES.find(x=>x.id===p.course);const s=SUBJECTS[c.stage].find(x=>x.id===q.subject);$('qtag').textContent=(Q.mixed?s.ico+' '+s.name+' · ':'')+(q.tag||'');
+ $('qtext').innerHTML=(q.reading?`<div style="font-size:15px;font-weight:700;color:var(--ink);text-align:left;background:var(--sky);padding:12px;border-radius:14px;margin-bottom:12px;line-height:1.5">${q.reading}</div>`:'')+q.q;
+ $('qvisual').textContent=q.visual||'';$('qvisual').style.whiteSpace='pre-line';$('qfb').textContent='';$('qfb').className='feedback';$('qexplain').style.display='none';$('qnext').style.display='none';
+ const O=$('qopts');O.innerHTML='';
+ if(q.type==='mc'){$('qinput').style.display='none';O.style.display='grid';const inf=c.stage==='inf';q.options.forEach(o=>{const b=document.createElement('button');b.className='opt';b.dataset.v=o;const pic=inf?pictFor(o):'';
+  if(/^\p{Extended_Pictographic}/u.test(o)||/^[🔴🔵🟢🟡🟠🟣⚫⚪🟤🟦🔺⭐❤️]/u.test(o)){b.textContent=o;b.style.fontSize='34px'}
+  else if(pic){b.innerHTML=`<span style="font-size:40px;line-height:1">${pic}</span><br><span style="font-size:15px">${o}</span>`}
+  else{b.textContent=o;if(inf)b.style.fontSize='17px'}
+  b.onclick=()=>answer(o,b);O.appendChild(b)})}
+ else{O.style.display='none';$('qinput').style.display='flex';const inp=$('qans');inp.value='';inp.disabled=false;inp.inputMode=(/^[\d.,-]+$/.test(q.answer))?'decimal':'text';setTimeout(()=>inp.focus(),100);inp.onkeydown=e=>{if(e.key==='Enter')checkInput()}}}
+function normalize(s){return String(s).trim().toLowerCase().replace(',','.').replace(/\s+/g,' ')}
+function checkInput(){if(Q.locked)return;const v=$('qans').value;if(!v.trim())return;const q=Q.list[Q.i];let ok;if(q.caseIns||isNaN(parseFloat(q.answer)))ok=normalize(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'')===normalize(q.answer).normalize('NFD').replace(/[\u0300-\u036f]/g,'');else ok=Math.abs(parseFloat(normalize(v))-parseFloat(q.answer))<0.001;$('qans').disabled=true;finish(ok,v)}
+function answer(o,btn){if(Q.locked)return;const q=Q.list[Q.i];const ok=o===q.answer;document.querySelectorAll('.opt').forEach(b=>{if(b.dataset.v===q.answer)b.classList.add('ok');else if(b===btn)b.classList.add('ko');else b.classList.add('dim')});finish(ok,o)}
+function finish(ok,given){Q.locked=true;const q=Q.list[Q.i];beep(ok);if(ok)Q.ok++;Q.answers.push({q,ok,given});
+ const fb=$('qfb');fb.textContent=ok?pick(['¡Genial! 🎉','¡Correcto! ⭐','¡Muy bien! 👏','¡Eso es! 🚀']):'La respuesta correcta era: '+q.answer;fb.className='feedback '+(ok?'ok':'ko');
+ if(q.explain){$('qexplain').textContent='💡 '+q.explain;$('qexplain').style.display='block'}
+ /* estadísticas */
+ const p=cur();const st=p.stats[q.subject]=p.stats[q.subject]||{done:0,ok:0,topics:{}};st.done++;if(ok)st.ok++;st.topics=st.topics||{};const tk=q.topic||q.tag||'General';const tt=st.topics[tk]=st.topics[tk]||{done:0,ok:0};tt.done++;if(ok)tt.ok++;
+ if(ok){p.stars++;$('pillStars').textContent='⭐ '+p.stars}save();
+ $('qnext').style.display='inline-block';$('qnext').textContent=Q.i+1<Q.list.length?'Siguiente →':'Ver resultado 🏁';if(ok)setTimeout(()=>{if(Q.locked&&$('s-quiz').classList.contains('active'))nextQ()},1100)}
+function nextQ(){if(!Q.locked)return;Q.i++;if(Q.i>=Q.list.length){endQuiz();return}
+ if(Q.list.length>=25&&Q.i%10===0)toast('¡'+Q.i+' HECHAS! VAS MUY BIEN 💪');
+ renderQ()}
+function endQuiz(){startMinigame();}
+function showResult(){const p=cur();const n=Q.list.length,ok=Q.ok;const pct=ok/n;const stars=pct===1?3:pct>=.7?2:pct>=.4?1:0;const bonus=stars*3;p.stars+=bonus;
+ const c=COURSES.find(x=>x.id===p.course);const sName=Q.mixed?'Reto del día':SUBJECTS[c.stage].find(x=>x.id===Q.subject).name;
+ p.history.unshift({d:Date.now(),s:sName+(Q.topic?' · '+Q.topic:''),ok,n});p.history=p.history.slice(0,30);save();
+ $('rEmoji').textContent=stars===3?'🏆':stars===2?'🎉':stars===1?'👍':'💪';$('rTitle').textContent=stars===3?'¡Perfecto!':stars===2?'¡Muy bien!':stars===1?'¡Buen trabajo!':'¡Sigue practicando!';$('rScore').textContent=ok+'/'+n;$('rStars').textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);$('rMsg').textContent=`Has ganado ${ok} estrellas por aciertos${bonus?' + '+bonus+' de bonus':''}${MG.bonus?' + '+MG.bonus+' del minijuego':''}. Total: ⭐ ${p.stars}`;$('pillStars').textContent='⭐ '+p.stars;
+ const wrong=Q.answers.filter(a=>!a.ok);const R=$('rReview');if(wrong.length){R.innerHTML='<h3 style="margin:0 0 8px">Para repasar</h3><ul class="list">'+wrong.map(a=>`<li><span>${a.q.q.length>70?a.q.q.slice(0,70)+'…':a.q.q}</span><span style="color:#1fb87a;margin-left:10px;text-align:right">${a.q.answer}</span></li>`).join('')+'</ul>'}else R.innerHTML='<p style="text-align:center;font-weight:900;margin:0">¡Sin fallos! Eres una máquina 🤖✨</p>';
+ show('s-result')}
+
+/* ==================== MINIJUEGOS ==================== */
+const MG={bonus:0,timer:null,t:0,game:null,cleanup:null};
+const MG_LIST=['burbujas','memory','ordena','relampago','globos','intruso','simon','cuenta','parejas'];
+const MG_COL=['#12B5E5','#FF6B6B','#3DDC97','#FFC93C','#9B7BFF','#FF9F68','#F06292'];
+function pickGame(){const p=cur();p.mgHist=p.mgHist||[];let pool=MG_LIST.filter(g=>!p.mgHist.slice(0,5).includes(g));if(!pool.length)pool=MG_LIST;const g=pick(pool);p.mgHist.unshift(g);p.mgHist=p.mgHist.slice(0,8);save();return g}
+function mgTick(sec,onEnd){clearInterval(MG.timer);MG.t=sec;$('mgTimer').textContent='⏱ '+MG.t;MG.timer=setInterval(()=>{MG.t--;$('mgTimer').textContent='⏱ '+MG.t;if(MG.t<=0){clearInterval(MG.timer);onEnd()}},1000)}
+function mgWin(pts,msg){clearInterval(MG.timer);MG.bonus=pts;const p=cur();p.stars+=pts;save();$('mgFb').className='feedback ok';$('mgFb').textContent=msg+(pts?' +'+pts+' ⭐':'');beep(true);setTimeout(()=>endMinigame(false),1500)}
+function endMinigame(skip){clearInterval(MG.timer);if(MG.cleanup)MG.cleanup();if(skip)MG.bonus=0;showResult()}
+function startMinigame(){MG.bonus=0;$('mgFb').textContent='';$('mgFb').className='feedback';const p=cur();const c=COURSES.find(x=>x.id===p.course);const l=c.lvl;MG.game=pickGame();show('s-minigame');const A=$('mgArea');A.innerHTML='';
+ ({burbujas:mgBurbujas,memory:mgMemory,ordena:mgOrdena,relampago:mgRelampago,globos:mgGlobos,intruso:mgIntruso,simon:mgSimon,cuenta:mgCuenta,parejas:mgParejas})[MG.game](A,l,c)}
+function placeRandom(el,area,w,h){el.style.left=R(4,Math.max(5,area.clientWidth-w-8))+'px';el.style.top=R(4,Math.max(5,area.clientHeight-h-20))+'px'}
+/* 1 · Burbujas: toca las burbujas con la respuesta correcta */
+function mgBurbujas(A,l){$('mgTitle').textContent='🫧 Caza-burbujas';let target,ans;const inf=l<2;
+ const nextRound=()=>{if(inf){const n=R(1,9);target='¿Dónde está el '+n+'?';ans=String(n)}else if(l<=3){const a=R(1,10),b=R(1,10);target=a+' + '+b;ans=String(a+b)}else if(l<=4){const a=pick([2,3,4,5,10]),b=R(1,10);target=a+' × '+b;ans=String(a*b)}else if(l<=5){const a=R(2,9),b=R(2,9);target=a+' × '+b;ans=String(a*b)}else{const a=R(2,12),b=R(2,12),c=R(1,9);target=a+' × '+b+' − '+c;ans=String(a*b-c)}
+  $('mgSub').textContent='Toca la burbuja correcta: '+target;A.innerHTML='';const vals=new Set([ans]);let g=0;while(vals.size<6&&g++<50){const off=R(1,inf?9:12);vals.add(String(Number(ans)+(Math.random()<.5?off:-off)))}
+  shuffle([...vals]).forEach((v,i)=>{if(Number(v)<0)return;const b=document.createElement('button');b.className='bubble';b.textContent=v;b.style.background=MG_COL[i%MG_COL.length];b.style.animationDelay=(i*.3)+'s';placeRandom(b,A,64,64);b.onclick=()=>{if(v===ans){score++;beep(true);b.style.transform='scale(0)';setTimeout(()=>{if(score>=goal)mgWin(score,'¡'+score+' burbujas cazadas!');else nextRound()},200)}else{beep(false);b.style.background='#999';score=Math.max(0,score-0)}};A.appendChild(b)})};
+ let score=0;const goal=5;nextRound();mgTick(30,()=>mgWin(score,score?'¡'+score+' burbujas cazadas!':'¡Se acabó el tiempo!'))}
+/* 2 · Memory: parejas con volteo real, en un único idioma por ronda + variante de dibujos */
+const MEM_MODES=[
+ {id:'va',flag:'🍊 CASTELLANO ↔ VALENCIÀ',build:l=>shuffle(V_VOC.slice(0,40)).slice(0,l<2?3:4).map(x=>[x[1],x[0]])},
+ {id:'en',flag:'🇬🇧 CASTELLANO ↔ ENGLISH',build:l=>shuffle(E_VOC.slice(0,40)).slice(0,l<2?3:4).map(x=>[x[1],x[0]])},
+ {id:'sin',flag:'📖 SINÓNIMOS',build:l=>shuffle(SIN).slice(0,4).map(x=>[x[0],x[1]])},
+ {id:'pic',flag:'🖼️ PALABRA ↔ DIBUJO',build:l=>shuffle(V_VOC.filter(x=>pictFor(x[1]))).slice(0,l<2?3:4).map(x=>[x[1],pictFor(x[1])])}
+];
+function mgMemory(A,l){$('mgTitle').textContent='🧠 MEMORY';
+ const modes=l<2?MEM_MODES.filter(m=>m.id!=='sin'):MEM_MODES;const mode=pick(modes);const pairs=mode.build(l).filter(p=>p[0]&&p[1]);
+ $('mgSub').textContent='Encuentra las parejas';
+ A.innerHTML='';const tag=document.createElement('div');tag.className='memtag';tag.innerHTML=`<span>${mode.flag}</span>`;A.appendChild(tag);
+ const cards=shuffle(pairs.flatMap((p,i)=>[[p[0],i,i%2===0],[p[1],i,i%2===1]]));const grid=document.createElement('div');grid.className='mem';if(cards.length<=6)grid.style.gridTemplateColumns='repeat(3,1fr)';A.appendChild(grid);
+ let open=[],found=0,tries=0,lock=false;
+ cards.forEach(([txt,id],idx)=>{const card=document.createElement('button');card.className='memcard';const c1=MG_COL[id%MG_COL.length],c2=MG_COL[(id+3)%MG_COL.length];
+  const big=/\p{Extended_Pictographic}/u.test(txt)&&txt.length<=4;
+  card.innerHTML=`<div class="inner" style="--c1:${c1};--c2:${c2}"><div class="face front">❔</div><div class="face back" style="font-size:${big?'34px':'13px'}">${txt}</div></div>`;
+  card.onclick=()=>{if(lock||card.classList.contains('open')||card.classList.contains('done'))return;card.classList.add('open');beep(true);open.push([card,id]);
+   if(open.length===2){lock=true;tries++;const[[c1b,i1],[c2b,i2]]=open;
+    if(i1===i2){setTimeout(()=>{c1b.classList.replace('open','done');c2b.classList.replace('open','done');found++;open=[];lock=false;
+      if(found===pairs.length)mgWin(Math.max(2,pairs.length*2-Math.floor((tries-pairs.length)/2)),'¡'+pairs.length+' parejas en '+tries+' intentos!')},350)}
+    else{setTimeout(()=>{[c1b,c2b].forEach(x=>x.classList.add('shake'));beep(false)},50);setTimeout(()=>{c1b.classList.remove('open','shake');c2b.classList.remove('open','shake');open=[];lock=false},750)}}};
+  grid.appendChild(card)});
+ mgTick(60,()=>mgWin(found,found?'¡'+found+' parejas!':'¡Se acabó el tiempo!'))}
+/* 3 · Ordena las letras */
+function mgOrdena(A,l){$('mgTitle').textContent='🔤 Palabras revueltas';const words=l<2?['SOL','LUNA','GATO','PAN','FLOR','MESA','CASA','OSO']:l<=4?['ESCUELA','TORTUGA','VENTANA','MARIPOSA','PLÁTANO','LIBRO','ÁRBOL','MÚSICA']:['ELEFANTE','ORDENADOR','MURCIÉLAGO','BIBLIOTECA','DINOSAURIO','FRACCIÓN','VALÈNCIA','TERREMOTO'];
+ let done=0,goal=3,word,built;const box=document.createElement('div');A.appendChild(box);
+ const round=()=>{word=pick(words);if(built===word)return round();built='';box.innerHTML=`<div class="mini" style="text-align:center">Palabra ${done+1} de ${goal}</div><div class="slots" id="slots">${'_ '.repeat(word.length)}</div><div class="letters" id="lets"></div>`;$('mgSub').textContent='Toca las letras en orden para formar la palabra';
+  const L=$('lets');shuffle(word.split('').map((c,i)=>[c,i])).forEach(([c,i])=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>{if(c===word[built.length]){built+=c;b.disabled=true;$('slots').textContent=built+' _'.repeat(word.length-built.length).replace(/ _/g,' _');if(built===word){done++;beep(true);if(done>=goal)mgWin(done*3,'¡'+goal+' palabras ordenadas!');else setTimeout(round,600)}}else{beep(false);b.style.transform='translateX(4px)';setTimeout(()=>b.style.transform='',150)}};L.appendChild(b)})};
+ round();mgTick(45,()=>mgWin(done*3,done?'¡'+done+' palabras!':'¡Se acabó el tiempo!'))}
+/* 4 · Verdadero / Falso relámpago */
+const TF_INF=[['El sol sale de noche',false],['Los peces viven en el agua',true],['Las vacas vuelan',false],['El hielo está frío',true],['Los perros ladran',true],['La nieve es negra',false],['Las plantas necesitan agua',true],['Los gatos tienen alas',false],['El plátano es amarillo',true],['Tenemos cinco dedos en cada mano',true]];
+const TF_PRI=[['El Sol es una estrella',true,2],['La Luna es un planeta',false,3],['El agua hierve a 100 °C',true,4],['Los insectos tienen 8 patas',false,2],['Madrid es la capital de España',true,2],['Alicante está en Cataluña',false,3],['Un triángulo tiene 3 lados',true,2],['Un siglo son 10 años',false,4],['La ballena es un mamífero',true,3],['El Turia pasa por Sevilla',false,4],['Los reptiles ponen huevos',true,3],['La Comunitat Valenciana tiene 4 provincias',false,3],['La palabra "camión" es aguda',true,4],['La palabra "mesa" es esdrújula',false,4],['Las Falles se celebren al març',true,3],['Vivaldi va compondre "Las cuatro estaciones"',true,6],['El bíceps está en la pierna',false,5],['12 × 12 = 144',true,5],['El 25% de 200 es 60',false,7],['La mitad de 90 es 45',true,4],['Un ángulo recto mide 90°',true,5],['El cobre es aislante',false,5],['El Teide está en Canarias',true,5],['La raíz cuadrada de 81 es 9',true,7],['7 × 8 = 54',false,4],['5 + 5 = 10',true,2],['10 − 3 = 6',false,2],['2 × 5 = 10',true,3],['El doble de 4 es 8',true,3],['Una semana tiene 8 días',false,2],['Un año tiene 12 meses',true,2],['El plural de pez es peces',true,3],['"Correr" es un nombre',false,3],['Los peces respiran con pulmones',false,3],['El corazón bombea la sangre',true,4],['"Gos" significa perro en valencià',true,2],['"Blue" es rojo en inglés',false,2]];
+function mgRelampago(A,l){$('mgTitle').textContent='⚡ Verdadero o falso';$('mgSub').textContent='Responde rápido: 8 afirmaciones';const bank=shuffle(l<2?TF_INF:TF_PRI.filter(x=>x[2]<=l)).slice(0,8);let i=0,ok=0;
+ const round=()=>{if(i>=bank.length){mgWin(ok,'¡'+ok+' de '+bank.length+' correctas!');return}const [txt,v]=bank[i];A.innerHTML=`<div class="mini" style="text-align:center">${i+1}/${bank.length}</div><h2 style="text-align:center;font-size:24px;margin:30px 0">${txt}</h2><div class="tf"><button class="opt" style="background:var(--mint);color:#063;box-shadow:0 6px 0 #1fb87a">✅ Verdadero</button><button class="opt" style="background:var(--coral);color:#fff;box-shadow:0 6px 0 #d94b4b">❌ Falso</button></div>`;
+  const[bt,bf]=A.querySelectorAll('button');const go=a=>{if(a===v){ok++;beep(true)}else beep(false);i++;round()};bt.onclick=()=>go(true);bf.onclick=()=>go(false)};
+ round();mgTick(40,()=>mgWin(ok,'¡'+ok+' correctas!'))}
+/* 5 · Globos en orden (contar / múltiplos / secuencias) */
+function mgGlobos(A,l){$('mgTitle').textContent='🎈 Explota en orden';let seq;const k=l<2?0:l<=5?R(0,1):R(0,2);
+ if(k===0){const s=l<2?1:R(1,20);seq=[0,1,2,3,4,5].map(i=>s+i);$('mgSub').textContent='Explota los globos de menor a mayor'}else if(k===1){const st=pick([2,3,5,10]),s=st*R(1,5);seq=[0,1,2,3,4,5].map(i=>s+i*st);$('mgSub').textContent='Explota los globos siguiendo la serie de '+st+' en '+st}else{const b=R(2,9);seq=[0,1,2,3,4,5].map(i=>b*(i+1));$('mgSub').textContent='Explota los múltiplos de '+b+' de menor a mayor'}
+ let idx=0,pops=0;A.innerHTML='';shuffle(seq).forEach((v,i)=>{const b=document.createElement('button');b.className='balloon';b.textContent=v;b.style.background=MG_COL[i%MG_COL.length];b.style.animationDelay=(i*.25)+'s';placeRandom(b,A,56,80);b.onclick=()=>{if(v===seq[idx]){idx++;pops++;beep(true);b.style.transform='scale(0)';b.disabled=true;if(idx===seq.length)mgWin(6,'¡Todos los globos en orden!')}else{beep(false);b.style.transform='translateY(-8px)';setTimeout(()=>b.style.transform='',150)}};A.appendChild(b)});
+ mgTick(30,()=>mgWin(pops,pops?'¡'+pops+' globos!':'¡Se acabó el tiempo!'))}
+
+/* 6 · El intruso: toca el que no encaja */
+const INTRU=[
+ [['🍎','🍌','🍓','🚗'],'🚗','frutas',0],[['🐶','🐱','🐭','🌳'],'🌳','animales',0],[['🔴','🔵','🟢','🐟'],'🐟','colores',0],[['☀️','🌙','⭐','🍕'],'🍕','cosas del cielo',0],
+ [['A','E','O','M'],'M','vocales',0],[['🚗','🚌','🚲','🍦'],'🍦','transportes',0],[['✋','🦶','👂','⚽'],'⚽','partes del cuerpo',0],
+ [['2','4','6','7'],'7','números pares',3],[['gato','perro','mesa','león'],'mesa','animales',2],[['rojo','azul','correr','verde'],'correr','colores',2],
+ [['lunes','martes','abril','jueves'],'abril','días de la semana',2],[['5','10','15','12'],'12','múltiplos de 5',3],[['sumar','restar','multiplicar','saltar'],'saltar','operaciones',3],
+ [['Valencia','Alicante','Castellón','Madrid'],'Madrid','provincias valencianas',4],[['triángulo','cuadrado','círculo','kilo'],'kilo','figuras',3],
+ [['3','9','27','25'],'25','múltiplos de 3',5],[['metro','litro','kilo','minuto'],'minuto','no mide tiempo… ¡él sí!',5],[['Sorolla','Picasso','Velázquez','Cervantes'],'Cervantes','pintores',5]];
+function mgIntruso(A,l){$('mgTitle').textContent='🕵️ El intruso';$('mgSub').textContent='Toca el que NO pertenece al grupo';
+ const bank=shuffle(INTRU.filter(x=>x[3]<=l));let i=0,ok=0;const goal=Math.min(4,bank.length);
+ const round=()=>{if(i>=goal){mgWin(ok*2,'¡'+ok+' intrusos encontrados!');return}const [items,bad]=bank[i];
+  A.innerHTML=`<div class="mini" style="text-align:center">${i+1}/${goal}</div><div class="opts" style="margin-top:24px" id="ii"></div>`;
+  shuffle(items).forEach(it=>{const b=document.createElement('button');b.className='opt';b.style.fontSize=it.length<3?'34px':'18px';b.textContent=it;b.onclick=()=>{if(it===bad){ok++;beep(true);b.classList.add('ok')}else{beep(false);b.classList.add('ko')}i++;setTimeout(round,500)};$('ii').appendChild(b)})};
+ round();mgTick(35,()=>mgWin(ok*2,ok?'¡'+ok+' intrusos!':'¡Se acabó el tiempo!'))}
+/* 7 · Simon: memoriza la secuencia de colores */
+function mgSimon(A,l){$('mgTitle').textContent='🌈 Memoriza la secuencia';$('mgSub').textContent='Mira los colores y repítelos en orden';
+ const cols=[['#FF6B6B','🔴'],['#12B5E5','🔵'],['#3DDC97','🟢'],['#FFC93C','🟡']];const seq=[];let level=0;const maxLevel=l<2?3:l<=4?4:5;
+ A.innerHTML='<div class="opts" style="margin-top:20px" id="sb"></div><div class="mini" style="text-align:center;margin-top:14px" id="si"></div>';
+ const btns=cols.map(([c,e],idx)=>{const b=document.createElement('button');b.className='opt';b.style.background=c;b.style.boxShadow='0 6px 0 rgba(0,0,0,.2)';b.style.height='90px';b.textContent='';b.dataset.i=idx;$('sb').appendChild(b);return b});
+ const flash=i=>new Promise(r=>{btns[i].style.filter='brightness(1.6)';btns[i].style.transform='scale(1.06)';beep(true);setTimeout(()=>{btns[i].style.filter='';btns[i].style.transform='';setTimeout(r,220)},420)});
+ let input=[],accepting=false;
+ async function playSeq(){accepting=false;$('si').textContent='Mira… 👀';seq.push(R(0,3));for(const i of seq)await flash(i);$('si').textContent='¡Ahora tú! Repite la secuencia';input=[];accepting=true}
+ btns.forEach(b=>b.onclick=async()=>{if(!accepting)return;const i=+b.dataset.i;await flash(i);input.push(i);const pos=input.length-1;
+  if(seq[pos]!==i){beep(false);mgWin(level*2,level?'¡Llegaste a '+level+' colores!':'¡Casi!');return}
+  if(input.length===seq.length){level++;if(level>=maxLevel){mgWin(level*2,'¡Secuencia de '+level+' completada!');return}$('si').textContent='¡Bien! Una más…';setTimeout(playSeq,700)}});
+ setTimeout(playSeq,500);mgTick(50,()=>mgWin(level*2,'¡Llegaste a '+level+'!'))}
+/* 8 · Cuenta rápido */
+function mgCuenta(A,l){$('mgTitle').textContent='👀 Cuenta rápido';let i=0,ok=0;const goal=4;
+ const round=()=>{if(i>=goal){mgWin(ok*2,'¡'+ok+' de '+goal+'!');return}
+  const kinds=l<2?1:2;const e1=pick(EMO);let e2=pick(EMO);while(e2===e1)e2=pick(EMO);
+  const n1=R(l<2?2:4,l<2?6:9),n2=R(3,8);const target=pick(kinds===1?[[e1,n1]]:[[e1,n1],[e2,n2]]);
+  const mix=shuffle((e1.repeat(n1)+(kinds===2?e2.repeat(n2):'')).split(''));
+  $('mgSub').textContent='¿Cuántos '+target[0]+' hay?';
+  A.innerHTML=`<div class="mini" style="text-align:center">${i+1}/${goal}</div><div style="font-size:38px;text-align:center;letter-spacing:6px;line-height:1.6;margin:14px 0">${mix.join('')}</div><div class="opts" id="cc"></div>`;
+  const opts=new Set([target[1]]);let g=0;while(opts.size<4&&g++<40){const v=target[1]+R(1,3)*(Math.random()<.5?-1:1);if(v>0)opts.add(v)}
+  shuffle([...opts]).forEach(v=>{const b=document.createElement('button');b.className='opt';b.textContent=v;b.onclick=()=>{if(v===target[1]){ok++;beep(true);b.classList.add('ok')}else{beep(false);b.classList.add('ko')}i++;setTimeout(round,500)};$('cc').appendChild(b)})};
+ round();mgTick(40,()=>mgWin(ok*2,ok?'¡'+ok+' aciertos!':'¡Se acabó el tiempo!'))}
+/* 9 · Parejas relámpago: une cada palabra con su emoji */
+const PAREJ=[['🐶','PERRO'],['🐱','GATO'],['☀️','SOL'],['🌙','LUNA'],['🍎','MANZANA'],['🌳','ÁRBOL'],['🏠','CASA'],['⭐','ESTRELLA'],['🌸','FLOR'],['🐟','PEZ'],['📖','LIBRO'],['🚗','COCHE'],['🍞','PAN'],['👂','OREJA'],['✋','MANO']];
+function mgParejas(A,l){$('mgTitle').textContent='🔗 Une las parejas';$('mgSub').textContent='Toca un dibujo y después su palabra';
+ const pairs=shuffle(PAREJ).slice(0,l<2?3:4);const left=shuffle(pairs.map(x=>x[0])),right=shuffle(pairs.map(x=>x[1]));
+ A.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="pp"></div>';const P=$('pp');
+ let selL=null,found=0;
+ const make=(txt,side)=>{const b=document.createElement('button');b.className='opt';b.textContent=txt;if(side==='l')b.style.fontSize='34px';b.onclick=()=>{if(b.classList.contains('ok'))return;
+  if(side==='l'){document.querySelectorAll('#pp .sel').forEach(x=>{x.classList.remove('sel');x.style.borderColor=''});selL=b;b.classList.add('sel');b.style.border='3px solid var(--cyan)';return}
+  if(!selL){beep(false);return}
+  const pair=pairs.find(x=>x[0]===selL.textContent);
+  if(pair&&pair[1]===txt){beep(true);selL.classList.add('ok');b.classList.add('ok');selL.style.border='';selL=null;found++;if(found===pairs.length)mgWin(found*2,'¡Todas unidas!')}
+  else{beep(false);b.classList.add('ko');setTimeout(()=>b.classList.remove('ko'),400)}};return b};
+ for(let i=0;i<pairs.length;i++){P.appendChild(make(left[i],'l'));P.appendChild(make(right[i],'r'))}
+ mgTick(40,()=>mgWin(found*2,found?'¡'+found+' parejas!':'¡Se acabó el tiempo!'))}
+
+/* ==================== CAMBIO DE CURSO ==================== */
+let ccSel=null;
+function courseBox(p,courseId){/* guarda/recupera stats por curso */
+ p.byCourse=p.byCourse||{};
+ p.byCourse[courseId]=p.byCourse[courseId]||{stats:{},history:[]};
+ return p.byCourse[courseId]}
+function openCourseChange(){const p=cur();const c=COURSES.find(x=>x.id===p.course);ccSel=p.course;
+ $('ccName').textContent=p.avatar+' '+p.name;$('ccNow').textContent=c.name;
+ renderCC();show('s-course')}
+function renderCC(){const p=cur();
+ $('ccList').innerHTML=COURSES.map(c=>{const box=(p.byCourse&&p.byCourse[c.id])||(c.id===p.course?{stats:p.stats}:null);
+  const done=box?Object.values(box.stats||{}).reduce((a,s)=>a+s.done,0):0;
+  return `<button class="chip ${c.id===ccSel?'sel':''}" onclick="ccSel='${c.id}';renderCC()">${c.name}${done?' · '+done+'✔':''}</button>`}).join('');
+ const rows=COURSES.map(c=>{const box=(c.id===p.course)?{stats:p.stats}:(p.byCourse&&p.byCourse[c.id]);
+  if(!box)return '';const t=Object.values(box.stats||{}).reduce((a,s)=>({d:a.d+s.done,o:a.o+s.ok}),{d:0,o:0});
+  if(!t.d)return '';return `<li><span>${c.name}${c.id===p.course?' (actual)':''}</span><b>${t.o}/${t.d} · ${Math.round(t.o/t.d*100)}%</b></li>`}).filter(Boolean).join('');
+ $('ccProgress').innerHTML=rows||'<li class="mini">Todavía no hay progreso guardado en ningún curso.</li>'}
+function applyCourse(){const p=cur();if(ccSel===p.course){goHome();return}
+ /* guardar el curso actual en su caja */
+ const old=courseBox(p,p.course);old.stats=p.stats;old.history=p.history;
+ /* cargar el nuevo */
+ const box=courseBox(p,ccSel);p.stats=box.stats;p.history=box.history;p.course=ccSel;
+ save();const c=COURSES.find(x=>x.id===ccSel);toast('Ahora repasas '+c.name);goHome()}
+
+/* ==================== ZONA DE JUEGOS ==================== */
+const GAMES=[
+ {id:'puzle',n:'Puzle deslizante',i:'🧩',d:'Ordena las piezas'},
+ {id:'dif',n:'Encuentra el diferente',i:'🔍',d:'¿Cuál no es igual?'},
+ {id:'sopa',n:'Sopa de letras',i:'🔠',d:'Encuentra las palabras'},
+ {id:'laberinto',n:'Laberinto',i:'🌀',d:'Llega a la meta'},
+ {id:'pintar',n:'Pintar por números',i:'🎨',d:'Colorea el dibujo'},
+ {id:'ahorcado',n:'Adivina la palabra',i:'🔤',d:'Con pista y dibujo'},
+ {id:'raya',n:'Tres en raya',i:'⭕',d:'Juega contra la app'},
+ {id:'topos',n:'Topos rápidos',i:'🐹',d:'Toca el resultado correcto'},
+ {id:'secuencia',n:'¿Qué viene después?',i:'➡️',d:'Completa la serie'}
+];
+let GS={timer:null,cleanup:null};
+function renderGames(){const p=cur();if(!p){show('s-profiles');return}
+ const G=$('gameGrid');G.innerHTML='';
+ GAMES.forEach(g=>{const b=document.createElement('button');b.className='nb';b.style.setProperty('--c',MG_COL[GAMES.indexOf(g)%MG_COL.length]);
+  const best=(p.best&&p.best[g.id])||null;
+  b.innerHTML=`<div><div class="ico">${g.i}</div><h3>${g.n}</h3><small>${g.d}</small></div><small style="color:#d9a520;font-weight:900">${best?'🏅 Récord: '+best:''}</small>`;
+  b.onclick=()=>openGame(g.id);G.appendChild(b)});
+ show('s-games')}
+function saveBest(id,v,higher){const p=cur();p.best=p.best||{};const b=p.best[id];if(b==null||(higher?v>b:v<b)){p.best[id]=v;save();return true}return false}
+function exitGame(){clearInterval(GS.timer);if(GS.cleanup)GS.cleanup();renderGames()}
+function gInfo(t){$('gInfo').textContent=t}
+function gWin(msg,stars){clearInterval(GS.timer);const p=cur();if(stars){p.stars+=stars;save();$('pillStars').textContent='⭐ '+p.stars}
+ $('gFb').className='feedback ok';$('gFb').textContent=msg+(stars?' +'+stars+' ⭐':'');beep(true)}
+function openGame(id){clearInterval(GS.timer);GS.cleanup=null;const p=cur();const c=COURSES.find(x=>x.id===p.course);const l=c.lvl;const g=GAMES.find(x=>x.id===id);
+ $('gTitle').textContent=g.i+' '+g.n;$('gFb').textContent='';$('gFb').className='feedback';gInfo('');
+ const A=$('gArea');A.innerHTML='';show('s-game');
+ ({puzle:gPuzle,dif:gDif,sopa:gSopa,laberinto:gLaberinto,pintar:gPintar,ahorcado:gAhorcado,raya:gRaya,topos:gTopos,secuencia:gSecuencia})[id](A,l);
+ $('gAgain').onclick=()=>openGame(id)}
+
+/* 1 · Puzle deslizante */
+function gPuzle(A,l){const N=l<2?3:l<=4?3:4;const total=N*N;
+ const themes=[['🌻','🌞','🌈','🦋','🐞','🐝','🍀','🌊','⛰️','🚀','🐬','🦕','🍉','🎈','🐧','🦊']];
+ const emo=shuffle(themes[0]).slice(0,total-1);
+ let tiles=[...Array(total-1).keys()].map(i=>i+1);tiles.push(0);
+ const solvedOrder=[...tiles];
+ // barajar con movimientos válidos
+ let blank=total-1;for(let k=0;k<300;k++){const mv=neigh(blank).filter(x=>x>=0);const t=pick(mv);[tiles[blank],tiles[t]]=[tiles[t],tiles[blank]];blank=t}
+ function neigh(i){const r=Math.floor(i/N),c=i%N;const o=[];if(r>0)o.push(i-N);if(r<N-1)o.push(i+N);if(c>0)o.push(i-1);if(c<N-1)o.push(i+1);return o}
+ let moves=0;
+ A.innerHTML=`<div class="puz" id="pz" style="grid-template-columns:repeat(${N},1fr)"></div>`;
+ const draw=()=>{const P=$('pz');P.innerHTML='';tiles.forEach((t,i)=>{const b=document.createElement('button');b.className='ptile'+(t===0?' empty':'');b.textContent=t===0?'':emo[t-1];b.onclick=()=>{if(t===0)return;const n=neigh(i);const bi=tiles.indexOf(0);if(!n.includes(bi))return;[tiles[i],tiles[bi]]=[tiles[bi],tiles[i]];moves++;gInfo('Movimientos: '+moves);beep(true);draw();
+   if(tiles.every((v,j)=>v===solvedOrder[j])){const rec=saveBest('puzle',moves,false);gWin('¡Puzle resuelto en '+moves+' movimientos!'+(rec?' 🏅 ¡Nuevo récord!':''),5)}};P.appendChild(b)})};
+ gInfo('Movimientos: 0');draw()}
+
+/* 2 · Encuentra el diferente */
+function gDif(A,l){const P=[['😀','😁'],['🐶','🐕'],['🍎','🍏'],['⭐','🌟'],['🔵','🔷'],['🐱','🐈'],['🌸','🌺'],['🚗','🚙'],['❤️','🧡'],['🐟','🐠'],['🎈','🎀'],['🌳','🌲']];
+ let lvl=1,score=0;
+ const round=()=>{const size=Math.min(l<2?4:6,2+lvl);const n=size*size;const[a,b]=pick(P);const odd=R(0,n-1);
+  gInfo('Nivel '+lvl+' · Aciertos: '+score);
+  A.innerHTML=`<div class="difgrid" style="grid-template-columns:repeat(${size},1fr)" id="dg"></div>`;
+  for(let i=0;i<n;i++){const btn=document.createElement('button');btn.className='dcell';btn.textContent=i===odd?b:a;
+   btn.onclick=()=>{if(i===odd){score++;lvl++;beep(true);btn.style.background='var(--mint)';saveBest('dif',score,true);setTimeout(round,400)}else{beep(false);btn.style.opacity=.3}};
+   $('dg').appendChild(btn)}};
+ round();let t=60;gInfo('');GS.timer=setInterval(()=>{t--;$('gTime').textContent='⏱ '+t;if(t<=0){clearInterval(GS.timer);const rec=saveBest('dif',score,true);gWin('¡'+score+' aciertos!'+(rec?' 🏅':''),Math.min(10,score))}},1000);$('gTime').textContent='⏱ 60'}
+
+/* 3 · Sopa de letras */
+const SOPA_W={inf:['SOL','PAN','OSO','PEZ','LUNA','CASA','FLOR','GATO'],baja:['GATO','CASA','LUNA','FLOR','MESA','PATO','LIBRO','NUBE','SOL','PEZ'],alta:['ESCUELA','TORTUGA','VENTANA','PLATANO','MUSICA','ARBOL','CIUDAD','PLANETA','VALENCIA','NARANJA']};
+function gSopa(A,l){const bank=l<2?SOPA_W.inf:l<=4?SOPA_W.baja:SOPA_W.alta;const words=shuffle(bank).slice(0,l<2?3:4);
+ const N=l<2?8:10;const grid=Array.from({length:N},()=>Array(N).fill(''));const placed=[];
+ const dirs=l<=3?[[0,1],[1,0]]:[[0,1],[1,0],[1,1]];
+ words.forEach(w=>{for(let tr=0;tr<200;tr++){const[dr,dc]=pick(dirs);const r=R(0,N-1-dr*(w.length-1)),c=R(0,N-1-dc*(w.length-1));
+  let ok=true;for(let i=0;i<w.length;i++){const ch=grid[r+dr*i][c+dc*i];if(ch&&ch!==w[i]){ok=false;break}}
+  if(!ok)continue;const cells=[];for(let i=0;i<w.length;i++){grid[r+dr*i][c+dc*i]=w[i];cells.push((r+dr*i)+'-'+(c+dc*i))}placed.push({w,cells});return}});
+ const AB='ABCDEFGHIJKLMNOPRSTUVZ';for(let r=0;r<N;r++)for(let c=0;c<N;c++)if(!grid[r][c])grid[r][c]=pick(AB.split(''));
+ A.innerHTML=`<div class="wordlist" id="wl">${placed.map(p=>`<span class="wchip" id="w-${p.w}">${p.w}</span>`).join('')}</div><div class="sopa" style="grid-template-columns:repeat(${N},1fr)" id="sg"></div>`;
+ gInfo('Toca la PRIMERA y la ÚLTIMA letra de cada palabra');
+ let first=null,found=0;
+ for(let r=0;r<N;r++)for(let c=0;c<N;c++){const b=document.createElement('button');b.className='scell';b.textContent=grid[r][c];b.dataset.k=r+'-'+c;
+  b.onclick=()=>{if(b.classList.contains('found'))return;
+   if(!first){first=[r,c];b.classList.add('sel');return}
+   const[r0,c0]=first;const dr=Math.sign(r-r0),dc=Math.sign(c-c0);const len=Math.max(Math.abs(r-r0),Math.abs(c-c0))+1;
+   const cells=[];let valid=(r===r0||c===c0||Math.abs(r-r0)===Math.abs(c-c0));
+   if(valid)for(let i=0;i<len;i++)cells.push((r0+dr*i)+'-'+(c0+dc*i));
+   const hit=placed.find(p=>!p.done&&(p.cells.join()===cells.join()||p.cells.slice().reverse().join()===cells.join()));
+   document.querySelectorAll('.scell.sel').forEach(x=>x.classList.remove('sel'));first=null;
+   if(hit){hit.done=true;found++;beep(true);cells.forEach(k=>document.querySelector('.scell[data-k="'+k+'"]').classList.add('found'));$('w-'+hit.w).classList.add('done');
+    if(found===placed.length)gWin('¡Todas las palabras encontradas!',6)}else beep(false)};
+  $('sg').appendChild(b)}}
+
+/* 4 · Laberinto */
+function gLaberinto(A,l){const N=l<2?7:l<=4?9:11;
+ const cells=Array.from({length:N},()=>Array.from({length:N},()=>({n:1,s:1,e:1,w:1,v:false})));
+ const stack=[[0,0]];cells[0][0].v=true;
+ while(stack.length){const[r,c]=stack[stack.length-1];const opts=[];
+  if(r>0&&!cells[r-1][c].v)opts.push(['n',r-1,c]);if(r<N-1&&!cells[r+1][c].v)opts.push(['s',r+1,c]);
+  if(c<N-1&&!cells[r][c+1].v)opts.push(['e',r,c+1]);if(c>0&&!cells[r][c-1].v)opts.push(['w',r,c-1]);
+  if(!opts.length){stack.pop();continue}
+  const[d,nr,nc]=pick(opts);const opp={n:'s',s:'n',e:'w',w:'e'}[d];cells[r][c][d]=0;cells[nr][nc][opp]=0;cells[nr][nc].v=true;stack.push([nr,nc])}
+ let pr=0,pc=0,steps=0;
+ A.innerHTML=`<div class="maze" style="grid-template-columns:repeat(${N},1fr)" id="mz"></div>
+ <div class="dpad"><div></div><button id="up">⬆️</button><div></div><button id="lf">⬅️</button><button id="dn">⬇️</button><button id="rt">➡️</button></div>`;
+ const draw=()=>{const M=$('mz');M.innerHTML='';for(let r=0;r<N;r++)for(let c=0;c<N;c++){const d=document.createElement('div');const cc=cells[r][c];
+  d.className='mcell';d.style.borderTop=cc.n?'3px solid var(--navy)':'3px solid transparent';d.style.borderBottom=cc.s?'3px solid var(--navy)':'3px solid transparent';
+  d.style.borderLeft=cc.w?'3px solid var(--navy)':'3px solid transparent';d.style.borderRight=cc.e?'3px solid var(--navy)':'3px solid transparent';
+  if(r===pr&&c===pc)d.textContent='🐭';else if(r===N-1&&c===N-1)d.textContent='🧀';M.appendChild(d)}};
+ const move=d=>{const cc=cells[pr][pc];if(d==='n'&&!cc.n)pr--;else if(d==='s'&&!cc.s)pr++;else if(d==='e'&&!cc.e)pc++;else if(d==='w'&&!cc.w)pc--;else{beep(false);return}
+  steps++;gInfo('Pasos: '+steps);draw();if(pr===N-1&&pc===N-1){const rec=saveBest('laberinto',steps,false);gWin('¡El ratón encontró el queso en '+steps+' pasos!'+(rec?' 🏅':''),5)}};
+ $('up').onclick=()=>move('n');$('dn').onclick=()=>move('s');$('lf').onclick=()=>move('w');$('rt').onclick=()=>move('e');
+ gInfo('Pasos: 0');draw()}
+
+/* 5 · Pintar por números */
+const PIX=[
+ {n:'Corazón',g:['0011100','0111110','1111111','1111111','0111110','0011100','0001000'],p:['#FF6B6B']},
+ {n:'Estrella',g:['0001000','0002000','1122111','0112110','0121210','0100010'],p:['#FFC93C','#FF9F68']},
+ {n:'Casa',g:['0011100','0111110','1111111','1221221','1221221','1111111'],p:['#FF9F68','#12B5E5']},
+ {n:'Pez',g:['0011000','0111100','1112111','1111111','0111100','0011000'],p:['#12B5E5','#0B2A4A']},
+ {n:'Flor',g:['0110110','1111111','1122111','0111110','0001000','0001000'],p:['#F06292','#FFC93C']},
+ {n:'Árbol',g:['0011100','0111110','1111111','0111110','0002000','0002000'],p:['#3DDC97','#8D6E63']}
+];
+function gPintar(A,l){const art=pick(PIX);const cols=['#E9F3FF',...art.p];const rows=art.g;const W=rows[0].length;
+ let sel=1,done=0;const need=rows.join('').split('').filter(x=>x!=='0').length;
+ A.innerHTML=`<div class="mini" style="text-align:center;margin-bottom:8px">${art.n} · Toca el color y luego los números iguales</div>
+ <div class="palette" id="pal"></div><div class="pix" style="grid-template-columns:repeat(${W},1fr)" id="px"></div>`;
+ cols.forEach((c,i)=>{if(i===0)return;const b=document.createElement('button');b.className='pcol'+(i===sel?' on':'');b.style.background=c;b.textContent=i;
+  b.onclick=()=>{sel=i;document.querySelectorAll('.pcol').forEach(x=>x.classList.remove('on'));b.classList.add('on')};$('pal').appendChild(b)});
+ rows.forEach(row=>row.split('').forEach(ch=>{const v=+ch;const d=document.createElement('button');d.className='pcell';d.textContent=v?v:'';d.style.background=v?'#fff':'transparent';d.disabled=!v;
+  d.onclick=()=>{if(v!==sel){beep(false);return}if(d.classList.contains('ok'))return;d.classList.add('ok');d.style.background=cols[v];d.textContent='';beep(true);done++;
+   if(done===need)gWin('¡'+art.n+' terminado! 🖼️',5)};$('px').appendChild(d)}));
+ gInfo('')}
+
+/* 6 · Adivina la palabra (ahorcado amable) */
+const AHOR=[['GATO','🐱','Animal que dice miau',0],['PERRO','🐶','Animal que ladra',0],['LUNA','🌙','Brilla de noche',0],['SOL','☀️','Brilla de día',0],['FLOR','🌸','Nace en el jardín',0],['CASA','🏠','Vivimos en ella',0],['PEZ','🐟','Vive en el agua',0],['PAN','🍞','Se come con todo',0],
+ ['ESCUELA','🏫','Vamos a aprender',2],['TORTUGA','🐢','Lleva su casa encima',2],['NARANJA','🍊','Fruta típica valenciana',2],['MARIPOSA','🦋','Antes fue oruga',2],['PLANETA','🪐','La Tierra es uno',4],['VOLCAN','🌋','Escupe lava',4],['BIBLIOTECA','📚','Llena de libros',5],['DINOSAURIO','🦖','Vivió hace millones de años',4],['MICROSCOPIO','🔬','Sirve para ver lo pequeño',5],['ALBUFERA','🏞️','Lago junto a València',5]];
+function gAhorcado(A,l){const bank=AHOR.filter(x=>x[3]<=l);const[w,emo,clue]=pick(bank);let lives=6,found=new Set();
+ const AB='ABCDEFGHIJLMNOPQRSTUVZ'.split('');
+ const draw=()=>{const shown=w.split('').map(c=>found.has(c)?c:'_').join(' ');
+  A.innerHTML=`<div style="text-align:center;font-size:56px">${emo}</div><div class="mini" style="text-align:center">Pista: ${clue}</div>
+   <div class="slots" style="margin:14px 0">${shown}</div><div style="text-align:center;font-size:24px">${'❤️'.repeat(lives)}${'🤍'.repeat(6-lives)}</div><div class="letters" id="lt"></div>`;
+  AB.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.disabled=found.has(c)||b.disabled;
+   b.onclick=()=>{b.disabled=true;if(w.includes(c)){found.add(c);beep(true);if(w.split('').every(x=>found.has(x))){draw();gWin('¡Era '+w+'! 🎉',5);return}}else{lives--;beep(false);if(lives<=0){$('gFb').className='feedback ko';$('gFb').textContent='La palabra era '+w;draw();return}}draw()};
+   $('lt').appendChild(b)})};
+ gInfo('Adivina la palabra letra a letra');draw()}
+
+/* 7 · Tres en raya */
+function gRaya(A,l){let b=Array(9).fill(''),over=false;
+ const W=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+ const win=p=>W.some(t=>t.every(i=>b[i]===p));
+ const draw=()=>{A.innerHTML='<div class="ttt" id="tt"></div>';b.forEach((v,i)=>{const btn=document.createElement('button');btn.textContent=v;btn.onclick=()=>play(i);$('tt').appendChild(btn)})};
+ const play=i=>{if(over||b[i])return;b[i]='❌';beep(true);if(check())return;
+  const free=b.map((v,j)=>v?null:j).filter(x=>x!==null);
+  if(free.length){let mv=free.find(j=>{b[j]='⭕';const w=win('⭕');b[j]='';return w})??free.find(j=>{b[j]='❌';const w=win('❌');b[j]='';return w})??(b[4]===''?4:pick(free));b[mv]='⭕'}
+  check()};
+ const check=()=>{draw();if(win('❌')){over=true;gWin('¡Has ganado! 🏆',4);return true}if(win('⭕')){over=true;$('gFb').className='feedback ko';$('gFb').textContent='Gana la app. ¡Otra!';return true}if(b.every(x=>x)){over=true;$('gFb').textContent='¡Empate!';return true}return false};
+ gInfo('Tú eres ❌ · Consigue tres en raya');draw()}
+
+/* 8 · Topos rápidos */
+function gTopos(A,l){let score=0,t=40;A.innerHTML='<div class="holes" id="hl"></div>';
+ for(let i=0;i<9;i++){const d=document.createElement('button');d.className='hole';d.textContent='';$('hl').appendChild(d)}
+ const holes=[...document.querySelectorAll('.hole')];let target='',live=[];
+ const round=()=>{let q,ans;
+  if(l<2){const n=R(1,9);q='¿Dónde está el '+n+'?';ans=String(n)}
+  else if(l<=3){const a=R(1,10),b=R(1,10);q=a+' + '+b;ans=String(a+b)}
+  else if(l<=5){const a=R(2,10),b=R(2,10);q=a+' × '+b;ans=String(a*b)}
+  else{const a=R(2,12),b=R(2,12),c=R(1,20);q=a+' × '+b+' − '+c;ans=String(a*b-c)}
+  gInfo(q+'  ·  Aciertos: '+score);
+  const vals=new Set([ans]);let g=0;while(vals.size<5&&g++<40){const v=Number(ans)+R(1,10)*(Math.random()<.5?-1:1);if(v>0)vals.add(String(v))}
+  const idx=shuffle([...Array(9).keys()]).slice(0,vals.size);holes.forEach(h=>{h.textContent='';h.classList.remove('up')});
+  [...vals].forEach((v,i)=>{const h=holes[idx[i]];h.textContent='🐹'+v;h.classList.add('up');h.onclick=()=>{if(v===ans){score++;beep(true);h.textContent='✅';setTimeout(round,300)}else{beep(false);h.textContent='💥';h.classList.remove('up')}}})};
+ round();$('gTime').textContent='⏱ 40';GS.timer=setInterval(()=>{t--;$('gTime').textContent='⏱ '+t;if(t<=0){clearInterval(GS.timer);const rec=saveBest('topos',score,true);gWin('¡'+score+' topos!'+(rec?' 🏅 ¡Récord!':''),Math.min(10,score))}},1000)}
+
+/* 9 · ¿Qué viene después? */
+function gSecuencia(A,l){let ok=0,i=0;const goal=6;
+ const round=()=>{if(i>=goal){const rec=saveBest('secuencia',ok,true);gWin('¡'+ok+' de '+goal+' correctas!'+(rec?' 🏅':''),ok);return}
+  let seq,ans,opts;
+  if(l<2){const P=[['🔴','🔵'],['⭐','🌙'],['🐶','🐱'],['🍎','🍌'],['🔺','🟦']];const[a,b]=pick(P);seq=[a,b,a,b,a];ans=b;opts=[a,b,pick(['🌸','🚗','🐝'])]}
+  else if(l<=3){const st=pick([1,2,5,10]),s=R(1,10);seq=[s,s+st,s+2*st,s+3*st];ans=String(s+4*st);opts=[ans,String(s+5*st),String(s+3*st+1)]}
+  else if(l<=5){const P=[[2,'×'],[3,'×'],[2,'+7']];const st=pick([3,4,6,7]);const s=R(2,9);seq=[s,s*2,s*4,s*8];ans=String(s*16);opts=[ans,String(s*12),String(s*10)]}
+  else{const s=R(1,5);seq=[s*s,(s+1)*(s+1),(s+2)*(s+2),(s+3)*(s+3)];ans=String((s+4)*(s+4));opts=[ans,String((s+4)*(s+3)),String((s+3)*(s+3)+2)]}
+  gInfo('Serie '+(i+1)+' de '+goal+' · Aciertos: '+ok);
+  A.innerHTML=`<div style="font-size:32px;text-align:center;letter-spacing:8px;margin:24px 0">${seq.join(' ')} <span style="color:var(--coral)">?</span></div><div class="opts" id="sq"></div>`;
+  shuffle(opts).forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o;b.style.fontSize=String(o).length<3?'28px':'20px';
+   b.onclick=()=>{if(o===ans){ok++;beep(true);b.classList.add('ok')}else{beep(false);b.classList.add('ko')}i++;setTimeout(round,500)};$('sq').appendChild(b)})};
+ round()}
+
+/* ==================== PROGRESO / FAMILIAS ==================== */
+function renderProgress(){const p=cur();if(!p)return;const c=COURSES.find(x=>x.id===p.course);const tot=Object.values(p.stats).reduce((a,s)=>({done:a.done+s.done,ok:a.ok+s.ok}),{done:0,ok:0});
+ $('statGrid').innerHTML=`<div class="stat"><b>${p.stars}</b><span>Estrellas</span></div><div class="stat"><b>${tot.done}</b><span>Preguntas</span></div><div class="stat"><b>${tot.done?Math.round(tot.ok/tot.done*100):0}%</b><span>Aciertos</span></div><div class="stat"><b>${p.history.length}</b><span>Sesiones</span></div>`;
+ $('statList').innerHTML=SUBJECTS[c.stage].map(s=>{const st=p.stats[s.id]||{done:0,ok:0};const pct=st.done?Math.round(st.ok/st.done*100):0;return `<li><span>${s.ico} ${s.name}</span><span><span class="mini">${st.ok}/${st.done}</span> &nbsp; <b style="color:${pct>=70?'#1fb87a':pct>=40?'#d9a520':'#d94b4b'}">${st.done?pct+'%':'—'}</b></span></li>`}).join('');
+ $('histList').innerHTML=p.history.length?p.history.slice(0,10).map(h=>`<li><span>${h.s}<div class="mini">${new Date(h.d).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</div></span><b>${h.ok}/${h.n}</b></li>`).join(''):'<li class="mini">Aún no hay sesiones.</li>'}
+function renderParents(){const p=cur();const c=COURSES.find(x=>x.id===p.course);
+ /* puntos débiles */
+ const weak=[];SUBJECTS[c.stage].forEach(s=>{const st=p.stats[s.id];if(st&&st.topics)Object.entries(st.topics).forEach(([t,v])=>{if(v.done>=4&&v.ok/v.done<0.6)weak.push(s.name+' · '+t+' ('+Math.round(v.ok/v.done*100)+'%)')})});
+ $('parentInfo').innerHTML=`<li><span>Alumno</span><b>${p.avatar} ${p.name}</b></li><li><span>Curso</span><b>${c.name}</b></li><li><span>Materias disponibles</span><b>${SUBJECTS[c.stage].length}</b></li><li><span>Temas totales</span><b>${SUBJECTS[c.stage].reduce((a,s)=>a+getTopics(s.id,p.course).length,0)}</b></li><li style="display:block"><span>Temas a reforzar</span><div style="margin-top:6px;color:${weak.length?'#d94b4b':'#1fb87a'}">${weak.length?weak.join('<br>'):'Ninguno detectado todavía. Se calculan a partir de 4 respuestas por tema.'}</div></li>`;
+ $('btnSound').textContent=DB.sound?'🔊 Sonido: sí':'🔇 Sonido: no'}
+function toggleSound(){DB.sound=!DB.sound;save();renderParents()}
+function exportData(){const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='danivia-school-datos.json';a.click();toast('Datos exportados 📤')}
+function resetAll(){if(confirm('¿Borrar todos los alumnos y su progreso?')){DB={profiles:[],current:null,sound:true};save();show('s-profiles');renderProfiles()}}
+
+/* ==================== INICIO ==================== */
+load();renderProfiles();
+if(cur())goHome();else show('s-profiles');
+if(memoryOnly)setTimeout(()=>toast('Modo sin guardado: los datos se pierden al cerrar'),800);
+</script>
+</body>
+</html>
